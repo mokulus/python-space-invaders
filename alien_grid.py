@@ -30,14 +30,9 @@ class Alien(game_object.GameObject):
     def on_collision(self, other):
         if isinstance(other, Bullet):
             self.game.explosions.append(
-                AlienExplosion(self.game, self.position)
+                Explosion(self.game, self.position, assets.alien_explosion(), 16)
             )
             self.alive = False
-
-
-class AlienExplosion(Explosion):
-    def __init__(self, game, position):
-        super().__init__(game, position, assets.alien_explosion(), 16)
 
 
 class AlienGrid:
