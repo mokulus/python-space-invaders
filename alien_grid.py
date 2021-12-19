@@ -9,13 +9,17 @@ from bullet import Bullet
 
 @dataclass
 class Alien(game_object.GameObject):
-    alive: bool = True
+    def __init__(self, game, coords):
+        self._alive = True
+        self._position = Point(24 + coords.x * 16, 120 + coords.y * 16)
+        self._game = game
+        self._animation = Alien._get_sprite(coords.y)
 
-    def __init__(self, game, coord):
-        self.game = game
-        self.position = Point(24 + coord.x * 16, 120 + coord.y * 16)
-        alien_type = [0, 0, 1, 1, 2][coord.y]
-        self._animation = Animation(assets.load_aliens()[alien_type])
+    def alive(self):
+        return self._alive
+
+    def position(self):
+        return self._position
 
     def sprite(self):
         return self._animation.sprite()
@@ -23,33 +27,40 @@ class Alien(game_object.GameObject):
     def tick(self):
         pass
 
-    def move(self, velocity):
-        self.position += velocity
-        self._animation.next()
-
     def on_collision(self, other):
         if isinstance(other, Bullet):
-            self.game.explosions.append(
-                Explosion(self.game, self.position, assets.alien_explosion(), 16)
+            self._game.spawn(
+                Explosion(self._position, assets.alien_explosion(), 16)
             )
-            self.alive = False
+            self._alive = False
+
+    def move(self, velocity):
+        self._position += velocity
+        self._animation.next()
+
+    @staticmethod
+    def _get_sprite(y):
+        alien_type = [0, 0, 1, 1, 2][y]
+        return Animation(assets.load_aliens()[alien_type])
 
 
 class AlienGrid:
     def __init__(self, game):
-        self.game = game
         self._aliens = []
         self._delta = Point()
         self._velocity = Point(2, 0)
         for y in range(5):
             for x in range(11):
-                self._aliens.append(Alien(self.game, Point(x, y)))
+                alien = Alien(game, Point(x, y))
+                self._aliens.append(alien)
+                game.spawn(alien)
         self._alien_iter = iter(self._aliens)
 
     def tick(self):
-        next_alien = next(
-            (alien for alien in self._alien_iter if alien.alive), None
+        self._alien_iter = (
+            alien for alien in self._alien_iter if alien.alive
         )
+        next_alien = next(self._alien_iter, None)
         if next_alien:
             next_alien.move(self._velocity)
         else:
@@ -64,6 +75,3 @@ class AlienGrid:
                 else:
                     self._velocity.x = 2
                     self._velocity.y = 0
-
-    def aliens(self):
-        return (alien for alien in self._aliens if alien.alive)

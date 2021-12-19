@@ -46,8 +46,8 @@ while True:
         game.player.shoot()
     game.tick()
     game.collision()
-    for obj in game.drawables():
-        draw_sprite(arr, obj.position, obj.sprite())
+    for obj in game.game_objects():
+        draw_sprite(arr, obj.position(), obj.sprite())
     pygame.surfarray.blit_array(canvas, arr)
     scaled_canvas = pygame.transform.scale(canvas, screen_size)
     screen.blit(scaled_canvas, (0, 0))

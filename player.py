@@ -7,9 +7,16 @@ import game_object
 
 class Player(game_object.GameObject):
     def __init__(self, game):
-        self.game = game
+        self._alive = True
+        self._game = game
         self._sprite = assets.load_player()
-        self.position = Point()
+        self._position = Point()
+
+    def alive(self):
+        return self._alive
+
+    def position(self):
+        return self._position
 
     def sprite(self):
         return self._sprite
@@ -21,17 +28,15 @@ class Player(game_object.GameObject):
         self._move(-1)
 
     def _move(self, dx):
-        self.position.x += dx
+        self._position.x += dx
         self._clamp_position()
 
     def _clamp_position(self):
         maxx = game_settings.width() - self._sprite.shape[0] - 1
-        self.position.x = max(min(self.position.x, maxx), 0)
+        self._position.x = max(min(self._position.x, maxx), 0)
 
     def shoot(self):
-        self.game.bullets.append(
-            PlayerBullet(self.game, self.position + Point(8, 8))
-        )
+        self._game.spawn(PlayerBullet(self._position + Point(8, 8)))
 
     def on_collision(self, other):
         # TODO

@@ -1,70 +1,49 @@
 from alien_grid import AlienGrid
 from player import Player
 from point import Point
-import game_settings
+import itertools
 
 
 class Game:
     def __init__(self):
-        self.alien_grid = AlienGrid(self)
         self.player = Player(self)
-        self.bullets = []
-        self.explosions = []
+        self._game_objects = [self.player]
+        self._alien_grid = AlienGrid(self)
 
     def tick(self):
-        self.alien_grid.tick()
-        for bullet in self.bullets:
-            bullet.tick()
-        for explosion in self.explosions:
-            explosion.tick()
-        self._destroy_bullets()
-        self._destroy_explosions()
+        # TODO order?
+        self._alien_grid.tick()
+        for game_object in self._game_objects:
+            game_object.tick()
+        self._game_objects = [
+            game_object
+            for game_object in self._game_objects
+            if game_object.alive()
+        ]
 
     def collision(self):
-        for bullet in self.bullets[:]:
-            for alien in self.alien_grid.aliens():
-                if collision(bullet, alien):
-                    alien.on_collision(bullet)
-                    self.bullets.remove(bullet)
+        for a, b in itertools.combinations(self._game_objects, 2):
+            if collision(a, b):
+                a.on_collision(b)
+                b.on_collision(a)
 
-    def drawables(self):
-        for alien in self.alien_grid.aliens():
-            yield alien
-        yield self.player
-        for bullet in self.bullets:
-            yield bullet
-        for explosion in self.explosions:
-            yield explosion
+    def game_objects(self):
+        return self._game_objects
 
-    def _destroy_bullets(self):
-        for bullet in self.bullets[:]:
-            if not inside(
-                bullet.position.y,
-                bullet.sprite().shape[1],
-                game_settings.height(),
-            ) or not inside(
-                bullet.position.x,
-                bullet.sprite().shape[0],
-                game_settings.width(),
-            ):
-                self.bullets.remove(bullet)
-
-    def _destroy_explosions(self):
-        for explosion in self.explosions[:]:
-            if explosion.frames == 0:
-                self.explosions.remove(explosion)
+    def spawn(self, game_object):
+        self._game_objects.append(game_object)
 
 
 def intersection(a, b):
-    minx = max(a.position[0], b.position[0])
+    minx = max(a.position()[0], b.position()[0])
     maxx = min(
-        a.position[0] + a.sprite().shape[0],
-        b.position[0] + b.sprite().shape[0],
+        a.position()[0] + a.sprite().shape[0],
+        b.position()[0] + b.sprite().shape[0],
     )
-    miny = max(a.position[1], b.position[1])
+    miny = max(a.position()[1], b.position()[1])
     maxy = min(
-        a.position[1] + a.sprite().shape[1],
-        b.position[1] + b.sprite().shape[1],
+        a.position()[1] + a.sprite().shape[1],
+        b.position()[1] + b.sprite().shape[1],
     )
     if minx <= maxx and miny <= maxy:
         return (Point(minx, maxx), Point(miny, maxy))
@@ -80,13 +59,8 @@ def collision(a, b):
 
     def sprite_view(obj):
         return obj.sprite()[
-            minx - obj.position[0]: maxx - obj.position[0],
-            miny - obj.position[1]: maxy - obj.position[1],
+            minx - obj.position()[0]: maxx - obj.position()[0],
+            miny - obj.position()[1]: maxy - obj.position()[1],
         ]
 
-    if (sprite_view(a) * sprite_view(b)).any():
-        return True
-
-
-def inside(pos, size, max_pos):
-    return size <= pos < max_pos - size
+    return (sprite_view(a) * sprite_view(b)).any()

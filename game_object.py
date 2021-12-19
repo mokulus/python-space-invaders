@@ -1,20 +1,23 @@
-from dataclasses import dataclass
 from abc import ABC, abstractmethod
-from point import Point
 
 
-@dataclass
 class GameObject(ABC):
-    position: Point
+    @abstractmethod
+    def alive(self):
+        pass
+
+    @abstractmethod
+    def position(self):
+        pass
 
     @abstractmethod
     def sprite(self):
         pass
 
     @abstractmethod
-    def tick(self, game):
+    def tick(self):
         pass
 
     @abstractmethod
-    def on_collision(self, other, game):
+    def on_collision(self, other):
         pass
