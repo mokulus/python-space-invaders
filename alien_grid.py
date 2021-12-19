@@ -41,7 +41,7 @@ class Alien(game_object.GameObject):
     @staticmethod
     def _get_sprite(y):
         alien_type = [0, 0, 1, 1, 2][y]
-        return Animation(assets.load_aliens()[alien_type])
+        return Animation(assets.aliens()[alien_type])
 
 
 class AlienGrid:

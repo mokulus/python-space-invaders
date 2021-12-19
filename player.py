@@ -9,7 +9,7 @@ class Player(game_object.GameObject):
     def __init__(self, game):
         self._alive = True
         self._game = game
-        self._sprite = assets.load_player()
+        self._sprite = assets.player()
         self._position = Point()
 
     def alive(self):

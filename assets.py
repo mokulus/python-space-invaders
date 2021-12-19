@@ -1,7 +1,8 @@
 import numpy as np
+from functools import cache
 
 
-def load_chunk(lines):
+def _load_chunk(lines):
     chunk_lines = []
     for line in lines:
         if line:
@@ -14,46 +15,40 @@ def load_chunk(lines):
     data = np.unpackbits(data)
     return data
 
-
-def load_aliens():
-    aliens = []
-    with open("./assets/aliens.txt", "r") as file:
+def _data_lines(file_name):
+    with open(file_name, "r") as file:
         lines = [line.strip() for line in file if line.strip()]
-        for pair in zip(lines[::2], lines[1::2]):
-            data = load_chunk(pair)
-            data = np.reshape(data, (2, 16, 8))
-            aliens.append(data)
+        return lines
+
+def _load_single_sprite(file_name, shape, flip=False):
+    data = _load_chunk(_data_lines(file_name))
+    if flip:
+        data = np.flip(data)
+    data = np.reshape(data, shape)
+    return data
+
+@cache
+def aliens():
+    aliens = []
+    lines = _data_lines("./assets/aliens.txt")
+    for pair in zip(lines[::2], lines[1::2]):
+        data = _load_chunk(pair)
+        data = np.reshape(data, (2, 16, 8))
+        aliens.append(data)
     return aliens
 
+@cache
+def player():
+    return _load_single_sprite("./assets/player.txt", (16, 8))
 
-def load_player():
-    with open("./assets/player.txt", "r") as file:
-        lines = [line.strip() for line in file if line.strip()]
-        data = load_chunk(lines)
-        data = np.reshape(data, (16, 8))
-        return data
+@cache
+def player_shot():
+    return _load_single_sprite("./assets/player_shot.txt", (1, 8), flip=True)
 
-
-def load_player_shot():
-    with open("./assets/player_shot.txt", "r") as file:
-        lines = [line.strip() for line in file if line.strip()]
-        data = load_chunk(lines)
-        data = np.flip(data)
-        data = np.reshape(data, (1, 8))
-        return data
-
-
+@cache
 def player_shot_explosion():
-    with open("./assets/player_shot_explosion.txt", "r") as file:
-        lines = [line.strip() for line in file if line.strip()]
-        data = load_chunk(lines)
-        data = np.reshape(data, (8, 8))
-        return data
+    return _load_single_sprite("./assets/player_shot_explosion.txt", (8, 8))
 
-
+@cache
 def alien_explosion():
-    with open("./assets/alien_explosion.txt", "r") as file:
-        lines = [line.strip() for line in file if line.strip()]
-        data = load_chunk(lines)
-        data = np.reshape(data, (16, 8))
-        return data
+    return _load_single_sprite("./assets/alien_explosion.txt", (16, 8))

@@ -9,7 +9,7 @@ class PlayerBullet(Bullet):
     def __init__(self, position):
         super().__init__(
             position,
-            Animation([assets.load_player_shot()]),
+            Animation([assets.player_shot()]),
             Point(0, 4),
         )
 
