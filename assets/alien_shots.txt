@@ -1,0 +1,17 @@
+# rolling
+00 FE 00
+24 FE 12
+00 FE 00
+48 FE 90
+
+# plunger
+04 FC 04
+10 FC 10
+20 FC 20
+80 FC 80
+
+# squiggly
+44 AA 10
+88 54 22
+10 AA 44
+22 54 88

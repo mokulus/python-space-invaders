@@ -17,7 +17,8 @@ def _load_chunk(lines):
 
 def _data_lines(file_name):
     with open(file_name, "r") as file:
-        lines = [line.strip() for line in file if line.strip()]
+        lines = [line.split("#")[0].strip() for line in file]
+        lines = [line for line in lines if line]
         return lines
 
 def _load_single_sprite(file_name, shape, flip=False):
@@ -55,5 +56,12 @@ def alien_explosion():
     return _load_single_sprite("./assets/alien_explosion.txt", (16, 8))
 
 @cache
-def squiggly_shot():
-    return _load_single_sprite("./assets/squiggly_shot.txt", (4, 3, 8))
+def alien_shots():
+    shots = []
+    lines = _data_lines("./assets/alien_shots.txt")
+    size = 4
+    for offset in range(3):
+        data = _load_chunk(lines[offset * size:(offset + 1) * size])
+        data = np.reshape(data, (4, 3, 8))
+        shots.append(data)
+    return shots

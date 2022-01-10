@@ -65,7 +65,7 @@ class AlienBullet(Bullet):
 
 class SquigglyAlienBullet(AlienBullet):
     def __init__(self, position):
-        super().__init__(position, Animation(assets.squiggly_shot()), 2)
+        super().__init__(position, Animation(assets.alien_shots()[2]), 2)
 
 class AlienGrid:
     def __init__(self, game):
