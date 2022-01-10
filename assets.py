@@ -32,6 +32,7 @@ def aliens():
     aliens = []
     lines = _data_lines("./assets/aliens.txt")
     for pair in zip(lines[::2], lines[1::2]):
+        # TODO split aliens with blank line instead
         data = _load_chunk(pair)
         data = np.reshape(data, (2, 16, 8))
         aliens.append(data)
@@ -52,3 +53,7 @@ def player_shot_explosion():
 @cache
 def alien_explosion():
     return _load_single_sprite("./assets/alien_explosion.txt", (16, 8))
+
+@cache
+def squiggly_shot():
+    return _load_single_sprite("./assets/squiggly_shot.txt", (4, 3, 8))

@@ -11,3 +11,11 @@ def width():
 
 def height():
     return 256
+
+
+def alien_fire_speed(score):
+    # FIXME
+    return 0x30
+
+def squiggly_shot_spawn_table():
+    return [0x0B, 0x01, 0x06, 0x03, 0x01, 0x01, 0x0B, 0x09, 0x02]
