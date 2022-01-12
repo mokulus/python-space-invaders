@@ -3,6 +3,7 @@ import util
 import game_object
 import game_settings
 
+
 class GameOver(game_object.GameObject):
     def __init__(self, game):
         self._game = game
@@ -24,7 +25,9 @@ class GameOver(game_object.GameObject):
     def tick(self):
         self._ticks += 1
         period = 30
-        self._sprite = util.text_to_sprite(self._text[:1 + self._ticks // period])
+        self._sprite = util.text_to_sprite(
+            self._text[: 1 + self._ticks // period]
+        )
 
         if len(self._text) * period == self._ticks:
             self._game.reset()

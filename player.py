@@ -14,7 +14,7 @@ class Player(game_object.GameObject):
         self._game = game
         self._position = Point()
         self._shots_fired = 0
-        self._lives = 3
+        self._lives = 1
         self._reset()
 
     def alive(self):

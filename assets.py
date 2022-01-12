@@ -109,6 +109,7 @@ def saucer():
 def saucer_explosion():
     return _load_single_sprite("./assets/saucer_explosion.txt", (24, 8))
 
+
 @cache
 def player_explosion():
     # TODO code reuse
