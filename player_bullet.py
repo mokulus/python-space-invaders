@@ -1,7 +1,6 @@
 from bullet import Bullet
 from animation import Animation
 from point import Point
-from alien_system import Alien
 from explosion import Explosion
 from shield_system import Shield
 import assets

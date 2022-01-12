@@ -5,7 +5,7 @@ import game_settings
 from dataclasses import dataclass
 import game_object
 from explosion import Explosion
-from bullet import Bullet
+import player_bullet
 from alien_bullet import AlienBullet
 
 
@@ -31,7 +31,7 @@ class Alien(game_object.GameObject):
         pass
 
     def on_collision(self, other):
-        if isinstance(other, Bullet):
+        if isinstance(other, player_bullet.PlayerBullet):
             self._game.spawn(
                 Explosion(self._position, assets.alien_explosion(), 16)
             )
