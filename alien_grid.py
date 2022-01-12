@@ -6,6 +6,7 @@ from dataclasses import dataclass
 import game_object
 from explosion import Explosion
 from bullet import Bullet
+import itertools
 
 
 @dataclass
@@ -63,10 +64,6 @@ class AlienBullet(Bullet):
         # TODO
         pass
 
-class SquigglyAlienBullet(AlienBullet):
-    def __init__(self, position):
-        super().__init__(position, Animation(assets.alien_shots()[2]), 2)
-
 class AlienGrid:
     def __init__(self, game):
         self._game = game
@@ -79,7 +76,7 @@ class AlienGrid:
                 self._aliens.append(alien)
                 self._game.spawn(alien)
         self._alien_iter = iter(self._aliens)
-        self._bullet_system = BulletSystem(game)
+        self._bullet_system = BulletSystem(game, self)
 
     def tick(self):
         self._alien_iter = (
@@ -88,7 +85,6 @@ class AlienGrid:
         next_alien = next(self._alien_iter, None)
         if next_alien:
             next_alien.move(self._velocity)
-            print(next_alien._coords)
         else:
             self._alien_iter = iter(self._aliens)
             self._delta += self._velocity
@@ -107,21 +103,39 @@ class AlienGrid:
         return sum(alien.alive for alien in self._aliens)
 
 class BulletSystem:
-    def __init__(self, game):
+    def __init__(self, game, alien_grid):
         self._game = game
+        self._alien_grid = alien_grid
         self._bullets = []
-        self._spawn_counts = [0]
+        self._spawn_tables = []
+        self._to_shoot = 0
 
-        self._bullets.append(SquigglyAlienBullet(Point()))
-        self._bullets[0]._alive = False
+        for i in range(3):
+            self._bullets.append(AlienBullet(Point(), Animation(assets.alien_shots()[i]), i))
 
-    def tick(self, aliens):
-        if not self._bullets[0].alive():
-            table = game_settings.squiggly_shot_spawn_table()
-            x = table[self._spawn_counts[0] % len(table)] - 1
-            alien = next((alien for alien in aliens if alien.alive() and alien._coords.x == x), None)
-            if alien:
-                self._bullets[0] = SquigglyAlienBullet(alien.position() + Point(8, -8))
-                self._game.spawn(self._bullets[0])
-            self._spawn_counts[0] += 1
+        self._spawn_tables.append(None)
+        self._spawn_tables.append(itertools.cycle(game_settings.plunger_shot_spawn_table()))
+        self._spawn_tables.append(itertools.cycle(game_settings.squiggly_shot_spawn_table()))
 
+        for bullet in self._bullets:
+            bullet._alive = False
+
+    def tick(self, aliens):  # TODO use alien_grid
+        i = self._to_shoot
+        if not self._bullets[i]._alive:
+            others = [self._bullets[j] for j in range(3) if i != j and self._bullets[j]._alive]
+            min_ticks = min((bullet._ticks for bullet in others), default=None)
+            # TODO score?
+            if min_ticks is None or min_ticks > game_settings.alien_fire_speed(0):
+                if i == 0:
+                    playerx = self._game.player.position().x
+                    x = (playerx - 24 - self._alien_grid._delta.x) // 16
+                else:
+                    x = next(self._spawn_tables[i]) - 1
+                alien = next((alien for alien in aliens if alien.alive() and alien._coords.x == x), None)
+                if alien:
+                    self._bullets[i] = AlienBullet(alien.position() + Point(8, -8), Animation(assets.alien_shots()[i]), i)
+                    self._game.spawn(self._bullets[i])
+                    print(f"Spawning {i}, min_ticks {min_ticks}")
+        self._to_shoot += 1
+        self._to_shoot %= len(self._bullets)

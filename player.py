@@ -36,7 +36,7 @@ class Player(game_object.GameObject):
         self._position.x = max(min(self._position.x, maxx), 0)
 
     def shoot(self):
-        self._game.spawn(PlayerBullet(self._position + Point(8, 8)))
+        self._game.spawn(PlayerBullet(self._position + Point(8, 4)))
 
     def on_collision(self, other):
         # TODO
