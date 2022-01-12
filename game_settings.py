@@ -1,11 +1,12 @@
 import bisect
 
 
-def alient_initial_y(round_number):
-    if round_number == 0:
-        return 0x78
-    lut = [0x60, 0x50, 0x48, 0x48, 0x48, 0x40, 0x40, 0x40]
-    return lut[round_number % 10]
+def alien_initial_y(round_number):
+    lut = [0x78, 0x60, 0x50, 0x48, 0x48, 0x48, 0x40]
+    if round_number >= len(lut):
+        return lut[-1]
+    else:
+        return lut[round_number]
 
 
 def width():
