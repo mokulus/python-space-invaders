@@ -91,6 +91,7 @@ class AlienSystem:
             alien = next(self._alien_iter, None)
             if not alien:
                 self._initialized = True
+                self._alien_iter = iter(self._aliens)
                 return True
             else:
                 self._game.spawn(alien)
