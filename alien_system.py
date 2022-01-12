@@ -106,3 +106,6 @@ class AlienSystem:
 
     def delta(self):
         return self._delta
+
+    def initialized(self):
+        return self._initialized

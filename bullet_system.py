@@ -35,6 +35,8 @@ class BulletSystem:
             bullet._alive = False
 
     def tick(self):
+        if not self._alien_system.initialized():
+            return
         self._fire_delay += 1
         bullet = self._bullets[self._index]
         spawn_table = self._spawn_tables[self._index]
