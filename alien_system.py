@@ -61,10 +61,12 @@ class AlienSystem:
             for x in range(11):
                 alien = Alien(self._game, Point(x, y), self)
                 self._aliens.append(alien)
-                self._game.spawn(alien)
         self._alien_iter = iter(self._aliens)
+        self._initialized = False
 
     def tick(self):
+        if self._init_animation():
+            return
         self._alien_iter = (
             alien for alien in self._alien_iter if alien.alive()
         )
@@ -83,6 +85,17 @@ class AlienSystem:
                 else:
                     self._velocity.x = 2
                     self._velocity.y = 0
+
+    def _init_animation(self):
+        if not self._initialized:
+            alien = next(self._alien_iter, None)
+            if not alien:
+                self._initialized = True
+                return True
+            else:
+                self._game.spawn(alien)
+                return True
+        return False
 
     def alien_count(self):
         return sum(alien.alive for alien in self._aliens)
