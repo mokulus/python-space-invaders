@@ -1,5 +1,6 @@
 from point import Point
 import numpy as np
+import assets
 
 
 def intersection(a_pos, a_sprite, b_pos, b_sprite):
@@ -41,3 +42,11 @@ def collision(a, b):
 
 def inside(pos, size, max_pos):
     return 0 <= pos < max_pos - size
+
+def text_to_sprite(str):
+    sprite = np.zeros((8 * len(str), 8), dtype=np.uint8)
+    font = assets.font()
+    font_characters = assets.font_characters()
+    for i in range(len(str)):
+        sprite[8 * i : 8 * (i + 1), :] = font[font_characters.index(str[i])]
+    return sprite

@@ -43,7 +43,7 @@ class Game:
 
     def collision(self):
         for a, b in itertools.combinations(self._game_objects, 2):
-            if collision(a, b):
+            if util.collision(a, b):
                 a.on_collision(b)
                 b.on_collision(a)
 

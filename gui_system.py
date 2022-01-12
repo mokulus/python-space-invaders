@@ -2,16 +2,8 @@ import game_object
 import assets
 import numpy as np
 import game_settings
+import util
 from point import Point
-
-
-def text_to_sprite(str):
-    sprite = np.zeros((8 * len(str), 8), dtype=np.uint8)
-    font = assets.font()
-    font_characters = assets.font_characters()
-    for i in range(len(str)):
-        sprite[8 * i : 8 * (i + 1), :] = font[font_characters.index(str[i])]
-    return sprite
 
 
 class TextObject(game_object.GameObject):
@@ -30,7 +22,7 @@ class TextObject(game_object.GameObject):
 
     def set_text(self, text):
         self._text = text
-        self._sprite = text_to_sprite(text)
+        self._sprite = util.text_to_sprite(text)
 
     def text(self):
         return self._text
