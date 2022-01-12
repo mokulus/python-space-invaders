@@ -2,6 +2,8 @@ import assets
 import game_settings
 from point import Point
 from player_bullet import PlayerBullet
+from alien_bullet import AlienBullet
+from animation import Animation
 import game_object
 
 
@@ -9,9 +11,10 @@ class Player(game_object.GameObject):
     def __init__(self, game):
         self._alive = True
         self._game = game
-        self._sprite = assets.player()
         self._position = Point()
         self._shots_fired = 0
+        self._lives = 3
+        self._reset()
 
     def alive(self):
         return self._alive
@@ -29,6 +32,8 @@ class Player(game_object.GameObject):
         self._move(-1)
 
     def _move(self, dx):
+        if self._dying:
+            return
         self._position.x += dx
         self._clamp_position()
 
@@ -37,6 +42,8 @@ class Player(game_object.GameObject):
         self._position.x = max(min(self._position.x, maxx), 0)
 
     def shoot(self):
+        if self._dying:
+            return
         self._shots_fired += 1
         self._game.spawn(
             PlayerBullet(self._game, self._position + Point(8, 4))
@@ -46,9 +53,26 @@ class Player(game_object.GameObject):
         return self._shots_fired
 
     def on_collision(self, other):
-        # TODO
-        pass
+        if self._dying:
+            return
+        if isinstance(other, AlienBullet):
+            self._dying = True
+            self._sprite = self._death_animation.sprite()
+
+    def _reset(self):
+        self._dying = False
+        self._dying_length = 3 * 60
+        self._death_animation = Animation(assets.player_explosion())
+        self._sprite = assets.player()
+
+    def dying(self):
+        return self._dying
 
     def tick(self):
-        # TODO
-        pass
+        if self._dying:
+            if self._dying_length % 10 == 0:
+                self._sprite = self._death_animation.next()
+            self._dying_length -= 1
+            if self._dying_length == 0:
+                self._lives -= 1
+                self._reset()

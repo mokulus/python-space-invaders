@@ -30,8 +30,9 @@ class Game:
         self._systems.append(SaucerSystem(self))
 
     def tick(self):
-        for system in self._systems:
-            system.tick()
+        if not self.player.dying():
+            for system in self._systems:
+                system.tick()
         for game_object in self._game_objects:
             game_object.tick()
         self._game_objects = [

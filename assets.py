@@ -108,3 +108,15 @@ def saucer():
 @cache
 def saucer_explosion():
     return _load_single_sprite("./assets/saucer_explosion.txt", (24, 8))
+
+@cache
+def player_explosion():
+    # TODO code reuse
+    # there are a few lines to array assets
+    sprites = []
+    lines = _data_lines("./assets/player_explosion.txt")
+    for line in lines:
+        data = _load_chunk([line])
+        data = np.reshape(data, (16, 8))
+        sprites.append(data)
+    return sprites
