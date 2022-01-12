@@ -19,6 +19,7 @@ class Game:
         # TODO order?
         self._alien_system.tick()
         self._bullet_system.tick()
+        self._shield_system.tick()
         for game_object in self._game_objects:
             game_object.tick()
         self._game_objects = [

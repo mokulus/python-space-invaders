@@ -55,5 +55,5 @@ class ShieldSystem():
             gap = (game_settings.width() - 2 * start - n * width) // (n - 1)
             self._game.spawn(Shield(self._game, Point(start + (width + gap) * i, y)))
 
-    def tick():
+    def tick(self):
         pass
