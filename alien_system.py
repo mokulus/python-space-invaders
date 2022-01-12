@@ -36,6 +36,7 @@ class Alien(game_object.GameObject):
                 Explosion(self._position, assets.alien_explosion(), 16)
             )
             self._alive = False
+            self._game.add_score([10, 10, 20, 20, 30][self._coords.y])
 
     def move(self, velocity):
         self._position += velocity

@@ -3,6 +3,7 @@ from player import Player
 from point import Point
 from bullet_system import BulletSystem
 from shield_system import ShieldSystem
+from gui_system import GuiSystem
 import itertools
 from util import intersection, collision
 
@@ -10,10 +11,13 @@ from util import intersection, collision
 class Game:
     def __init__(self):
         self.player = Player(self)
+        self._score = 0
         self._game_objects = [self.player]
         self._alien_system = AlienSystem(self)
+        # TODO filter gameobjects instead?
         self._bullet_system = BulletSystem(self, self._alien_system)
         self._shield_system = ShieldSystem(self)
+        self._gui_system = GuiSystem(self)
 
     def tick(self):
         # TODO order?
@@ -39,3 +43,9 @@ class Game:
 
     def spawn(self, game_object):
         self._game_objects.append(game_object)
+
+    def add_score(self, score_change):
+        self._score += score_change
+
+    def score(self):
+        return self._score

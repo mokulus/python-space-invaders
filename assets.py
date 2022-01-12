@@ -74,3 +74,15 @@ def alien_shot_explosion():
 def shield():
     return _load_single_sprite("./assets/shield.txt", (22, 16))
 
+@cache
+def font():
+    lines = _data_lines("./assets/font.txt")
+    sprites = []
+    for line in lines:
+        data = _load_chunk([line])
+        data = np.reshape(data, (8, 8))
+        sprites.append(data)
+    return sprites
+
+def font_characters():
+    return "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<> =?-"
