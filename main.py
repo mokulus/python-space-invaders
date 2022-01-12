@@ -23,12 +23,14 @@ def draw_sprite(surfarr, position, sprite):
     x = position.x
     arr[x: x + img.shape[0], y: y + img.shape[1], :] |= img[..., np.newaxis]
 
+running = True
 
-while True:
+while running:
     shoot = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            sys.exit()
+            game.exit()
+            running = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             shoot = True
 
