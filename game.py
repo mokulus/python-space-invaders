@@ -21,20 +21,17 @@ class Game:
         except (FileNotFoundError, TypeError, ValueError):
             self._highscore = 0
         self._game_objects = [self.player]
-        self._alien_system = AlienSystem(self)
-        # TODO filter gameobjects instead?
-        self._bullet_system = BulletSystem(self, self._alien_system)
-        self._shield_system = ShieldSystem(self)
-        self._gui_system = GuiSystem(self)
-        self._saucer_system = SaucerSystem(self)
+        self._systems = []
+        alien_system = AlienSystem(self)
+        self._systems.append(alien_system)
+        self._systems.append(BulletSystem(self, alien_system))
+        self._systems.append(ShieldSystem(self))
+        self._systems.append(GuiSystem(self))
+        self._systems.append(SaucerSystem(self))
 
     def tick(self):
-        # TODO order?
-        self._alien_system.tick()
-        self._bullet_system.tick()
-        self._shield_system.tick()
-        self._gui_system.tick()
-        self._saucer_system.tick()
+        for system in self._systems:
+            system.tick()
         for game_object in self._game_objects:
             game_object.tick()
         self._game_objects = [
