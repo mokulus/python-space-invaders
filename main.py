@@ -21,7 +21,7 @@ def draw_sprite(surfarr, position, sprite):
     img = sprite * 255
     y = canvas_size[1] - position.y - sprite.shape[1]
     x = position.x
-    arr[x: x + img.shape[0], y: y + img.shape[1], :] = img[..., np.newaxis]
+    arr[x: x + img.shape[0], y: y + img.shape[1], :] |= img[..., np.newaxis]
 
 
 while True:
@@ -52,4 +52,4 @@ while True:
     scaled_canvas = pygame.transform.scale(canvas, screen_size)
     screen.blit(scaled_canvas, (0, 0))
     pygame.display.update()
-    print(clock.tick(60))
+    clock.tick(60)

@@ -27,25 +27,21 @@ class Shield(game_object.GameObject):
         pass
 
     def on_collision(self, other):
-        if isinstance(other, Explosion):
-            self._damage_explosion(other)
-        elif isinstance(other, alien_system.Alien):
-            # TODO
-            pass
-
-    def _damage_explosion(self, other):
-        intersection_rect = util.intersection(self.position(), self.sprite(), other.position(), other.sprite())
-        (minx, maxx), (miny, maxy) = intersection_rect
-        ox = other.position()[0]
-        oy = other.position()[1]
-        sx = self.position()[0]
-        sy = self.position()[1]
-
-        inverted = np.logical_not(util.sprite_view(other, intersection_rect))
-        removed = np.logical_and(util.sprite_view(self, intersection_rect), inverted)
-        sprite = np.fliplr(self._sprite)
-        sprite[minx - sx: maxx - sx, miny - sy: maxy - sy] = removed
-        self._sprite = np.fliplr(sprite)
+        if isinstance(other, Explosion) or isinstance(other, alien_system.Alien):
+            intersection_rect = util.intersection(self.position(), self.sprite(), other.position(), other.sprite())
+            (minx, maxx), (miny, maxy) = intersection_rect
+            ox = other.position()[0]
+            oy = other.position()[1]
+            sx = self.position()[0]
+            sy = self.position()[1]
+            if isinstance(other, alien_system.Alien):
+                new_sprite = np.zeros_like(util.sprite_view(other, intersection_rect))
+            else:
+                inverted = np.logical_not(util.sprite_view(other, intersection_rect))
+                new_sprite = np.logical_and(util.sprite_view(self, intersection_rect), inverted)
+            sprite = np.fliplr(self._sprite)
+            sprite[minx - sx: maxx - sx, miny - sy: maxy - sy] = new_sprite
+            self._sprite = np.fliplr(sprite)
 
 class ShieldSystem():
     def __init__(self, game):
