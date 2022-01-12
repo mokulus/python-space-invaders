@@ -1,6 +1,7 @@
 from alien_grid import AlienGrid
 from player import Player
 from point import Point
+from bullet_system import BulletSystem
 import itertools
 
 
@@ -9,10 +10,12 @@ class Game:
         self.player = Player(self)
         self._game_objects = [self.player]
         self._alien_grid = AlienGrid(self)
+        self._bullet_system = BulletSystem(self, self._alien_grid)
 
     def tick(self):
         # TODO order?
         self._alien_grid.tick()
+        self._bullet_system.tick()
         for game_object in self._game_objects:
             game_object.tick()
         self._game_objects = [
