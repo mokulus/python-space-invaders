@@ -2,7 +2,9 @@ from alien_system import AlienSystem
 from player import Player
 from point import Point
 from bullet_system import BulletSystem
+from shield_system import ShieldSystem
 import itertools
+from util import intersection, collision
 
 
 class Game:
@@ -11,6 +13,7 @@ class Game:
         self._game_objects = [self.player]
         self._alien_system = AlienSystem(self)
         self._bullet_system = BulletSystem(self, self._alien_system)
+        self._shield_system = ShieldSystem(self)
 
     def tick(self):
         # TODO order?
@@ -35,35 +38,3 @@ class Game:
 
     def spawn(self, game_object):
         self._game_objects.append(game_object)
-
-
-def intersection(a, b):
-    minx = max(a.position()[0], b.position()[0])
-    maxx = min(
-        a.position()[0] + a.sprite().shape[0],
-        b.position()[0] + b.sprite().shape[0],
-    )
-    miny = max(a.position()[1], b.position()[1])
-    maxy = min(
-        a.position()[1] + a.sprite().shape[1],
-        b.position()[1] + b.sprite().shape[1],
-    )
-    if minx <= maxx and miny <= maxy:
-        return (Point(minx, maxx), Point(miny, maxy))
-    else:
-        return None
-
-
-def collision(a, b):
-    intersection_rect = intersection(a, b)
-    if intersection_rect is None:
-        return False
-    (minx, maxx), (miny, maxy) = intersection_rect
-
-    def sprite_view(obj):
-        return obj.sprite()[
-            minx - obj.position()[0]: maxx - obj.position()[0],
-            miny - obj.position()[1]: maxy - obj.position()[1],
-        ]
-
-    return (sprite_view(a) * sprite_view(b)).any()

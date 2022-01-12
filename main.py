@@ -52,4 +52,4 @@ while True:
     scaled_canvas = pygame.transform.scale(canvas, screen_size)
     screen.blit(scaled_canvas, (0, 0))
     pygame.display.update()
-    clock.tick(60)
+    print(clock.tick(60))

@@ -16,7 +16,7 @@ class BulletSystem:
         self._bullets = []
 
         for i in range(3):
-            self._bullets.append(AlienBullet(Point(), Animation(assets.alien_shots()[i]), i))
+            self._bullets.append(AlienBullet(self._game, Point(), Animation(assets.alien_shots()[i]), i))
 
         self._spawn_tables = []
         self._spawn_tables.append(None)
@@ -41,7 +41,7 @@ class BulletSystem:
                 alien = next((alien for alien in self._alien_system.aliens() if alien.alive() and alien.coords().x == x), None)
                 if alien:
                     self._fire_delay = 0
-                    self._bullets[self._index] = AlienBullet(alien.position() + Point(8, -8), Animation(assets.alien_shots()[self._index]), self._index)
+                    self._bullets[self._index] = AlienBullet(self._game, alien.position() + Point(8, -8), Animation(assets.alien_shots()[self._index]), self._index)
                     self._game.spawn(self._bullets[self._index])
                 self._index += 1
                 self._index %= len(self._bullets)

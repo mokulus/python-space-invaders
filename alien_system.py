@@ -9,8 +9,6 @@ from bullet import Bullet
 from alien_bullet import AlienBullet
 
 
-# TODO why dataclass?
-@dataclass
 class Alien(game_object.GameObject):
     def __init__(self, game, coords, alien_system):
         self._alive = True

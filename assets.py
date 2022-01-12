@@ -65,3 +65,12 @@ def alien_shots():
         data = np.reshape(data, (4, 3, 8))
         shots.append(data)
     return shots
+
+@cache
+def alien_shot_explosion():
+    return _load_single_sprite("./assets/alien_shot_explosion.txt", (6, 8))
+
+@cache
+def shield():
+    return _load_single_sprite("./assets/shield.txt", (22, 16))
+
