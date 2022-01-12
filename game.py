@@ -12,6 +12,13 @@ class Game:
     def __init__(self):
         self.player = Player(self)
         self._score = 0
+        try:
+            with open("highscore.txt", "r") as file:
+                self._highscore = int(file.read().strip())
+                if self._highscore < 0:
+                    raise ValueError
+        except (FileNotFoundError, TypeError, ValueError):
+            self._highscore = 0
         self._game_objects = [self.player]
         self._alien_system = AlienSystem(self)
         # TODO filter gameobjects instead?
@@ -49,3 +56,11 @@ class Game:
 
     def score(self):
         return self._score
+
+    def highscore(self):
+        return self._highscore
+
+    def exit(self):
+        # FIXME save highscore every round
+        with open("highscore.txt", "w") as file:
+            file.write(f"{max(self._highscore, self._score)}\n")

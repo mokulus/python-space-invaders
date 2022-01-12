@@ -40,21 +40,41 @@ class TextObject(game_object.GameObject):
     def on_collision(self, other):
         pass
 
-class ScoreTextObject(TextObject):
-    def __init__(self, game, position, text):
+
+class VariableTextObject(TextObject):
+    def __init__(self, game, position, text_getter):
         self._game = game
-        super().__init__(position, text)
+        self._text_getter = text_getter
+        super().__init__(position, self._text_getter(self._game))
 
     def tick(self):
-        self.set_text(f"{self._game.score():04}")
+        self.set_text(self._text_getter(self._game))
 
 
 class GuiSystem:
 
     def __init__(self, game):
         self._game = game
-        self._game.spawn(TextObject(Point(16, game_settings.height() - 16), "SCORE<1>"))
-        self._game.spawn(ScoreTextObject(self._game, Point(32, game_settings.height() - 16 - 16), ""))
+        score_str = "SCORE<1>"
+        hiscore_str = "HI-SCORE<1>"
+        padding = 16
+        letter_width = 8
+        x = padding
+        y = game_settings.height() - padding
+        self._game.spawn(TextObject(Point(x, y), score_str))
+
+        x += 2 * letter_width
+        y -= padding
+        self._game.spawn(VariableTextObject(self._game, Point(x, y), lambda g: f"{g.score():04}"))
+        x -= 2 * letter_width
+        y += padding
+
+        x += letter_width * (len(score_str) + 1)
+        self._game.spawn(TextObject(Point(x, y), hiscore_str))
+
+        x += 2 * letter_width
+        y -= padding
+        self._game.spawn(VariableTextObject(self._game, Point(x, y), lambda g: f"{g.highscore():04}"))
 
     def tick(self):
         pass
