@@ -12,10 +12,10 @@ from alien_bullet import AlienBullet
 # TODO why dataclass?
 @dataclass
 class Alien(game_object.GameObject):
-    def __init__(self, game, coords, alien_grid):
+    def __init__(self, game, coords, alien_system):
         self._alive = True
         self._coords = coords
-        self._alien_grid = alien_grid
+        self._alien_system = alien_system
         self._position = Point(24 + coords.x * 16, 120 + coords.y * 16)
         self._game = game
         self._animation = Alien._get_sprite(coords.y)
@@ -52,7 +52,7 @@ class Alien(game_object.GameObject):
         return Animation(assets.aliens()[alien_type])
 
 
-class AlienGrid:
+class AlienSystem:
     def __init__(self, game):
         self._game = game
         self._aliens = []

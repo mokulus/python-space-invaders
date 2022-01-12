@@ -1,7 +1,7 @@
 from bullet import Bullet
 from animation import Animation
 from point import Point
-from alien_grid import Alien
+from alien_system import Alien
 import assets
 
 

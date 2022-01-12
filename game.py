@@ -1,4 +1,4 @@
-from alien_grid import AlienGrid
+from alien_system import AlienSystem
 from player import Player
 from point import Point
 from bullet_system import BulletSystem
@@ -9,12 +9,12 @@ class Game:
     def __init__(self):
         self.player = Player(self)
         self._game_objects = [self.player]
-        self._alien_grid = AlienGrid(self)
-        self._bullet_system = BulletSystem(self, self._alien_grid)
+        self._alien_system = AlienSystem(self)
+        self._bullet_system = BulletSystem(self, self._alien_system)
 
     def tick(self):
         # TODO order?
-        self._alien_grid.tick()
+        self._alien_system.tick()
         self._bullet_system.tick()
         for game_object in self._game_objects:
             game_object.tick()
