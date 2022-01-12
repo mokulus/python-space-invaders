@@ -17,8 +17,8 @@ class AlienBullet(Bullet):
         self._ticks += 1
 
     def on_collision(self, other):
-        self._alive = False
         # TODO more?
         if isinstance(other, shield_system.Shield) or isinstance(other, Bullet):
             self._game.spawn(Explosion(self._position + Point(-2, 0), assets.alien_shot_explosion(), 16))
+            self._alive = False
 
