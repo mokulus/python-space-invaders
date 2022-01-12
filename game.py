@@ -6,7 +6,7 @@ from shield_system import ShieldSystem
 from gui_system import GuiSystem
 from saucer_system import SaucerSystem
 import itertools
-from util import intersection, collision
+import util
 
 
 class Game:
@@ -63,6 +63,12 @@ class Game:
         return self._highscore
 
     def exit(self):
-        # FIXME save highscore every round
+        self._save_highscore()
+
+    def _save_highscore(self):
         with open("highscore.txt", "w") as file:
             file.write(f"{max(self._highscore, self._score)}\n")
+
+    def reset(self):
+        self._save_highscore()
+        self.__init__()

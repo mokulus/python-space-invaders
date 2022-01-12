@@ -4,6 +4,7 @@ from point import Point
 from player_bullet import PlayerBullet
 from alien_bullet import AlienBullet
 from animation import Animation
+from game_over import GameOver
 import game_object
 
 
@@ -58,6 +59,8 @@ class Player(game_object.GameObject):
         if isinstance(other, AlienBullet):
             self._dying = True
             self._sprite = self._death_animation.sprite()
+            if self._lives == 1:
+                self._game.spawn(GameOver(self._game))
 
     def _reset(self):
         self._dying = False
@@ -75,4 +78,5 @@ class Player(game_object.GameObject):
             self._dying_length -= 1
             if self._dying_length == 0:
                 self._lives -= 1
-                self._reset()
+                if self._lives > 0:
+                    self._reset()
