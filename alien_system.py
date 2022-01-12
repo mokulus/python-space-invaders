@@ -14,7 +14,7 @@ class Alien(game_object.GameObject):
         self._alive = True
         self._coords = coords
         self._alien_system = alien_system
-        self._position = Point(24 + coords.x * 16, 120 + coords.y * 16)
+        self._position = Point(24 + coords.x * 16, game_settings.alien_initial_y(game.round()) + coords.y * 16)
         self._game = game
         self._animation = Alien._get_sprite(coords.y)
 
@@ -63,9 +63,11 @@ class AlienSystem:
                 self._aliens.append(alien)
         self._alien_iter = iter(self._aliens)
         self._initialized = False
+        self._init_ticks = 0
 
     def tick(self):
-        if self._init_animation():
+        if not self._initialized:
+            self._init_animation()
             return
         self._alien_iter = (
             alien for alien in self._alien_iter if alien.alive()
@@ -85,18 +87,19 @@ class AlienSystem:
                 else:
                     self._velocity.x = 2
                     self._velocity.y = 0
+        if not any(alien.alive() for alien in self._aliens):
+            self._game.next_round()
 
     def _init_animation(self):
-        if not self._initialized:
-            alien = next(self._alien_iter, None)
-            if not alien:
-                self._initialized = True
-                self._alien_iter = iter(self._aliens)
-                return True
-            else:
-                self._game.spawn(alien)
-                return True
-        return False
+        self._init_ticks += 1
+        if self._init_ticks % 2 != 0:
+            return
+        alien = next(self._alien_iter, None)
+        if not alien:
+            self._initialized = True
+            self._alien_iter = iter(self._aliens)
+        else:
+            self._game.spawn(alien)
 
     def alien_count(self):
         return sum(alien.alive for alien in self._aliens)

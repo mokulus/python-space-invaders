@@ -11,8 +11,8 @@ import util
 
 class Game:
     def __init__(self):
-        self.player = Player(self)
         self._score = 0
+        self._round = 0
         try:
             with open("highscore.txt", "r") as file:
                 self._highscore = int(file.read().strip())
@@ -20,14 +20,7 @@ class Game:
                     raise ValueError
         except (FileNotFoundError, TypeError, ValueError):
             self._highscore = 0
-        self._game_objects = [self.player]
-        self._systems = []
-        alien_system = AlienSystem(self)
-        self._systems.append(alien_system)
-        self._systems.append(BulletSystem(self, alien_system))
-        self._systems.append(ShieldSystem(self))
-        self._systems.append(GuiSystem(self))
-        self._systems.append(SaucerSystem(self))
+        self._reset_objects()
 
     def tick(self):
         if not self.player.dying():
@@ -71,4 +64,25 @@ class Game:
 
     def reset(self):
         self._save_highscore()
-        self.__init__()
+        self._score = 0
+        self._round = 0
+        self._reset_objects()
+
+    def next_round(self):
+        self._round += 1
+        self._save_highscore()
+        self._reset_objects()
+
+    def _reset_objects(self):
+        self.player = Player(self)
+        self._game_objects = [self.player]
+        self._systems = []
+        alien_system = AlienSystem(self)
+        self._systems.append(alien_system)
+        self._systems.append(BulletSystem(self, alien_system))
+        self._systems.append(ShieldSystem(self))
+        self._systems.append(GuiSystem(self))
+        self._systems.append(SaucerSystem(self))
+
+    def round(self):
+        return self._round
