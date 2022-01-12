@@ -18,19 +18,26 @@ def intersection(a_pos, a_sprite, b_pos, b_sprite):
     else:
         return None
 
+
 def sprite_view(obj, intersection_rect):
     (minx, maxx), (miny, maxy) = intersection_rect
     sprite = np.fliplr(obj.sprite())
     return sprite[
-        minx - obj.position()[0]: maxx - obj.position()[0],
-        miny - obj.position()[1]: maxy - obj.position()[1],
+        minx - obj.position()[0] : maxx - obj.position()[0],
+        miny - obj.position()[1] : maxy - obj.position()[1],
     ]
 
+
 def collision(a, b):
-    intersection_rect = intersection(a.position(), a.sprite(), b.position(), b.sprite())
+    intersection_rect = intersection(
+        a.position(), a.sprite(), b.position(), b.sprite()
+    )
     if intersection_rect is None:
         return False
-    return (sprite_view(a, intersection_rect) * sprite_view(b, intersection_rect)).any()
+    return (
+        sprite_view(a, intersection_rect) * sprite_view(b, intersection_rect)
+    ).any()
+
 
 def inside(pos, size, max_pos):
     return 0 <= pos < max_pos - size

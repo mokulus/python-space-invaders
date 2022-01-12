@@ -27,23 +27,37 @@ class Shield(game_object.GameObject):
         pass
 
     def on_collision(self, other):
-        if isinstance(other, Explosion) or isinstance(other, alien_system.Alien):
-            intersection_rect = util.intersection(self.position(), self.sprite(), other.position(), other.sprite())
+        if isinstance(other, Explosion) or isinstance(
+            other, alien_system.Alien
+        ):
+            intersection_rect = util.intersection(
+                self.position(),
+                self.sprite(),
+                other.position(),
+                other.sprite(),
+            )
             (minx, maxx), (miny, maxy) = intersection_rect
             ox = other.position()[0]
             oy = other.position()[1]
             sx = self.position()[0]
             sy = self.position()[1]
             if isinstance(other, alien_system.Alien):
-                new_sprite = np.zeros_like(util.sprite_view(other, intersection_rect))
+                new_sprite = np.zeros_like(
+                    util.sprite_view(other, intersection_rect)
+                )
             else:
-                inverted = np.logical_not(util.sprite_view(other, intersection_rect))
-                new_sprite = np.logical_and(util.sprite_view(self, intersection_rect), inverted)
+                inverted = np.logical_not(
+                    util.sprite_view(other, intersection_rect)
+                )
+                new_sprite = np.logical_and(
+                    util.sprite_view(self, intersection_rect), inverted
+                )
             sprite = np.fliplr(self._sprite)
-            sprite[minx - sx: maxx - sx, miny - sy: maxy - sy] = new_sprite
+            sprite[minx - sx : maxx - sx, miny - sy : maxy - sy] = new_sprite
             self._sprite = np.fliplr(sprite)
 
-class ShieldSystem():
+
+class ShieldSystem:
     def __init__(self, game):
         self._game = game
         n = 4
@@ -53,7 +67,9 @@ class ShieldSystem():
             width = 22
             y = 24
             gap = (game_settings.width() - 2 * start - n * width) // (n - 1)
-            self._game.spawn(Shield(self._game, Point(start + (width + gap) * i, y)))
+            self._game.spawn(
+                Shield(self._game, Point(start + (width + gap) * i, y))
+            )
 
     def tick(self):
         pass

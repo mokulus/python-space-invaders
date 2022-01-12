@@ -21,7 +21,8 @@ def draw_sprite(surfarr, position, sprite):
     img = sprite * 255
     y = canvas_size[1] - position.y - sprite.shape[1]
     x = position.x
-    arr[x: x + img.shape[0], y: y + img.shape[1], :] |= img[..., np.newaxis]
+    arr[x : x + img.shape[0], y : y + img.shape[1], :] |= img[..., np.newaxis]
+
 
 running = True
 

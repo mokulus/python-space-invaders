@@ -18,4 +18,10 @@ class PlayerBullet(Bullet):
     def on_collision(self, other):
         self._alive = False
         if isinstance(other, Shield):
-            self._game.spawn(Explosion(self._position + Point(-4, 2), assets.player_shot_explosion(), 16))
+            self._game.spawn(
+                Explosion(
+                    self._position + Point(-4, 2),
+                    assets.player_shot_explosion(),
+                    16,
+                )
+            )

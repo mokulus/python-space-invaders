@@ -15,11 +15,13 @@ def _load_chunk(lines):
     data = np.unpackbits(data)
     return data
 
+
 def _data_lines(file_name):
     with open(file_name, "r") as file:
         lines = [line.split("#")[0].strip() for line in file]
         lines = [line for line in lines if line]
         return lines
+
 
 def _load_single_sprite(file_name, shape, flip=False):
     data = _load_chunk(_data_lines(file_name))
@@ -27,6 +29,7 @@ def _load_single_sprite(file_name, shape, flip=False):
         data = np.flip(data)
     data = np.reshape(data, shape)
     return data
+
 
 @cache
 def aliens():
@@ -39,21 +42,26 @@ def aliens():
         aliens.append(data)
     return aliens
 
+
 @cache
 def player():
     return _load_single_sprite("./assets/player.txt", (16, 8))
+
 
 @cache
 def player_shot():
     return _load_single_sprite("./assets/player_shot.txt", (1, 8), flip=True)
 
+
 @cache
 def player_shot_explosion():
     return _load_single_sprite("./assets/player_shot_explosion.txt", (8, 8))
 
+
 @cache
 def alien_explosion():
     return _load_single_sprite("./assets/alien_explosion.txt", (16, 8))
+
 
 @cache
 def alien_shots():
@@ -61,18 +69,21 @@ def alien_shots():
     lines = _data_lines("./assets/alien_shots.txt")
     size = 4
     for offset in range(3):
-        data = _load_chunk(lines[offset * size:(offset + 1) * size])
+        data = _load_chunk(lines[offset * size : (offset + 1) * size])
         data = np.reshape(data, (4, 3, 8))
         shots.append(data)
     return shots
+
 
 @cache
 def alien_shot_explosion():
     return _load_single_sprite("./assets/alien_shot_explosion.txt", (6, 8))
 
+
 @cache
 def shield():
     return _load_single_sprite("./assets/shield.txt", (22, 16))
+
 
 @cache
 def font():
@@ -84,12 +95,15 @@ def font():
         sprites.append(data)
     return sprites
 
+
 def font_characters():
     return "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<> =?-"
+
 
 @cache
 def saucer():
     return _load_single_sprite("./assets/saucer.txt", (24, 8))
+
 
 @cache
 def saucer_explosion():

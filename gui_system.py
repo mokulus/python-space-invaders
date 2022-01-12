@@ -10,8 +10,9 @@ def text_to_sprite(str):
     font = assets.font()
     font_characters = assets.font_characters()
     for i in range(len(str)):
-        sprite[8 * i:8 * (i + 1), :] = font[font_characters.index(str[i])]
+        sprite[8 * i : 8 * (i + 1), :] = font[font_characters.index(str[i])]
     return sprite
+
 
 class TextObject(game_object.GameObject):
     def __init__(self, position, text):
@@ -52,7 +53,6 @@ class VariableTextObject(TextObject):
 
 
 class GuiSystem:
-
     def __init__(self, game):
         self._game = game
         score_str = "SCORE<1>"
@@ -66,7 +66,11 @@ class GuiSystem:
 
         x += 2 * letter_width
         y -= padding
-        self._game.spawn(VariableTextObject(self._game, Point(x, y), lambda g: f"{g.score():04}"))
+        self._game.spawn(
+            VariableTextObject(
+                self._game, Point(x, y), lambda g: f"{g.score():04}"
+            )
+        )
         x -= 2 * letter_width
         y += padding
 
@@ -75,7 +79,11 @@ class GuiSystem:
 
         x += 2 * letter_width
         y -= padding
-        self._game.spawn(VariableTextObject(self._game, Point(x, y), lambda g: f"{g.highscore():04}"))
+        self._game.spawn(
+            VariableTextObject(
+                self._game, Point(x, y), lambda g: f"{g.highscore():04}"
+            )
+        )
         x -= 2 * letter_width
         y += padding
 

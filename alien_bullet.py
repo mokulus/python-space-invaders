@@ -4,6 +4,7 @@ from explosion import Explosion
 import shield_system
 import assets
 
+
 class AlienBullet(Bullet):
     def __init__(self, game, position, animation, offset):
         super().__init__(position, animation, Point(0, -4))
@@ -18,7 +19,14 @@ class AlienBullet(Bullet):
 
     def on_collision(self, other):
         # TODO more?
-        if isinstance(other, shield_system.Shield) or isinstance(other, Bullet):
-            self._game.spawn(Explosion(self._position + Point(-2, 0), assets.alien_shot_explosion(), 16))
+        if isinstance(other, shield_system.Shield) or isinstance(
+            other, Bullet
+        ):
+            self._game.spawn(
+                Explosion(
+                    self._position + Point(-2, 0),
+                    assets.alien_shot_explosion(),
+                    16,
+                )
+            )
             self._alive = False
-

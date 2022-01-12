@@ -38,7 +38,9 @@ class Player(game_object.GameObject):
 
     def shoot(self):
         self._shots_fired += 1
-        self._game.spawn(PlayerBullet(self._game, self._position + Point(8, 4)))
+        self._game.spawn(
+            PlayerBullet(self._game, self._position + Point(8, 4))
+        )
 
     def shots_fired(self):
         return self._shots_fired

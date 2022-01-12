@@ -16,12 +16,20 @@ class BulletSystem:
         self._bullets = []
 
         for i in range(3):
-            self._bullets.append(AlienBullet(self._game, Point(), Animation(assets.alien_shots()[i]), i))
+            self._bullets.append(
+                AlienBullet(
+                    self._game, Point(), Animation(assets.alien_shots()[i]), i
+                )
+            )
 
         self._spawn_tables = []
         self._spawn_tables.append(None)
-        self._spawn_tables.append(itertools.cycle(game_settings.plunger_shot_spawn_table()))
-        self._spawn_tables.append(itertools.cycle(game_settings.squiggly_shot_spawn_table()))
+        self._spawn_tables.append(
+            itertools.cycle(game_settings.plunger_shot_spawn_table())
+        )
+        self._spawn_tables.append(
+            itertools.cycle(game_settings.squiggly_shot_spawn_table())
+        )
 
         for bullet in self._bullets:
             bullet._alive = False
@@ -38,10 +46,22 @@ class BulletSystem:
                 else:  # aiming shot
                     playerx = self._game.player.position().x
                     x = (playerx - 24 - self._alien_system.delta().x) // 16
-                alien = next((alien for alien in self._alien_system.aliens() if alien.alive() and alien.coords().x == x), None)
+                alien = next(
+                    (
+                        alien
+                        for alien in self._alien_system.aliens()
+                        if alien.alive() and alien.coords().x == x
+                    ),
+                    None,
+                )
                 if alien:
                     self._fire_delay = 0
-                    self._bullets[self._index] = AlienBullet(self._game, alien.position() + Point(8, -8), Animation(assets.alien_shots()[self._index]), self._index)
+                    self._bullets[self._index] = AlienBullet(
+                        self._game,
+                        alien.position() + Point(8, -8),
+                        Animation(assets.alien_shots()[self._index]),
+                        self._index,
+                    )
                     self._game.spawn(self._bullets[self._index])
                 self._index += 1
                 self._index %= len(self._bullets)

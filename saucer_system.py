@@ -6,6 +6,7 @@ import util
 import game_settings
 from explosion import Explosion
 
+
 class Saucer(game_object.GameObject):
     def __init__(self, game):
         self._game = game
@@ -16,7 +17,9 @@ class Saucer(game_object.GameObject):
             self._position = Point(0, y)
             self._velocity = Point(2, 0)
         else:
-            self._position = Point(game_settings.width() - self.sprite().shape[0] - 1, y)
+            self._position = Point(
+                game_settings.width() - self.sprite().shape[0] - 1, y
+            )
             self._velocity = Point(-2, 0)
 
     def alive(self):
@@ -41,7 +44,9 @@ class Saucer(game_object.GameObject):
 
     def on_collision(self, other):
         if isinstance(other, player_bullet.PlayerBullet):
-            self._game.spawn(Explosion(self._position, assets.saucer_explosion(), 60))
+            self._game.spawn(
+                Explosion(self._position, assets.saucer_explosion(), 60)
+            )
             self._alive = False
 
 
