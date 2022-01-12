@@ -42,7 +42,7 @@ class BulletSystem:
         spawn_table = self._spawn_tables[self._index]
         if not bullet.alive():
             # TODO score?
-            if self._fire_delay >= game_settings.alien_fire_speed(0):
+            if not any(bullet.alive() for bullet in self._bullets) or self._fire_delay >= game_settings.alien_fire_speed(0):
                 if spawn_table:
                     x = next(spawn_table) - 1
                 else:  # aiming shot
