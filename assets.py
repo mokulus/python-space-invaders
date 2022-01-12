@@ -86,3 +86,11 @@ def font():
 
 def font_characters():
     return "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<> =?-"
+
+@cache
+def saucer():
+    return _load_single_sprite("./assets/saucer.txt", (24, 8))
+
+@cache
+def saucer_explosion():
+    return _load_single_sprite("./assets/saucer_explosion.txt", (24, 8))

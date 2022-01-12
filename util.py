@@ -31,3 +31,6 @@ def collision(a, b):
     if intersection_rect is None:
         return False
     return (sprite_view(a, intersection_rect) * sprite_view(b, intersection_rect)).any()
+
+def inside(pos, size, max_pos):
+    return 0 <= pos < max_pos - size

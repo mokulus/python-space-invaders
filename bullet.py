@@ -1,9 +1,6 @@
 import game_object
 import game_settings
-
-
-def inside(pos, size, max_pos):
-    return size <= pos < max_pos - size
+import util
 
 
 class Bullet(game_object.GameObject):
@@ -23,11 +20,11 @@ class Bullet(game_object.GameObject):
         self._position += self._velocity
         self._animation.next()
 
-        if not inside(
+        if not util.inside(
             self._position.y,
             self.sprite().shape[1],
             game_settings.height(),
-        ) or not inside(
+        ) or not util.inside(
             self._position.x,
             self.sprite().shape[0],
             game_settings.width(),

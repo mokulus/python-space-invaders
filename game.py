@@ -4,6 +4,7 @@ from point import Point
 from bullet_system import BulletSystem
 from shield_system import ShieldSystem
 from gui_system import GuiSystem
+from saucer_system import SaucerSystem
 import itertools
 from util import intersection, collision
 
@@ -25,12 +26,15 @@ class Game:
         self._bullet_system = BulletSystem(self, self._alien_system)
         self._shield_system = ShieldSystem(self)
         self._gui_system = GuiSystem(self)
+        self._saucer_system = SaucerSystem(self)
 
     def tick(self):
         # TODO order?
         self._alien_system.tick()
         self._bullet_system.tick()
         self._shield_system.tick()
+        self._gui_system.tick()
+        self._saucer_system.tick()
         for game_object in self._game_objects:
             game_object.tick()
         self._game_objects = [

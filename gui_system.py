@@ -56,10 +56,11 @@ class GuiSystem:
     def __init__(self, game):
         self._game = game
         score_str = "SCORE<1>"
-        hiscore_str = "HI-SCORE<1>"
+        hiscore_str = "HI-SCORE"
         padding = 16
         letter_width = 8
-        x = padding
+
+        x = letter_width
         y = game_settings.height() - padding
         self._game.spawn(TextObject(Point(x, y), score_str))
 
@@ -75,6 +76,11 @@ class GuiSystem:
         x += 2 * letter_width
         y -= padding
         self._game.spawn(VariableTextObject(self._game, Point(x, y), lambda g: f"{g.highscore():04}"))
+        x -= 2 * letter_width
+        y += padding
+
+        # x += letter_width * (len(hiscore_str) + 1)
+        # self._game.spawn(TextObject(Point(x, y), score_str))
 
     def tick(self):
         pass

@@ -11,6 +11,7 @@ class Player(game_object.GameObject):
         self._game = game
         self._sprite = assets.player()
         self._position = Point()
+        self._shots_fired = 0
 
     def alive(self):
         return self._alive
@@ -36,7 +37,11 @@ class Player(game_object.GameObject):
         self._position.x = max(min(self._position.x, maxx), 0)
 
     def shoot(self):
+        self._shots_fired += 1
         self._game.spawn(PlayerBullet(self._game, self._position + Point(8, 4)))
+
+    def shots_fired(self):
+        return self._shots_fired
 
     def on_collision(self, other):
         # TODO
