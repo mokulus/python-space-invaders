@@ -1,3 +1,6 @@
+import bisect
+
+
 def alient_initial_y(round_number):
     if round_number == 0:
         return 0x78
@@ -13,10 +16,10 @@ def height():
     return 256
 
 
-# FIXME not speed but period
-def alien_fire_speed(score):
-    # FIXME
-    return 0x30
+def alien_fire_period(score):
+    periods = [0x30, 0x10, 0x0B, 0x08, 0x07]
+    scores = [200, 1000, 2000, 3000]
+    return periods[bisect.bisect_left(scores, score)]
 
 
 def shot_spawn_table():
