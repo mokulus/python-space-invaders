@@ -66,7 +66,8 @@ class Game:
 
     def _save_highscore(self):
         with open("highscore.txt", "w") as file:
-            file.write(f"{max(self._highscore, self._score)}\n")
+            self._highscore = max(self._highscore, self._score)
+            file.write(f"{self._highscore}\n")
 
     def reset(self):
         self._save_highscore()
