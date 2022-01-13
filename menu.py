@@ -10,7 +10,7 @@ from static_sprite import StaticSprite
 class MenuSystem(system.System):
     def __init__(self, game):
         self._game = game
-        self._y = 200
+        self._y = 192
         self._delay = 5
         self._animations = []
 
@@ -19,6 +19,7 @@ class MenuSystem(system.System):
             self._animations.append(
                 TextAnimation(self._game, self._y, "PLAY", self._delay)
             )
+            self._y -= 16
         elif not self._animations[-1].done_once():
             return
         elif len(self._animations) == 1:
