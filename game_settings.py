@@ -55,3 +55,7 @@ def squiggly_shot_spawn_table():
 
 def plunger_shot_spawn_table():
     return shot_spawn_table()[0:16]
+
+def saucer_score(shots_fired):
+    scores = [100, 50, 50, 100, 150, 100, 100, 50, 300, 100, 100, 100, 50, 150, 100, 50]
+    return scores[shots_fired % len(scores)]

@@ -8,6 +8,19 @@ from explosion import Explosion
 import system
 
 
+class SaucerExplosion(Explosion):
+    def __init__(self, game, position):
+        self._game = game
+        super().__init__(position, assets.saucer_explosion(), 16)
+
+    def tick(self):
+        super().tick()
+        if self._frames == 0:
+            score = game_settings.saucer_score(self._game.player.shots_fired())
+            self._game.add_score(score)
+            sprite = util.text_to_sprite(f"{score:3}")
+            self._game.spawn(Explosion(self._position, sprite, 60))
+
 class Saucer(game_object.GameObject):
     def __init__(self, game):
         self._game = game
@@ -45,9 +58,7 @@ class Saucer(game_object.GameObject):
 
     def on_collision(self, other):
         if isinstance(other, player_bullet.PlayerBullet):
-            self._game.spawn(
-                Explosion(self._position, assets.saucer_explosion(), 60)
-            )
+            self._game.spawn(SaucerExplosion(self._game, self._position))
             self._alive = False
 
 
