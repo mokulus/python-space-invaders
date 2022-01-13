@@ -19,7 +19,7 @@ class BulletSystem(system.System):
         for i in range(3):
             self._bullets.append(
                 AlienBullet(
-                    self._game, Point(), Animation(assets.alien_shots()[i]), i
+                    self._game, Point(), Animation(assets.alien_shots()[i]),
                 )
             )
 
@@ -67,7 +67,6 @@ class BulletSystem(system.System):
                         self._game,
                         alien.position() + Point(8, -8),
                         Animation(assets.alien_shots()[self._index]),
-                        self._index,
                     )
                     self._game.spawn(self._bullets[self._index])
                 self._index += 1
