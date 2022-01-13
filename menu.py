@@ -1,31 +1,10 @@
 import system
-import game_object
 import assets
 import util
 from text_animation import TextAnimation
 from text_object import TextObject
 from point import Point
-
-
-class Sprite(game_object.GameObject):
-    def __init__(self, position, sprite):
-        self._position = position
-        self._sprite = sprite
-
-    def alive(self):
-        return True
-
-    def position(self):
-        return self._position
-
-    def sprite(self):
-        return self._sprite
-
-    def tick(self):
-        pass
-
-    def on_collision(self, other):
-        pass
+from static_sprite import StaticSprite
 
 
 class MenuSystem(system.System):
@@ -73,7 +52,7 @@ class MenuSystem(system.System):
 
     def _spawn_sprite(self, sprite):
         self._game.spawn(
-            Sprite(
+            StaticSprite(
                 Point(
                     self._padding - sprite.shape[0] + 8 * len("SCORE"),
                     self._y,
