@@ -2,11 +2,9 @@ from point import Point
 from animation import Animation
 import assets
 import game_settings
-from dataclasses import dataclass
 import game_object
 from explosion import Explosion
 import player_bullet
-from alien_bullet import AlienBullet
 import system
 from bullet_system import BulletSystem
 from saucer_system import SaucerSystem

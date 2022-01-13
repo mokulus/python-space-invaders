@@ -1,5 +1,4 @@
 import pygame
-import sys
 import numpy as np
 import game_settings
 import game

@@ -1,6 +1,4 @@
 import game_object
-import assets
-import numpy as np
 import util
 
 

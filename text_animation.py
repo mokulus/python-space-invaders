@@ -1,7 +1,6 @@
 from point import Point
 import util
 import game_object
-import game_settings
 
 
 class TextAnimation(game_object.GameObject):

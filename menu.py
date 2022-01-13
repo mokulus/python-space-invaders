@@ -1,10 +1,9 @@
 import system
-import game_settings
 import game_object
 import assets
 import util
 from text_animation import TextAnimation
-from text_object import TextObject, VariableTextObject
+from text_object import TextObject
 from point import Point
 
 

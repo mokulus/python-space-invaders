@@ -1,6 +1,5 @@
 from alien_system import AlienSystem
 from player import Player
-from point import Point
 from shield_system import ShieldSystem
 from gui_system import GuiSystem
 from menu import MenuSystem

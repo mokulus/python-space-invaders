@@ -38,8 +38,6 @@ class Shield(game_object.GameObject):
                 other.sprite(),
             )
             (minx, maxx), (miny, maxy) = intersection_rect
-            ox = other.position()[0]
-            oy = other.position()[1]
             sx = self.position()[0]
             sy = self.position()[1]
             if isinstance(other, alien_system.Alien):
