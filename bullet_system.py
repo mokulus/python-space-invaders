@@ -19,7 +19,9 @@ class BulletSystem(system.System):
         for i in range(3):
             self._bullets.append(
                 AlienBullet(
-                    self._game, Point(), Animation(assets.alien_shots()[i]),
+                    self._game,
+                    Point(),
+                    Animation(assets.alien_shots()[i]),
                 )
             )
 
