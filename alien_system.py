@@ -58,9 +58,6 @@ class AlienSystem(system.System):
         else:
             self._game.spawn(alien)
 
-    def alien_count(self):
-        return sum(alien.alive for alien in self._aliens)
-
     def aliens(self):
         return self._aliens
 
