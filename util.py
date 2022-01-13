@@ -25,8 +25,8 @@ def sprite_view(obj, intersection_rect):
     (minx, maxx), (miny, maxy) = intersection_rect
     sprite = np.fliplr(obj.sprite())
     return sprite[
-        minx - obj.position()[0] : maxx - obj.position()[0],
-        miny - obj.position()[1] : maxy - obj.position()[1],
+        minx - obj.position()[0]: maxx - obj.position()[0],
+        miny - obj.position()[1]: maxy - obj.position()[1],
     ]
 
 
@@ -50,7 +50,7 @@ def text_to_sprite(str):
     font = assets.font()
     font_characters = assets.font_characters()
     for i in range(len(str)):
-        sprite[8 * i : 8 * (i + 1), :] = font[font_characters.index(str[i])]
+        sprite[8 * i: 8 * (i + 1), :] = font[font_characters.index(str[i])]
     return sprite
 
 

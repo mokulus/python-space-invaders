@@ -52,7 +52,7 @@ class Shield(game_object.GameObject):
                     util.sprite_view(self, intersection_rect), inverted
                 )
             sprite = np.fliplr(self._sprite)
-            sprite[minx - sx : maxx - sx, miny - sy : maxy - sy] = new_sprite
+            sprite[minx - sx: maxx - sx, miny - sy: maxy - sy] = new_sprite
             self._sprite = np.fliplr(sprite)
 
 
