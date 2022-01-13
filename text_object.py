@@ -40,5 +40,3 @@ class VariableTextObject(TextObject):
 
     def tick(self):
         self.set_text(self._text_getter(self._game))
-
-

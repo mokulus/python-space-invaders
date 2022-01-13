@@ -8,6 +8,7 @@ from game_over import GameOver
 import game_object
 from enum import Enum
 
+
 class Input(Enum):
     RIGHT = 1
     LEFT = 2

@@ -53,6 +53,7 @@ def text_to_sprite(str):
         sprite[8 * i : 8 * (i + 1), :] = font[font_characters.index(str[i])]
     return sprite
 
+
 def padding(text=None):
     if text is None:
         text = ""

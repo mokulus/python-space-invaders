@@ -16,10 +16,13 @@ class SaucerExplosion(Explosion):
     def tick(self):
         super().tick()
         if self._frames == 0:
-            score = game_settings.saucer_score(self._game.player.shots_fired())
+            score = game_settings.saucer_score(
+                self._game.player.shots_fired()
+            )
             self._game.add_score(score)
             sprite = util.text_to_sprite(f"{score:3}")
             self._game.spawn(Explosion(self._position, sprite, 60))
+
 
 class Saucer(game_object.GameObject):
     def __init__(self, game):

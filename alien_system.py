@@ -17,7 +17,10 @@ class Alien(game_object.GameObject):
         self._alive = True
         self._coords = coords
         self._alien_system = alien_system
-        self._position = Point(24 + coords.x * 16, game_settings.alien_initial_y(game.round()) + coords.y * 16)
+        self._position = Point(
+            24 + coords.x * 16,
+            game_settings.alien_initial_y(game.round()) + coords.y * 16,
+        )
         self._game = game
         self._animation = Alien._get_sprite(coords.y)
 
