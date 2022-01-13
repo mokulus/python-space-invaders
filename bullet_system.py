@@ -48,19 +48,31 @@ class BulletSystem(system.System):
             ) or self._fire_delay >= game_settings.alien_fire_period(
                 self._game.score()
             ):
+                alive_aliens = [
+                    alien
+                    for alien in self._alien_system.aliens()
+                    if alien.alive()
+                ]
                 if spawn_table:
                     x = next(spawn_table) - 1
+                    alien = next(
+                        (
+                            alien
+                            for alien in alive_aliens
+                            if alien.coords().x == x
+                        ),
+                        None,
+                    )
                 else:  # aiming shot
-                    playerx = self._game.player.position().x
-                    x = (playerx - 24 - self._alien_system.delta().x) // 16
-                alien = next(
-                    (
-                        alien
-                        for alien in self._alien_system.aliens()
-                        if alien.alive() and alien.coords().x == x
-                    ),
-                    None,
-                )
+                    x = self._game.player.position().x // 16
+                    alien = next(
+                        (
+                            alien
+                            for alien in alive_aliens
+                            if alien.position().x // 16 == x
+                        ),
+                        None,
+                    )
                 if alien:
                     self._fire_delay = 0
                     self._bullets[self._index] = AlienBullet(

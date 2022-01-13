@@ -3,13 +3,14 @@ import system
 from bullet_system import BulletSystem
 from saucer_system import SaucerSystem
 from alien import Alien
+import game_settings
+import assets
 
 
 class AlienSystem(system.System):
     def __init__(self, game):
         self._game = game
         self._aliens = []
-        self._delta = Point()
         self._velocity = Point(2, 0)
         for y in range(5):
             for x in range(11):
@@ -31,15 +32,28 @@ class AlienSystem(system.System):
             next_alien.move(self._velocity)
         else:
             self._alien_iter = iter(self._aliens)
-            self._delta += self._velocity
-            if self._delta.x == 24:
-                self._velocity.x *= -1
-            if self._delta.x == -24:
+            aminx = min(
+                (
+                    alien.position().x
+                    for alien in self._aliens
+                    if alien.alive()
+                )
+            )
+            amaxx = max(
+                (
+                    alien.position().x
+                    for alien in self._aliens
+                    if alien.alive()
+                )
+            )
+            minx = 0
+            maxx = game_settings.width() - assets.aliens()[0][0].shape[0]
+            if aminx == minx or amaxx == maxx:
                 if self._velocity.y == 0:
                     self._velocity.x = 0
                     self._velocity.y = -8
                 else:
-                    self._velocity.x = 2
+                    self._velocity.x = 2 if aminx == minx else -2
                     self._velocity.y = 0
         if not any(alien.alive() for alien in self._aliens):
             self._game.next_round()
@@ -60,9 +74,6 @@ class AlienSystem(system.System):
 
     def aliens(self):
         return self._aliens
-
-    def delta(self):
-        return self._delta
 
     def initialized(self):
         return self._initialized
