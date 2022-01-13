@@ -19,9 +19,9 @@ class Player(game_object.GameObject):
     def __init__(self, game):
         self._alive = True
         self._game = game
-        self._position = Point()
+        self._position = Point(0, 16)
         self._shots_fired = 0
-        self._lives = 1
+        self._lives = 3
         self._action = None
         self._reset()
 
@@ -94,3 +94,6 @@ class Player(game_object.GameObject):
                     PlayerBullet(self._game, self._position + Point(8, 4))
                 )
             self._action = None
+
+    def lives(self):
+        return self._lives
