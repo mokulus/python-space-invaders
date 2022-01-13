@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-# TODO validators
-
 
 @dataclass
 class Point:

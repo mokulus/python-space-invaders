@@ -44,7 +44,6 @@ class BulletSystem(system.System):
         bullet = self._bullets[self._index]
         spawn_table = self._spawn_tables[self._index]
         if not bullet.alive():
-            # TODO score?
             if not any(
                 bullet.alive() for bullet in self._bullets
             ) or self._fire_delay >= game_settings.alien_fire_period(
