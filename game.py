@@ -33,7 +33,6 @@ class Game:
             if game_object.alive()
         ]
 
-    def collision(self):
         for a, b in itertools.combinations(self._game_objects, 2):
             if util.collision(a, b):
                 a.on_collision(b)

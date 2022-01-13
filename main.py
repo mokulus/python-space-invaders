@@ -4,6 +4,7 @@ import game_settings
 from game import Game
 import os
 
+
 def main():
     pygame.init()
     screen_size = (game_settings.width(), game_settings.height())
@@ -16,13 +17,11 @@ def main():
 
     game = Game()
 
-
     def draw_sprite(surfarr, position, sprite):
         img = sprite * 255
         y = canvas_size[1] - position.y - sprite.shape[1]
         x = position.x
         arr[x: x + img.shape[0], y: y + img.shape[1], :] |= img[..., np.newaxis]
-
 
     running = True
 
@@ -53,7 +52,6 @@ def main():
             if game.player:
                 game.player.shoot()
         game.tick()
-        game.collision()
         for obj in game.game_objects():
             draw_sprite(arr, obj.position(), obj.sprite())
         pygame.surfarray.blit_array(canvas, arr)
