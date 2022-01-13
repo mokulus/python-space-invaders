@@ -21,6 +21,9 @@ class AlienSystem(system.System):
         self._init_ticks = 0
 
     def tick(self):
+        if not any(alien.alive() for alien in self._aliens):
+            self._game.next_round()
+            return
         if not self._initialized:
             self._init_animation()
             return
@@ -55,8 +58,6 @@ class AlienSystem(system.System):
                 else:
                     self._velocity.x = 2 if aminx == minx else -2
                     self._velocity.y = 0
-        if not any(alien.alive() for alien in self._aliens):
-            self._game.next_round()
 
     def _init_animation(self):
         self._init_ticks += 1
