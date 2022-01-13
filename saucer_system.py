@@ -5,6 +5,7 @@ import player_bullet
 import util
 import game_settings
 from explosion import Explosion
+import system
 
 
 class Saucer(game_object.GameObject):
@@ -50,7 +51,7 @@ class Saucer(game_object.GameObject):
             self._alive = False
 
 
-class SaucerSystem:
+class SaucerSystem(system.System):
     def __init__(self, game):
         self._game = game
         self._ticks = 0

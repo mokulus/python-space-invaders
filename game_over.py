@@ -1,36 +1,12 @@
-from point import Point
-import util
-import game_object
-import game_settings
+from text_animation import TextAnimation
 
 
-class GameOver(game_object.GameObject):
+class GameOver(TextAnimation):
     def __init__(self, game):
-        self._game = game
-        self._text = "GAME OVER"
-        self._ticks = 0
-        self._sprite = util.text_to_sprite(self._text[0])
-
-    def alive(self):
-        return True
-
-    def position(self):
-        text_width = len(self._text) * 8
-        padding = (game_settings.width() - text_width) // 2
-        return Point(padding, 200)
-
-    def sprite(self):
-        return self._sprite
+        super().__init__(game, 200, "GAME OVER", 30)
 
     def tick(self):
-        self._ticks += 1
-        period = 30
-        self._sprite = util.text_to_sprite(
-            self._text[: 1 + self._ticks // period]
-        )
+        super().tick()
 
-        if len(self._text) * period == self._ticks:
+        if self.done_once():
             self._game.reset()
-
-    def on_collision(self, other):
-        pass

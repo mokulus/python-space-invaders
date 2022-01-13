@@ -1,10 +1,9 @@
 from alien_system import AlienSystem
 from player import Player
 from point import Point
-from bullet_system import BulletSystem
 from shield_system import ShieldSystem
 from gui_system import GuiSystem
-from saucer_system import SaucerSystem
+from menu import MenuSystem
 import itertools
 import util
 
@@ -20,10 +19,10 @@ class Game:
                     raise ValueError
         except (FileNotFoundError, TypeError, ValueError):
             self._highscore = 0
-        self._reset_objects()
+        self._load_menu()
 
     def tick(self):
-        if not self.player.dying():
+        if self.player is None or not self.player.dying():
             for system in self._systems:
                 system.tick()
         for game_object in self._game_objects:
@@ -46,6 +45,9 @@ class Game:
     def spawn(self, game_object):
         self._game_objects.append(game_object)
 
+    def add_system(self, system):
+        self._systems.append(system)
+
     def add_score(self, score_change):
         self._score += score_change
 
@@ -58,6 +60,10 @@ class Game:
     def exit(self):
         self._save_highscore()
 
+    def play(self):
+        if self._menu:
+            self._load_game()
+
     def _save_highscore(self):
         with open("highscore.txt", "w") as file:
             file.write(f"{max(self._highscore, self._score)}\n")
@@ -66,23 +72,29 @@ class Game:
         self._save_highscore()
         self._score = 0
         self._round = 0
-        self._reset_objects()
+        self._load_menu()
 
     def next_round(self):
         self._round += 1
         self._save_highscore()
-        self._reset_objects()
+        self._load_game()
 
-    def _reset_objects(self):
+    def _load_game(self):
+        self._menu = False
         self.player = Player(self)
         self._game_objects = [self.player]
         self._systems = []
         alien_system = AlienSystem(self)
         self._systems.append(alien_system)
-        self._systems.append(BulletSystem(self, alien_system))
         self._systems.append(ShieldSystem(self))
         self._systems.append(GuiSystem(self))
-        self._systems.append(SaucerSystem(self))
+
+    def _load_menu(self):
+        self._menu = True
+        self.player = None
+        self._game_objects = []
+        self._systems = [MenuSystem(self)]
+        self._systems.append(GuiSystem(self))
 
     def round(self):
         return self._round

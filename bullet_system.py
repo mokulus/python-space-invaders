@@ -4,9 +4,10 @@ from animation import Animation
 import assets
 import game_settings
 import itertools
+import system
 
 
-class BulletSystem:
+class BulletSystem(system.System):
     def __init__(self, game, alien_system):
         self._game = game
         self._alien_system = alien_system

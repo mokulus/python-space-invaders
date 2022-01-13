@@ -7,6 +7,9 @@ import game_object
 from explosion import Explosion
 import player_bullet
 from alien_bullet import AlienBullet
+import system
+from bullet_system import BulletSystem
+from saucer_system import SaucerSystem
 
 
 class Alien(game_object.GameObject):
@@ -51,7 +54,7 @@ class Alien(game_object.GameObject):
         return Animation(assets.aliens()[alien_type])
 
 
-class AlienSystem:
+class AlienSystem(system.System):
     def __init__(self, game):
         self._game = game
         self._aliens = []
@@ -98,6 +101,9 @@ class AlienSystem:
         if not alien:
             self._initialized = True
             self._alien_iter = iter(self._aliens)
+            self._game.spawn(self._game.player)
+            self._game.add_system(BulletSystem(self._game, self))
+            self._game.add_system(SaucerSystem(self._game))
         else:
             self._game.spawn(alien)
 

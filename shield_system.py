@@ -6,6 +6,7 @@ from explosion import Explosion
 import alien_system
 import util
 import numpy as np
+import system
 
 
 class Shield(game_object.GameObject):
@@ -57,7 +58,7 @@ class Shield(game_object.GameObject):
             self._sprite = np.fliplr(sprite)
 
 
-class ShieldSystem:
+class ShieldSystem(system.System):
     def __init__(self, game):
         self._game = game
         n = 4

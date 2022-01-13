@@ -1,6 +1,7 @@
 from point import Point
 import numpy as np
 import assets
+import game_settings
 
 
 def intersection(a_pos, a_sprite, b_pos, b_sprite):
@@ -51,3 +52,8 @@ def text_to_sprite(str):
     for i in range(len(str)):
         sprite[8 * i : 8 * (i + 1), :] = font[font_characters.index(str[i])]
     return sprite
+
+def padding(text=None):
+    if text is None:
+        text = ""
+    return (game_settings.width() - 8 * len(text)) // 2 // 8 * 8

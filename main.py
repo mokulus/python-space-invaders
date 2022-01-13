@@ -41,12 +41,17 @@ while running:
     canvas.fill((0, 0, 0))
     arr = pygame.surfarray.array3d(canvas)
     ticks = pygame.time.get_ticks()
+    if pressed[pygame.K_RETURN]:
+        game.play()
     if pressed[pygame.K_LEFT] or pressed[pygame.K_a]:
-        game.player.move_left()
+        if game.player:
+            game.player.move_left()
     if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
-        game.player.move_right()
+        if game.player:
+            game.player.move_right()
     if shoot:
-        game.player.shoot()
+        if game.player:
+            game.player.shoot()
     game.tick()
     game.collision()
     for obj in game.game_objects():

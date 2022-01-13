@@ -6,6 +6,12 @@ from alien_bullet import AlienBullet
 from animation import Animation
 from game_over import GameOver
 import game_object
+from enum import Enum
+
+class Input(Enum):
+    RIGHT = 1
+    LEFT = 2
+    SHOOT = 3
 
 
 class Player(game_object.GameObject):
@@ -15,6 +21,7 @@ class Player(game_object.GameObject):
         self._position = Point()
         self._shots_fired = 0
         self._lives = 1
+        self._action = None
         self._reset()
 
     def alive(self):
@@ -27,10 +34,10 @@ class Player(game_object.GameObject):
         return self._sprite
 
     def move_right(self):
-        self._move(1)
+        self._action = Input.RIGHT
 
     def move_left(self):
-        self._move(-1)
+        self._action = Input.LEFT
 
     def _move(self, dx):
         if self._dying:
@@ -43,12 +50,7 @@ class Player(game_object.GameObject):
         self._position.x = max(min(self._position.x, maxx), 0)
 
     def shoot(self):
-        if self._dying:
-            return
-        self._shots_fired += 1
-        self._game.spawn(
-            PlayerBullet(self._game, self._position + Point(8, 4))
-        )
+        self._action = Input.SHOOT
 
     def shots_fired(self):
         return self._shots_fired
@@ -80,3 +82,14 @@ class Player(game_object.GameObject):
                 self._lives -= 1
                 if self._lives > 0:
                     self._reset()
+        else:
+            if self._action == Input.RIGHT:
+                self._move(1)
+            elif self._action == Input.LEFT:
+                self._move(-1)
+            elif self._action == Input.SHOOT:
+                self._shots_fired += 1
+                self._game.spawn(
+                    PlayerBullet(self._game, self._position + Point(8, 4))
+                )
+            self._action = None
