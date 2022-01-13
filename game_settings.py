@@ -20,7 +20,7 @@ def height():
 def alien_fire_period(score):
     periods = [0x30, 0x10, 0x0B, 0x08, 0x07]
     scores = [200, 1000, 2000, 3000]
-    return periods[bisect.bisect_left(scores, score)]
+    return 3 * periods[bisect.bisect_left(scores, score)]
 
 
 def shot_spawn_table():
