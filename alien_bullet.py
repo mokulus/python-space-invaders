@@ -5,7 +5,6 @@ import shield_system
 import assets
 
 
-# TODO add it to alien system or split all in alien system
 class AlienBullet(Bullet):
     def __init__(self, game, position, animation, offset):
         super().__init__(position, animation, Point(0, -4))
@@ -19,7 +18,6 @@ class AlienBullet(Bullet):
         self._ticks += 1
 
     def on_collision(self, other):
-        # TODO more?
         if isinstance(other, shield_system.Shield) or isinstance(
             other, Bullet
         ):
