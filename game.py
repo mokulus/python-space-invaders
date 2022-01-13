@@ -81,7 +81,7 @@ class Game:
     def _load_game(self):
         self._menu = False
         self.player = Player(self)
-        self._game_objects = [self.player]
+        self._game_objects = []
         self._systems = []
         alien_system = AlienSystem(self)
         self._systems.append(alien_system)
