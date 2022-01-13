@@ -3,6 +3,7 @@ from point import Point
 from explosion import Explosion
 import shield_system
 import assets
+from alien import Alien
 
 
 class AlienBullet(Bullet):
@@ -15,16 +16,20 @@ class AlienBullet(Bullet):
         if self._ticks % 3 == 0:
             super().tick()
         self._ticks += 1
+        if self._position.y == 8:
+            self._explode()
 
     def on_collision(self, other):
-        if isinstance(other, shield_system.Shield) or isinstance(
-            other, Bullet
-        ):
-            self._game.spawn(
-                Explosion(
-                    self._position + Point(-2, 0),
-                    assets.alien_shot_explosion(),
-                    16,
-                )
+        if not isinstance(other, Explosion) and not isinstance(other, Alien):
+            self._explode()
+
+    def _explode(self):
+        self._game.spawn(
+            Explosion(
+                self._position + Point(-2, 0),
+                assets.alien_shot_explosion(),
+                16,
             )
-            self._alive = False
+        )
+        self._alive = False
+

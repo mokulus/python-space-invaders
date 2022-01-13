@@ -10,10 +10,10 @@ import system
 
 
 class Shield(game_object.GameObject):
-    def __init__(self, game, position):
+    def __init__(self, game, position, sprite):
         self._game = game
         self._position = position
-        self._sprite = np.copy(assets.shield())
+        self._sprite = np.copy(sprite)
 
     def alive(self):
         return True
@@ -67,8 +67,9 @@ class ShieldSystem(system.System):
             y = 40
             gap = (game_settings.width() - 2 * start - n * width) // (n - 1)
             self._game.spawn(
-                Shield(self._game, Point(start + (width + gap) * i, y))
+                Shield(self._game, Point(start + (width + gap) * i, y), assets.shield())
             )
+        self._game.spawn(Shield(self._game, Point(0, 8), np.ones((game_settings.width(), 1), dtype=np.uint8)))
 
     def tick(self):
         pass
