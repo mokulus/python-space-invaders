@@ -78,7 +78,7 @@ class BulletSystem(system.System):
                     self._fire_delay = 0
                     self._bullets[self._index] = AlienBullet(
                         self._game,
-                        alien.position() + Point(8, -8),
+                        alien.position() + Point(8, 0),
                         Animation(assets.alien_shots()[self._index]),
                     )
                     self._game.spawn(self._bullets[self._index])
