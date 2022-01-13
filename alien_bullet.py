@@ -1,7 +1,6 @@
 from bullet import Bullet
 from point import Point
 from explosion import Explosion
-import shield_system
 import assets
 from alien import Alien
 
@@ -32,4 +31,3 @@ class AlienBullet(Bullet):
             )
         )
         self._alive = False
-

@@ -66,10 +66,13 @@ class ShieldSystem(system.System):
             width = 22
             y = 40
             gap = (game_settings.width() - 2 * start - n * width) // (n - 1)
-            self._game.spawn(
-                Shield(self._game, Point(start + (width + gap) * i, y), assets.shield())
-            )
-        self._game.spawn(Shield(self._game, Point(0, 8), np.ones((game_settings.width(), 1), dtype=np.uint8)))
+            self._game.spawn(Shield(self._game, Point(
+                start + (width + gap) * i, y), assets.shield()))
+        self._game.spawn(
+            Shield(
+                self._game, Point(
+                    0, 8), np.ones(
+                    (game_settings.width(), 1), dtype=np.uint8)))
 
     def tick(self):
         pass

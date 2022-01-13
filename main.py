@@ -21,7 +21,9 @@ def main():
         img = sprite * 255
         y = canvas_size[1] - position.y - sprite.shape[1]
         x = position.x
-        arr[x: x + img.shape[0], y: y + img.shape[1], :] |= img[..., np.newaxis]
+        sx = img.shape[0]
+        sy = img.shape[1]
+        arr[x: x + sx, y: y + sy, :] |= img[..., np.newaxis]
 
     running = True
 
@@ -39,7 +41,6 @@ def main():
         screen.fill((0, 0, 0))
         canvas.fill((0, 0, 0))
         arr = pygame.surfarray.array3d(canvas)
-        ticks = pygame.time.get_ticks()
         if pressed[pygame.K_RETURN]:
             game.play()
         if pressed[pygame.K_LEFT] or pressed[pygame.K_a]:
