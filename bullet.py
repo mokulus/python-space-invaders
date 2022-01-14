@@ -1,3 +1,4 @@
+from abc import abstractmethod
 import game_object
 import game_settings
 import util
@@ -20,16 +21,12 @@ class Bullet(game_object.GameObject):
         self._position += self._velocity
         self._animation.next()
 
-        if not util.inside(
-            self._position.y,
-            self.sprite().shape[1],
-            game_settings.height(),
-        ) or not util.inside(
-            self._position.x,
-            self.sprite().shape[0],
-            game_settings.width(),
-        ):
-            self._alive = False
+        if self._position.y <= game_settings.game_area_y_bounds()[0] or self._position.y >= game_settings.game_area_y_bounds()[1]:
+            self.explode()
 
     def sprite(self):
         return self._animation.sprite()
+
+    @abstractmethod
+    def explode(self):
+        self._alive = False

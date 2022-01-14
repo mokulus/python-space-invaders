@@ -20,10 +20,14 @@ class PlayerBullet(Bullet):
             return
         self._alive = False
         if isinstance(other, Shield):
-            self._game.spawn(
-                Explosion(
-                    self._position + Point(-4, 2),
-                    assets.player_shot_explosion(),
-                    16,
-                )
+            self.explode()
+
+    def explode(self):
+        super().explode()
+        self._game.spawn(
+            Explosion(
+                self._position + Point(-4, 2),
+                assets.player_shot_explosion(),
+                16,
             )
+        )

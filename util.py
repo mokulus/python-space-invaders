@@ -41,10 +41,6 @@ def collision(a, b):
     ).any()
 
 
-def inside(pos, size, max_pos):
-    return 0 <= pos < max_pos - size
-
-
 def text_to_sprite(str):
     sprite = np.zeros((8 * len(str), 8), dtype=np.uint8)
     font = assets.font()

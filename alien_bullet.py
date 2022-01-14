@@ -15,14 +15,13 @@ class AlienBullet(Bullet):
         if self._ticks % 3 == 0:
             super().tick()
         self._ticks += 1
-        if self._position.y == 8:
-            self._explode()
 
     def on_collision(self, other):
         if not isinstance(other, Explosion) and not isinstance(other, Alien):
-            self._explode()
+            self.explode()
 
-    def _explode(self):
+    def explode(self):
+        super().explode()
         self._game.spawn(
             Explosion(
                 self._position + Point(-2, 0),
