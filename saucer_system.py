@@ -52,7 +52,11 @@ class Saucer(game_object.GameObject):
         self._ticks += 1
         if self._ticks % 3 == 0:
             self._position += self._velocity
-        if not 0 <= self._position.x < game_settings.width() - self.sprite().shape[0]:
+        if (
+            not 0
+            <= self._position.x
+            < game_settings.width() - self.sprite().shape[0]
+        ):
             self._alive = False
 
     def on_collision(self, other):

@@ -78,5 +78,6 @@ def saucer_score(shots_fired):
     ]
     return scores[shots_fired % len(scores)]
 
+
 def game_area_y_bounds():
     return (8, 212)

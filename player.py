@@ -52,6 +52,7 @@ class DeathAnimation(game_object.GameObject):
     def on_collision(self, other):
         pass
 
+
 class Player(game_object.GameObject):
     def __init__(self, game):
         self._alive = True

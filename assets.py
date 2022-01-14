@@ -122,5 +122,6 @@ def player_explosion():
         sprites.append(data)
     return sprites
 
+
 def empty_sprite():
     return np.zeros((0, 0), dtype=np.uint8)
