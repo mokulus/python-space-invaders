@@ -1,6 +1,6 @@
 import game_settings
-from point import Point
 import system
+from point import Point
 from text_object import TextObject, VariableTextObject
 
 

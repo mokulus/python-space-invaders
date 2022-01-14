@@ -1,11 +1,11 @@
-import game_object
 import assets
-from point import Point
-import player_bullet
-import util
+import game_object
 import game_settings
-from explosion import Explosion
+import player_bullet
 import system
+import util
+from explosion import Explosion
+from point import Point
 
 
 class SaucerExplosion(Explosion):

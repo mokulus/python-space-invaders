@@ -1,10 +1,10 @@
-import system
 import assets
+import system
 import util
-from text_animation import TextAnimation
-from text_object import TextObject
 from point import Point
 from static_sprite import StaticSprite
+from text_animation import TextAnimation
+from text_object import TextObject
 
 
 class MenuSystem(system.System):

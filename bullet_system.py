@@ -1,10 +1,11 @@
-from alien_bullet import AlienBullet
-from point import Point
-from animation import Animation
+import itertools
+
 import assets
 import game_settings
-import itertools
 import system
+from alien_bullet import AlienBullet
+from animation import Animation
+from point import Point
 
 
 class BulletSystem(system.System):

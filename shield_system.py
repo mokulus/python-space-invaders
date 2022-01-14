@@ -1,12 +1,13 @@
+import numpy as np
+
+import alien_system
+import assets
 import game_object
 import game_settings
-import assets
-from point import Point
-from explosion import Explosion
-import alien_system
-import util
-import numpy as np
 import system
+import util
+from explosion import Explosion
+from point import Point
 
 
 class Shield(game_object.GameObject):

@@ -1,5 +1,5 @@
-from static_sprite import StaticSprite
 import util
+from static_sprite import StaticSprite
 
 
 class TextObject(StaticSprite):

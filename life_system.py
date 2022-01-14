@@ -1,8 +1,8 @@
-import system
-from text_object import VariableTextObject
-from static_sprite import StaticSprite
-from point import Point
 import assets
+import system
+from point import Point
+from static_sprite import StaticSprite
+from text_object import VariableTextObject
 
 
 class LifeSystem(system.System):

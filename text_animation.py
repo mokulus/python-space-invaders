@@ -1,6 +1,6 @@
-from point import Point
-import util
 import game_object
+import util
+from point import Point
 
 
 class TextAnimation(game_object.GameObject):

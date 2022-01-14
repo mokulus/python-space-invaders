@@ -1,4 +1,5 @@
 from abc import abstractmethod
+
 import game_object
 import game_settings
 

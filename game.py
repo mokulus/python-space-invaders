@@ -1,11 +1,12 @@
+import itertools
+
+import util
 from alien_system import AlienSystem
-from player import Player
-from shield_system import ShieldSystem
 from gui_system import GuiSystem
 from life_system import LifeSystem
 from menu import MenuSystem
-import itertools
-import util
+from player import Player
+from shield_system import ShieldSystem
 
 
 class Game:

@@ -1,10 +1,10 @@
-from point import Point
-from animation import Animation
 import assets
-import game_settings
 import game_object
-from explosion import Explosion
+import game_settings
 import player_bullet
+from animation import Animation
+from explosion import Explosion
+from point import Point
 
 
 class Alien(game_object.GameObject):

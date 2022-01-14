@@ -1,10 +1,10 @@
-from point import Point
-import system
-from bullet_system import BulletSystem
-from saucer_system import SaucerSystem
-from alien import Alien
-import game_settings
 import assets
+import game_settings
+import system
+from alien import Alien
+from bullet_system import BulletSystem
+from point import Point
+from saucer_system import SaucerSystem
 
 
 class AlienSystem(system.System):

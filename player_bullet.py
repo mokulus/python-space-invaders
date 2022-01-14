@@ -1,9 +1,9 @@
-from bullet import Bullet
-from animation import Animation
-from point import Point
-from explosion import Explosion
-from shield_system import Shield
 import assets
+from animation import Animation
+from bullet import Bullet
+from explosion import Explosion
+from point import Point
+from shield_system import Shield
 
 
 class PlayerBullet(Bullet):

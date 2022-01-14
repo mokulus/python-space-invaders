@@ -1,5 +1,6 @@
-import numpy as np
 from functools import cache
+
+import numpy as np
 
 
 def _load_chunk(lines):

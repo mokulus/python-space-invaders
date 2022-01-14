@@ -1,7 +1,8 @@
-from point import Point
 import numpy as np
+
 import assets
 import game_settings
+from point import Point
 
 
 def intersection(a_pos, a_sprite, b_pos, b_sprite):

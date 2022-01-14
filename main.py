@@ -1,8 +1,10 @@
-import pygame
+import os
+
 import numpy as np
+import pygame
+
 import game_settings
 from game import Game
-import os
 
 
 def main():

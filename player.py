@@ -1,12 +1,13 @@
+from enum import Enum
+
 import assets
+import game_object
 import game_settings
-from point import Point
-from player_bullet import PlayerBullet
 from alien_bullet import AlienBullet
 from animation import Animation
+from player_bullet import PlayerBullet
+from point import Point
 from text_animation import TextAnimation
-import game_object
-from enum import Enum
 
 
 class Input(Enum):
