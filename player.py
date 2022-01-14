@@ -4,7 +4,7 @@ from point import Point
 from player_bullet import PlayerBullet
 from alien_bullet import AlienBullet
 from animation import Animation
-from game_over import GameOver
+from text_animation import TextAnimation
 import game_object
 from enum import Enum
 
@@ -13,6 +13,17 @@ class Input(Enum):
     RIGHT = 1
     LEFT = 2
     SHOOT = 3
+
+
+class GameOver(TextAnimation):
+    def __init__(self, game):
+        super().__init__(game, 200, "GAME OVER", 30)
+
+    def tick(self):
+        super().tick()
+
+        if self.done_once():
+            self._game.reset()
 
 
 class DeathAnimation(game_object.GameObject):
