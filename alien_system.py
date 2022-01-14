@@ -14,7 +14,7 @@ class AlienSystem(system.System):
         self._velocity = Point(2, 0)
         for y in range(5):
             for x in range(11):
-                alien = Alien(self._game, Point(x, y), self)
+                alien = Alien(self._game, Point(x, y))
                 self._aliens.append(alien)
         self._alien_iter = iter(self._aliens)
         self._initialized = False

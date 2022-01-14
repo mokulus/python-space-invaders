@@ -8,10 +8,9 @@ from point import Point
 
 
 class Alien(game_object.GameObject):
-    def __init__(self, game, coords, alien_system):
+    def __init__(self, game, coords):
         self._alive = True
         self._coords = coords
-        self._alien_system = alien_system
         self._position = Point(
             24 + coords.x * 16,
             game_settings.alien_initial_y(game.round()) + coords.y * 16,
