@@ -17,7 +17,7 @@ class AlienBullet(Bullet):
         self._ticks += 1
 
     def on_collision(self, other):
-        if not isinstance(other, Explosion) and not isinstance(other, Alien):
+        if not isinstance(other, (Explosion, Alien)):
             self.explode()
 
     def explode(self):

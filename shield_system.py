@@ -28,9 +28,7 @@ class Shield(game_object.GameObject):
         pass
 
     def on_collision(self, other):
-        if isinstance(other, Explosion) or isinstance(
-            other, alien_system.Alien
-        ):
+        if isinstance(other, (Explosion, alien_system.Alien)):
             intersection_rect = util.intersection(
                 self.position(),
                 self.sprite(),
