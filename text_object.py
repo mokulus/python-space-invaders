@@ -1,20 +1,11 @@
-import game_object
+from static_sprite import StaticSprite
 import util
 
 
-class TextObject(game_object.GameObject):
+class TextObject(StaticSprite):
     def __init__(self, position, text):
-        self._position = position
+        super().__init__(position, None)
         self.set_text(text)
-
-    def alive(self):
-        return True
-
-    def position(self):
-        return self._position
-
-    def sprite(self):
-        return self._sprite
 
     def set_text(self, text):
         self._text = text
@@ -22,12 +13,6 @@ class TextObject(game_object.GameObject):
 
     def text(self):
         return self._text
-
-    def tick(self):
-        pass
-
-    def on_collision(self, other):
-        pass
 
 
 class VariableTextObject(TextObject):
