@@ -5,7 +5,7 @@ from point import Point
 import assets
 
 
-class LivesSystem(system.System):
+class LifeSystem(system.System):
     def __init__(self, game):
         self._game = game
         self._number_object = VariableTextObject(

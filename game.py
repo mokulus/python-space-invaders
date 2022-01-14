@@ -2,7 +2,7 @@ from alien_system import AlienSystem
 from player import Player
 from shield_system import ShieldSystem
 from gui_system import GuiSystem
-from lives_system import LivesSystem
+from life_system import LifeSystem
 from menu import MenuSystem
 import itertools
 import util
@@ -88,7 +88,7 @@ class Game:
         self._systems.append(alien_system)
         self._systems.append(ShieldSystem(self))
         self._systems.append(GuiSystem(self))
-        self._systems.append(LivesSystem(self))
+        self._systems.append(LifeSystem(self))
 
     def _load_menu(self):
         self._menu = True
