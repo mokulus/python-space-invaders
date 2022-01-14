@@ -15,6 +15,32 @@ class Input(Enum):
     SHOOT = 3
 
 
+class DeathAnimation(game_object.GameObject):
+    def __init__(self, game):
+        self._game = game
+        self._animation = Animation(assets.player_explosion())
+        self._countdown = 3 * 60 if self._game.player.lives() > 0 else 10 * 60
+
+    def alive(self):
+        return self._countdown > 0
+
+    def position(self):
+        return self._game.player.position()
+
+    def sprite(self):
+        return self._animation.sprite()
+
+    def tick(self):
+        if self._countdown % 10 == 0:
+            self._animation.next()
+        self._countdown -= 1
+        if self._countdown == 0:
+            if self._game.player._lives > 0:
+                self._game.player._dying = False
+
+    def on_collision(self, other):
+        pass
+
 class Player(game_object.GameObject):
     def __init__(self, game):
         self._alive = True
@@ -23,7 +49,7 @@ class Player(game_object.GameObject):
         self._shots_fired = 0
         self._lives = 3
         self._action = None
-        self._reset()
+        self._dying = False
 
     def alive(self):
         return self._alive
@@ -32,7 +58,7 @@ class Player(game_object.GameObject):
         return self._position
 
     def sprite(self):
-        return self._sprite
+        return assets.player() if not self._dying else assets.empty_sprite()
 
     def move_right(self):
         self._action = Input.RIGHT
@@ -47,7 +73,7 @@ class Player(game_object.GameObject):
         self._clamp_position()
 
     def _clamp_position(self):
-        maxx = game_settings.width() - self._sprite.shape[0] - 1
+        maxx = game_settings.width() - self.sprite().shape[0] - 1
         self._position.x = max(min(self._position.x, maxx), 0)
 
     def shoot(self):
@@ -61,29 +87,16 @@ class Player(game_object.GameObject):
             return
         if isinstance(other, AlienBullet):
             self._dying = True
-            self._sprite = self._death_animation.sprite()
-            if self._lives == 1:
+            self._lives -= 1
+            self._game.spawn(DeathAnimation(self._game))
+            if self._lives == 0:
                 self._game.spawn(GameOver(self._game))
-
-    def _reset(self):
-        self._dying = False
-        self._dying_length = 3 * 60
-        self._death_animation = Animation(assets.player_explosion())
-        self._sprite = assets.player()
 
     def dying(self):
         return self._dying
 
     def tick(self):
-        if self._dying:
-            if self._dying_length % 10 == 0:
-                self._sprite = self._death_animation.next()
-            self._dying_length -= 1
-            if self._dying_length == 0:
-                self._lives -= 1
-                if self._lives > 0:
-                    self._reset()
-        else:
+        if not self._dying:
             if self._action == Input.RIGHT:
                 self._move(1)
             elif self._action == Input.LEFT:
@@ -93,7 +106,7 @@ class Player(game_object.GameObject):
                 self._game.spawn(
                     PlayerBullet(self._game, self._position + Point(8, 4))
                 )
-            self._action = None
+        self._action = None
 
     def lives(self):
         return self._lives

@@ -121,3 +121,6 @@ def player_explosion():
         data = np.reshape(data, (16, 8))
         sprites.append(data)
     return sprites
+
+def empty_sprite():
+    return np.zeros((0, 0), dtype=np.uint8)

@@ -38,6 +38,8 @@ class BulletSystem(system.System):
             bullet._alive = False
 
     def tick(self):
+        if self._game.player.dying():
+            return
         if not self._alien_system.initialized():
             return
         self._fire_delay += 1

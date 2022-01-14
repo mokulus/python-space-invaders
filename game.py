@@ -22,9 +22,8 @@ class Game:
         self._load_menu()
 
     def tick(self):
-        if self.player is None or not self.player.dying():
-            for system in self._systems:
-                system.tick()
+        for system in self._systems:
+            system.tick()
         for game_object in self._game_objects:
             game_object.tick()
         self._game_objects = [

@@ -21,6 +21,8 @@ class AlienSystem(system.System):
         self._init_ticks = 0
 
     def tick(self):
+        if self._game.player.dying():
+            return
         if not any(alien.alive() for alien in self._aliens):
             self._game.next_round()
             return

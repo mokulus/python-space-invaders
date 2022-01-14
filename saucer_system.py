@@ -68,6 +68,8 @@ class SaucerSystem(system.System):
         self._saucer = None
 
     def tick(self):
+        if self._game.player.dying():
+            return
         if self._saucer is None or not self._saucer.alive():
             self._ticks += 1
             if self._ticks == 60:
