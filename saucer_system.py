@@ -28,7 +28,6 @@ class Saucer(game_object.GameObject):
     def __init__(self, game):
         self._game = game
         self._alive = True
-        self._ticks = 0
         y = 208
         if game.player.shots_fired() % 2 == 0:
             self._position = Point(0, y)
@@ -49,8 +48,7 @@ class Saucer(game_object.GameObject):
         return assets.saucer()
 
     def tick(self):
-        self._ticks += 1
-        if self._ticks % 3 == 0:
+        if self._game.ticks() % 3 == 0:
             self._position += self._velocity
         if (
             not 0

@@ -13,6 +13,7 @@ class Game:
     def __init__(self):
         self._score = 0
         self._round = 0
+        self._ticks = 0
         try:
             with open("highscore.txt", "r") as file:
                 self._highscore = int(file.read().strip())
@@ -37,6 +38,7 @@ class Game:
             if util.collision(a, b):
                 a.on_collision(b)
                 b.on_collision(a)
+        self._ticks += 1
 
     def game_objects(self):
         return self._game_objects
@@ -100,3 +102,6 @@ class Game:
 
     def round(self):
         return self._round
+
+    def ticks(self):
+        return self._ticks

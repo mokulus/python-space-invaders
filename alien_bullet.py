@@ -8,13 +8,11 @@ from point import Point
 class AlienBullet(Bullet):
     def __init__(self, game, position, animation):
         super().__init__(position, animation, Point(0, -4))
-        self._ticks = 0
         self._game = game
 
     def tick(self):
-        if self._ticks % 3 == 0:
+        if self._game.ticks() % 3 == 0:
             super().tick()
-        self._ticks += 1
 
     def on_collision(self, other):
         if not isinstance(other, (Explosion, Alien)):

@@ -18,7 +18,6 @@ class AlienSystem(system.System):
                 self._aliens.append(alien)
         self._alien_iter = iter(self._aliens)
         self._initialized = False
-        self._init_ticks = 0
 
     def tick(self):
         if self._game.player.dying():
@@ -62,8 +61,7 @@ class AlienSystem(system.System):
                     self._velocity.y = 0
 
     def _init_animation(self):
-        self._init_ticks += 1
-        if self._init_ticks % 2 != 0:
+        if self._game.ticks() % 2 != 0:
             return
         alien = next(self._alien_iter, None)
         if not alien:
