@@ -16,7 +16,8 @@ class Alien(game_object.GameObject):
             game_settings.alien_initial_y(game.round()) + coords.y * 16,
         )
         self._game = game
-        self._animation = Alien._get_sprite(coords.y)
+        alien_type = [0, 0, 1, 1, 2][coords.y]
+        self._animation = Animation(assets.aliens()[alien_type])
 
     def alive(self):
         return self._alive
@@ -44,8 +45,3 @@ class Alien(game_object.GameObject):
 
     def coords(self):
         return self._coords
-
-    @staticmethod
-    def _get_sprite(y):
-        alien_type = [0, 0, 1, 1, 2][y]
-        return Animation(assets.aliens()[alien_type])
