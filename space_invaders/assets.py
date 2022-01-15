@@ -70,7 +70,7 @@ def alien_shots():
     lines = _data_lines("./assets/alien_shots.txt")
     size = 4
     for offset in range(3):
-        data = _load_chunk(lines[offset * size: (offset + 1) * size])
+        data = _load_chunk(lines[offset * size : (offset + 1) * size])
         data = np.reshape(data, (4, 3, 8))
         shots.append(data)
     return shots

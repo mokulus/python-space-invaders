@@ -34,7 +34,7 @@ def main():
         x = position.x
         sx = img.shape[0]
         sy = img.shape[1]
-        arr[x: x + sx, y: y + sy, :] |= img[..., np.newaxis]
+        arr[x : x + sx, y : y + sy, :] |= img[..., np.newaxis]
 
     running = True
 
