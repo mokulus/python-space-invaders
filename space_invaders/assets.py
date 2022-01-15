@@ -4,13 +4,7 @@ import numpy as np
 
 
 def _load_chunk(lines):
-    chunk_lines = []
-    for line in lines:
-        if line:
-            chunk_lines.append(line)
-        else:
-            break
-    chunk = " ".join(chunk_lines)
+    chunk = " ".join(lines)
     data = [int(value, 16) for value in chunk.split()]
     data = np.array(data, dtype=np.uint8)
     data = np.unpackbits(data)
@@ -24,6 +18,15 @@ def _data_lines(file_name):
         return lines
 
 
+def _lines_to_sprites(lines, shape):
+    sprites = []
+    for line in lines:
+        data = _load_chunk([line])
+        data = np.reshape(data, shape)
+        sprites.append(data)
+    return sprites
+
+
 def _load_single_sprite(file_name, shape, flip=False):
     data = _load_chunk(_data_lines(file_name))
     if flip:
@@ -34,14 +37,13 @@ def _load_single_sprite(file_name, shape, flip=False):
 
 @cache
 def aliens():
-    aliens = []
+    pairs = []
     lines = _data_lines("./assets/aliens.txt")
     for pair in zip(lines[::2], lines[1::2]):
-        # TODO split aliens with blank line instead
         data = _load_chunk(pair)
         data = np.reshape(data, (2, 16, 8))
-        aliens.append(data)
-    return aliens
+        pairs.append(data)
+    return pairs
 
 
 @cache
@@ -89,12 +91,7 @@ def shield():
 @cache
 def font():
     lines = _data_lines("./assets/font.txt")
-    sprites = []
-    for line in lines:
-        data = _load_chunk([line])
-        data = np.reshape(data, (8, 8))
-        sprites.append(data)
-    return sprites
+    return _lines_to_sprites(lines, (8, 8))
 
 
 def font_characters():
@@ -113,15 +110,8 @@ def saucer_explosion():
 
 @cache
 def player_explosion():
-    # TODO code reuse
-    # there are a few lines to array assets
-    sprites = []
     lines = _data_lines("./assets/player_explosion.txt")
-    for line in lines:
-        data = _load_chunk([line])
-        data = np.reshape(data, (16, 8))
-        sprites.append(data)
-    return sprites
+    return _lines_to_sprites(lines, (16, 8))
 
 
 def empty_sprite():

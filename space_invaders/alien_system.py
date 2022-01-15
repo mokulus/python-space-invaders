@@ -42,18 +42,10 @@ class AlienSystem(system.System):
         else:
             self._alien_iter = iter(self._aliens)
             aminx = min(
-                (
-                    alien.position().x
-                    for alien in self._aliens
-                    if alien.alive
-                )
+                (alien.position().x for alien in self._aliens if alien.alive)
             )
             amaxx = max(
-                (
-                    alien.position().x
-                    for alien in self._aliens
-                    if alien.alive
-                )
+                (alien.position().x for alien in self._aliens if alien.alive)
             )
             minx = 0
             maxx = (

@@ -24,10 +24,6 @@ class PlayerBullet(Bullet):
 
     def explode(self):
         super().explode()
-        self._game.spawn(
-            Explosion(
-                self._position + Point(-4, 2),
-                assets.player_shot_explosion(),
-                16,
-            )
-        )
+        pos = self._position + Point(-4, 2)
+        sprite = assets.player_shot_explosion()
+        self._game.spawn(Explosion(pos, sprite, 16))

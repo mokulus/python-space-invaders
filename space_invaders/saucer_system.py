@@ -19,8 +19,8 @@ class SaucerExplosion(Explosion):
 
 class Saucer(game_object.GameObject):
     def __init__(self, game):
+        super().__init__()
         self._game = game
-        self.alive = True
         y = 208
         if game.player.shots_fired() % 2 == 0:
             self._position = Point(0, y)

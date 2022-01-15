@@ -15,6 +15,9 @@ class Game:
         self._score = 0
         self._round = 0
         self._ticks = 0
+        self.player = None
+        self._game_objects = []
+        self._systems = []
         try:
             with open("highscore.txt", "r") as file:
                 self._highscore = int(file.read().strip())
@@ -38,10 +41,10 @@ class Game:
             if game_object.alive
         ]
 
-        for a, b in itertools.combinations(self._game_objects, 2):
-            if util.collision(a, b):
-                a.on_collision(b)
-                b.on_collision(a)
+        for first, second in itertools.combinations(self._game_objects, 2):
+            if util.collision(first, second):
+                first.on_collision(second)
+                second.on_collision(first)
         self._ticks += 1
 
     def game_objects(self):
@@ -83,7 +86,7 @@ class Game:
 
     def next_round(self):
         self._round += 1
-        self.player._position.x = 0
+        self.player.position().x = 0
         self._load_game()
 
     def _load_game(self):

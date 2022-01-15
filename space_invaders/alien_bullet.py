@@ -19,11 +19,6 @@ class AlienBullet(Bullet):
 
     def explode(self):
         super().explode()
-        self._game.spawn(
-            Explosion(
-                self._position + Point(-2, 0),
-                assets.alien_shot_explosion(),
-                16,
-            )
-        )
-        self.alive = False
+        pos = self._position + Point(-2, 0)
+        sprite = assets.alien_shot_explosion()
+        self._game.spawn(Explosion(pos, sprite, 16))

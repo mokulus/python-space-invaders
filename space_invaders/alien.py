@@ -6,7 +6,7 @@ from space_invaders.point import Point
 
 class Alien(game_object.GameObject):
     def __init__(self, game, coords):
-        self.alive = True
+        super().__init__()
         self._coords = coords
         self._position = Point(
             24 + coords.x * 16,

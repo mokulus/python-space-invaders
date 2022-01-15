@@ -17,8 +17,7 @@ def intersection(a_pos, a_sprite, b_pos, b_sprite):
     )
     if minx <= maxx and miny <= maxy:
         return (Point(minx, maxx), Point(miny, maxy))
-    else:
-        return None
+    return None
 
 
 def sprite_view(obj, intersection_rect):
@@ -30,23 +29,24 @@ def sprite_view(obj, intersection_rect):
     ]
 
 
-def collision(a, b):
+def collision(first, second):
     intersection_rect = intersection(
-        a.position(), a.sprite(), b.position(), b.sprite()
+        first.position(), first.sprite(), second.position(), second.sprite()
     )
     if intersection_rect is None:
         return False
     return (
-        sprite_view(a, intersection_rect) * sprite_view(b, intersection_rect)
+        sprite_view(first, intersection_rect)
+        * sprite_view(second, intersection_rect)
     ).any()
 
 
-def text_to_sprite(str):
-    sprite = np.zeros((8 * len(str), 8), dtype=np.uint8)
+def text_to_sprite(text):
+    sprite = np.zeros((8 * len(text), 8), dtype=np.uint8)
     font = assets.font()
     font_characters = assets.font_characters()
-    for i in range(len(str)):
-        sprite[8 * i : 8 * (i + 1), :] = font[font_characters.index(str[i])]
+    for i, char in enumerate(text):
+        sprite[8 * i : 8 * (i + 1), :] = font[font_characters.index(char)]
     return sprite
 
 

@@ -3,7 +3,7 @@ from space_invaders import game_object
 
 class Explosion(game_object.GameObject):
     def __init__(self, position, sprite, frames):
-        self.alive = True
+        super().__init__()
         self._position = position
         self._sprite = sprite
         self._frames = frames

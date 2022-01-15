@@ -3,7 +3,7 @@ from space_invaders import game_object
 
 class StaticSprite(game_object.GameObject):
     def __init__(self, position, sprite):
-        self.alive = True
+        super().__init__()
         self._position = position
         self._sprite = sprite
 

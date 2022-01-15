@@ -10,8 +10,7 @@ class Point:
         Point._validate_key(key)
         if key == 0:
             return self.x
-        else:
-            return self.y
+        return self.y
 
     def __setitem__(self, key, value):
         Point._validate_key(key)

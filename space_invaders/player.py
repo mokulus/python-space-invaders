@@ -27,11 +27,12 @@ class GameOver(TextAnimation):
 
 
 class DeathAnimation(game_object.GameObject):
-    def __init__(self, game):
-        self.alive = True
+    def __init__(self, game, reset_callback):
+        super().__init__()
         self._game = game
         self._animation = Animation(assets.player_explosion())
         self._countdown = 3 * 60 if self._game.player.lives() > 0 else 10 * 60
+        self._reset_callback = reset_callback
 
     def position(self):
         return self._game.player.position()
@@ -45,12 +46,13 @@ class DeathAnimation(game_object.GameObject):
         self._countdown -= 1
         if self._countdown == 0:
             self.alive = False
-            if self._game.player._lives > 0:
-                self._game.player._dying = False
+            if self._game.player.lives() > 0:
+                self._reset_callback()
+
 
 class Player(game_object.GameObject):
     def __init__(self, game):
-        self.alive = True
+        super().__init__()
         self._game = game
         self._position = Point(0, 16)
         self._bullet = None
@@ -81,6 +83,9 @@ class Player(game_object.GameObject):
         maxx = self._game.settings.width() - self.sprite().shape[0] - 1
         self._position.x = max(min(self._position.x, maxx), 0)
 
+    def _reset(self):
+        self._dying = False
+
     def shoot(self):
         self._action |= Input.SHOOT
 
@@ -96,7 +101,7 @@ class Player(game_object.GameObject):
         ):
             self._dying = True
             self._lives -= 1
-            self._game.spawn(DeathAnimation(self._game))
+            self._game.spawn(DeathAnimation(self._game, self._reset))
             if self._lives == 0:
                 self._game.spawn(GameOver(self._game))
 
@@ -129,5 +134,5 @@ class Player(game_object.GameObject):
 
     def game_over(self):
         self._dying = True
-        self._game.spawn(DeathAnimation(self._game))
+        self._game.spawn(DeathAnimation(self._game, self._reset))
         self._game.spawn(GameOver(self._game))

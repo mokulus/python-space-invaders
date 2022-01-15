@@ -10,6 +10,7 @@ class MenuSystem(system.System):
         self._game = game
         self._y = 192
         self._delay = 5
+        self._padding = 0
         self._animations = []
 
     def tick(self):

@@ -7,7 +7,7 @@ from space_invaders.point import Point
 
 class Shield(game_object.GameObject):
     def __init__(self, game, position, sprite):
-        self.alive = True
+        super().__init__()
         self._game = game
         self._position = position
         self._sprite = np.copy(sprite)
@@ -27,8 +27,8 @@ class Shield(game_object.GameObject):
                 other.sprite(),
             )
             (minx, maxx), (miny, maxy) = intersection_rect
-            sx = self.position()[0]
-            sy = self.position()[1]
+            self_x = self.position()[0]
+            self_y = self.position()[1]
             if isinstance(other, alien_system.Alien):
                 new_sprite = np.zeros_like(
                     util.sprite_view(other, intersection_rect)
@@ -41,26 +41,27 @@ class Shield(game_object.GameObject):
                     util.sprite_view(self, intersection_rect), inverted
                 )
             sprite = np.fliplr(self._sprite)
-            sprite[minx - sx : maxx - sx, miny - sy : maxy - sy] = new_sprite
+            sprite[
+                minx - self_x : maxx - self_x, miny - self_y : maxy - self_y
+            ] = new_sprite
             self._sprite = np.fliplr(sprite)
 
 
 class ShieldSystem(system.System):
     def __init__(self, game):
         self._game = game
-        n = 4
-        for i in range(n):
-            # TODO are the values correct?
+        shield_count = 4
+        for i in range(shield_count):
             start = 32
             width = 22
-            y = 40
-            gap = (self._game.settings.width() - 2 * start - n * width) // (
-                n - 1
-            )
+            height = 40
+            gap = (
+                self._game.settings.width() - 2 * start - shield_count * width
+            ) // (shield_count - 1)
             self._game.spawn(
                 Shield(
                     self._game,
-                    Point(start + (width + gap) * i, y),
+                    Point(start + (width + gap) * i, height),
                     assets.shield(),
                 )
             )

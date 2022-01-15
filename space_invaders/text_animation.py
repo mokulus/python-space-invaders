@@ -4,7 +4,7 @@ from space_invaders.point import Point
 
 class TextAnimation(game_object.GameObject):
     def __init__(self, game, y, text, delay):
-        self.alive = True
+        super().__init__()
         self._game = game
         self._text = text
         self._ticks = 0

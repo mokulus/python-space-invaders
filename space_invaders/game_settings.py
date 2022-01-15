@@ -9,13 +9,14 @@ class GameSettings:
         lut = [0x78, 0x60, 0x50, 0x48, 0x48, 0x48, 0x40]
         if self._game.round() >= len(lut):
             return lut[-1]
-        else:
-            return lut[self._game.round()]
+        return lut[self._game.round()]
 
-    def width(self):
+    @staticmethod
+    def width():
         return 224
 
-    def height(self):
+    @staticmethod
+    def height():
         return 256
 
     def alien_fire_period(self):
@@ -23,7 +24,8 @@ class GameSettings:
         scores = [200, 1000, 2000, 3000]
         return 3 * periods[bisect.bisect_left(scores, self._game.score())]
 
-    def shot_spawn_table(self):
+    @staticmethod
+    def shot_spawn_table():
         return [
             0x01,
             0x07,
@@ -75,25 +77,32 @@ class GameSettings:
         ]
         return scores[self._game.player.shots_fired() % len(scores)]
 
-    def game_area_y_bounds(self):
+    @staticmethod
+    def game_area_y_bounds():
         return (8, 212)
 
-    def saucer_period(self):
+    @staticmethod
+    def saucer_period():
         return 600
 
-    def infinite_bullets(self):
+    @staticmethod
+    def infinite_bullets():
         return False
 
-    def invincibility(self):
+    @staticmethod
+    def invincibility():
         return False
 
 
 class CheatGameSettings(GameSettings):
-    def saucer_period(self):
+    @staticmethod
+    def saucer_period():
         return 60
 
-    def infinite_bullets(self):
+    @staticmethod
+    def infinite_bullets():
         return True
 
-    def invincibility(self):
+    @staticmethod
+    def invincibility():
         return True
