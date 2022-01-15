@@ -84,6 +84,9 @@ class GameSettings():
     def infinite_bullets(self):
         return False
 
+    def invincibility(self):
+        return False
+
 
 class CheatGameSettings(GameSettings):
 
@@ -91,4 +94,7 @@ class CheatGameSettings(GameSettings):
         return 60
 
     def infinite_bullets(self):
+        return True
+
+    def invincibility(self):
         return True

@@ -41,10 +41,14 @@ def main():
     running = True
 
     while running:
+        shoot = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game.exit()
                 running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    shoot = True
 
         pressed = pygame.key.get_pressed()
 
@@ -59,7 +63,7 @@ def main():
         if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
             if game.player:
                 game.player.move_right()
-        if pressed[pygame.K_SPACE]:
+        if shoot or pressed[pygame.K_SPACE] and game.settings.infinite_bullets():
             if game.player:
                 game.player.shoot()
         game.tick()
