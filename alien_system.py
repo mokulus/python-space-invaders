@@ -25,6 +25,10 @@ class AlienSystem(system.System):
         if not any(alien.alive() for alien in self._aliens):
             self._game.next_round()
             return
+        if any(alien.position().y == self._game.player.position(
+        ).y for alien in self._aliens if alien.alive()):
+            self._game.player.game_over()
+            return
         if not self._initialized:
             self._init_animation()
             return

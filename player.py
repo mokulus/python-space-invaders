@@ -123,3 +123,8 @@ class Player(game_object.GameObject):
 
     def lives(self):
         return self._lives
+
+    def game_over(self):
+        self._dying = True
+        self._game.spawn(DeathAnimation(self._game))
+        self._game.spawn(GameOver(self._game))
