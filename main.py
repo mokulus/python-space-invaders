@@ -1,3 +1,4 @@
+import argparse
 import os
 
 import numpy as np
@@ -6,9 +7,21 @@ import pygame
 from game import Game
 
 
+def make_parser():
+    parser = argparse.ArgumentParser(description='Play space invaders.')
+    parser.add_argument(
+        '--cheats',
+        dest='cheats',
+        action='store_true',
+        help="Enable cheats.")
+    return parser
+
+
 def main():
     pygame.init()
-    game = Game()
+    parser = make_parser()
+    args = parser.parse_args()
+    game = Game(args.cheats)
     screen_size = (game.settings.width(), game.settings.height())
     canvas_size = screen_size
     screen = pygame.display.set_mode(

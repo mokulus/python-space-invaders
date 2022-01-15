@@ -2,7 +2,7 @@ import itertools
 
 import util
 from alien_system import AlienSystem
-from game_settings import GameSettings
+from game_settings import CheatGameSettings, GameSettings
 from gui_system import GuiSystem
 from life_system import LifeSystem
 from menu import MenuSystem
@@ -11,7 +11,7 @@ from shield_system import ShieldSystem
 
 
 class Game:
-    def __init__(self):
+    def __init__(self, cheats):
         self._score = 0
         self._round = 0
         self._ticks = 0
@@ -22,7 +22,8 @@ class Game:
                     raise ValueError
         except (FileNotFoundError, TypeError, ValueError):
             self._highscore = 0
-        self.settings = GameSettings(self)
+        self.settings = GameSettings(
+            self) if not cheats else CheatGameSettings(self)
         self._load_menu()
 
     def tick(self):

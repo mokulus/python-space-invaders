@@ -83,3 +83,12 @@ class GameSettings():
 
     def infinite_bullets(self):
         return False
+
+
+class CheatGameSettings(GameSettings):
+
+    def saucer_period(self):
+        return 60
+
+    def infinite_bullets(self):
+        return True

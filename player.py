@@ -120,7 +120,8 @@ class Player(game_object.GameObject):
             if self._action & Input.SHOOT:
                 if not self._bullet or self._game.settings.infinite_bullets():
                     self._shots_fired += 1
-                    self._bullet = PlayerBullet(self._game, self._position + Point(8, 0))
+                    self._bullet = PlayerBullet(
+                        self._game, self._position + Point(8, 0))
                     self._game.spawn(self._bullet)
         self._action = Input.NONE
 
