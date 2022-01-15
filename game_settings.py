@@ -77,3 +77,6 @@ class GameSettings():
 
     def game_area_y_bounds(self):
         return (8, 212)
+
+    def saucer_period(self):
+        return 600

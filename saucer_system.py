@@ -71,7 +71,7 @@ class SaucerSystem(system.System):
             return
         if self._saucer is None or not self._saucer.alive():
             self._ticks += 1
-            if self._ticks == 60:
+            if self._ticks == self._game.settings.saucer_period():
                 self._ticks = 0
                 self._saucer = Saucer(self._game)
                 self._game.spawn(self._saucer)
