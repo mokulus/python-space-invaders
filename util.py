@@ -5,15 +5,15 @@ from point import Point
 
 
 def intersection(a_pos, a_sprite, b_pos, b_sprite):
-    minx = max(a_pos[0], b_pos[0])
+    minx = max(a_pos.x, b_pos.x)
     maxx = min(
-        a_pos[0] + a_sprite.shape[0],
-        b_pos[0] + b_sprite.shape[0],
+        a_pos.x + a_sprite.shape[0],
+        b_pos.x + b_sprite.shape[0],
     )
-    miny = max(a_pos[1], b_pos[1])
+    miny = max(a_pos.y, b_pos.y)
     maxy = min(
-        a_pos[1] + a_sprite.shape[1],
-        b_pos[1] + b_sprite.shape[1],
+        a_pos.y + a_sprite.shape[1],
+        b_pos.y + b_sprite.shape[1],
     )
     if minx <= maxx and miny <= maxy:
         return (Point(minx, maxx), Point(miny, maxy))
