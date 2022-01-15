@@ -62,7 +62,7 @@ class Game:
         self._save_highscore()
 
     def play(self):
-        if self._menu:
+        if self.player is None:
             self.player = Player(self)
             self._load_game()
 
@@ -84,7 +84,6 @@ class Game:
         self._load_game()
 
     def _load_game(self):
-        self._menu = False
         self._game_objects = []
         self._systems = []
         alien_system = AlienSystem(self)
@@ -94,7 +93,6 @@ class Game:
         self._systems.append(LifeSystem(self))
 
     def _load_menu(self):
-        self._menu = True
         self.player = None
         self._game_objects = []
         self._systems = [MenuSystem(self)]
