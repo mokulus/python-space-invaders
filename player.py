@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Flag
 
 import assets
 import game_object
@@ -9,10 +9,11 @@ from point import Point
 from text_animation import TextAnimation
 
 
-class Input(Enum):
+class Input(Flag):
+    NONE = 0
     RIGHT = 1
     LEFT = 2
-    SHOOT = 3
+    SHOOT = 4
 
 
 class GameOver(TextAnimation):
@@ -58,9 +59,10 @@ class Player(game_object.GameObject):
         self._alive = True
         self._game = game
         self._position = Point(0, 16)
+        self._bullet = None
         self._shots_fired = 0
         self._lives = 3
-        self._action = None
+        self._action = Input.NONE
         self._dying = False
 
     def alive(self):
@@ -73,10 +75,10 @@ class Player(game_object.GameObject):
         return assets.player() if not self._dying else assets.empty_sprite()
 
     def move_right(self):
-        self._action = Input.RIGHT
+        self._action |= Input.RIGHT
 
     def move_left(self):
-        self._action = Input.LEFT
+        self._action |= Input.LEFT
 
     def _move(self, dx):
         if self._dying:
@@ -89,7 +91,7 @@ class Player(game_object.GameObject):
         self._position.x = max(min(self._position.x, maxx), 0)
 
     def shoot(self):
-        self._action = Input.SHOOT
+        self._action |= Input.SHOOT
 
     def shots_fired(self):
         return self._shots_fired
@@ -108,17 +110,19 @@ class Player(game_object.GameObject):
         return self._dying
 
     def tick(self):
+        if self._bullet and not self._bullet.alive():
+            self._bullet = None
         if not self._dying:
-            if self._action == Input.RIGHT:
+            if self._action & Input.RIGHT:
                 self._move(1)
-            elif self._action == Input.LEFT:
+            if self._action & Input.LEFT:
                 self._move(-1)
-            elif self._action == Input.SHOOT:
-                self._shots_fired += 1
-                self._game.spawn(
-                    PlayerBullet(self._game, self._position + Point(8, 4))
-                )
-        self._action = None
+            if self._action & Input.SHOOT:
+                if not self._bullet or self._game.settings.infinite_bullets():
+                    self._shots_fired += 1
+                    self._bullet = PlayerBullet(self._game, self._position + Point(8, 0))
+                    self._game.spawn(self._bullet)
+        self._action = Input.NONE
 
     def lives(self):
         return self._lives

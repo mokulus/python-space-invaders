@@ -80,3 +80,6 @@ class GameSettings():
 
     def saucer_period(self):
         return 600
+
+    def infinite_bullets(self):
+        return False
