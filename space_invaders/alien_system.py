@@ -20,13 +20,13 @@ class AlienSystem(system.System):
     def tick(self):
         if self._game.player.dying():
             return
-        if not any(alien.alive() for alien in self._aliens):
+        if not any(alien.alive for alien in self._aliens):
             self._game.next_round()
             return
         if any(
             alien.position().y == self._game.player.position().y
             for alien in self._aliens
-            if alien.alive()
+            if alien.alive
         ):
             self._game.player.game_over()
             return
@@ -34,7 +34,7 @@ class AlienSystem(system.System):
             self._init_animation()
             return
         self._alien_iter = (
-            alien for alien in self._alien_iter if alien.alive()
+            alien for alien in self._alien_iter if alien.alive
         )
         next_alien = next(self._alien_iter, None)
         if next_alien:
@@ -45,14 +45,14 @@ class AlienSystem(system.System):
                 (
                     alien.position().x
                     for alien in self._aliens
-                    if alien.alive()
+                    if alien.alive
                 )
             )
             amaxx = max(
                 (
                     alien.position().x
                     for alien in self._aliens
-                    if alien.alive()
+                    if alien.alive
                 )
             )
             minx = 0

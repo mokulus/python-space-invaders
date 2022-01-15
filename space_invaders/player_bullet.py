@@ -18,7 +18,7 @@ class PlayerBullet(Bullet):
     def on_collision(self, other):
         if isinstance(other, Explosion):
             return
-        self._alive = False
+        self.alive = False
         if isinstance(other, Shield):
             self.explode()
 

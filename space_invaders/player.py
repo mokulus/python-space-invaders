@@ -28,12 +28,10 @@ class GameOver(TextAnimation):
 
 class DeathAnimation(game_object.GameObject):
     def __init__(self, game):
+        self.alive = True
         self._game = game
         self._animation = Animation(assets.player_explosion())
         self._countdown = 3 * 60 if self._game.player.lives() > 0 else 10 * 60
-
-    def alive(self):
-        return self._countdown > 0
 
     def position(self):
         return self._game.player.position()
@@ -46,6 +44,7 @@ class DeathAnimation(game_object.GameObject):
             self._animation.next()
         self._countdown -= 1
         if self._countdown == 0:
+            self.alive = False
             if self._game.player._lives > 0:
                 self._game.player._dying = False
 
@@ -55,7 +54,7 @@ class DeathAnimation(game_object.GameObject):
 
 class Player(game_object.GameObject):
     def __init__(self, game):
-        self._alive = True
+        self.alive = True
         self._game = game
         self._position = Point(0, 16)
         self._bullet = None
@@ -63,9 +62,6 @@ class Player(game_object.GameObject):
         self._lives = 3
         self._action = Input.NONE
         self._dying = False
-
-    def alive(self):
-        return self._alive
 
     def position(self):
         return self._position
@@ -112,7 +108,7 @@ class Player(game_object.GameObject):
         return self._dying
 
     def tick(self):
-        if self._bullet and not self._bullet.alive():
+        if self._bullet and not self._bullet.alive:
             self._bullet = None
         if not self._dying:
             if self._action & Input.RIGHT:

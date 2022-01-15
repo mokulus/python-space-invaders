@@ -35,7 +35,7 @@ class Game:
         self._game_objects = [
             game_object
             for game_object in self._game_objects
-            if game_object.alive()
+            if game_object.alive
         ]
 
         for a, b in itertools.combinations(self._game_objects, 2):

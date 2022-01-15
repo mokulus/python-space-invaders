@@ -20,7 +20,7 @@ class LifeSystem(system.System):
 
     def _remake_player_sprites(self):
         for obj in self._player_objects:
-            obj._alive = False
+            obj.alive = False
         self._player_objects = []
         for i in range(self._game.player.lives() - 1):
             sprite = assets.player()

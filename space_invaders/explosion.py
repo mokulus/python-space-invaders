@@ -3,12 +3,10 @@ from space_invaders import game_object
 
 class Explosion(game_object.GameObject):
     def __init__(self, position, sprite, frames):
+        self.alive = True
         self._position = position
         self._sprite = sprite
         self._frames = frames
-
-    def alive(self):
-        return self._frames > 0
 
     def position(self):
         return self._position
@@ -18,6 +16,8 @@ class Explosion(game_object.GameObject):
 
     def tick(self):
         self._frames -= 1
+        if self._frames <= 0:
+            self.alive = False
 
     def on_collision(self, other):
         pass

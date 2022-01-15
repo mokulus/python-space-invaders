@@ -7,12 +7,10 @@ from space_invaders.point import Point
 
 class Shield(game_object.GameObject):
     def __init__(self, game, position, sprite):
+        self.alive = True
         self._game = game
         self._position = position
         self._sprite = np.copy(sprite)
-
-    def alive(self):
-        return True
 
     def position(self):
         return self._position

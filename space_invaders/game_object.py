@@ -2,9 +2,8 @@ from abc import ABC, abstractmethod
 
 
 class GameObject(ABC):
-    @abstractmethod
-    def alive(self):
-        pass
+    def __init__(self):
+        self.alive = True
 
     @abstractmethod
     def position(self):

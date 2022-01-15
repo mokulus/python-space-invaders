@@ -26,4 +26,4 @@ class AlienBullet(Bullet):
                 16,
             )
         )
-        self._alive = False
+        self.alive = False

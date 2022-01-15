@@ -6,7 +6,7 @@ from space_invaders.point import Point
 
 class Alien(game_object.GameObject):
     def __init__(self, game, coords):
-        self._alive = True
+        self.alive = True
         self._coords = coords
         self._position = Point(
             24 + coords.x * 16,
@@ -15,9 +15,6 @@ class Alien(game_object.GameObject):
         self._game = game
         alien_type = [0, 0, 1, 1, 2][coords.y]
         self._animation = Animation(assets.aliens()[alien_type])
-
-    def alive(self):
-        return self._alive
 
     def position(self):
         return self._position
@@ -33,7 +30,7 @@ class Alien(game_object.GameObject):
             self._game.spawn(
                 Explosion(self._position, assets.alien_explosion(), 16)
             )
-            self._alive = False
+            self.alive = False
             self._game.add_score([10, 10, 20, 20, 30][self._coords.y])
 
     def move(self, velocity):

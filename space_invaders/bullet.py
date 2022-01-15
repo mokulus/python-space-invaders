@@ -6,13 +6,10 @@ from space_invaders import game_object
 class Bullet(game_object.GameObject):
     def __init__(self, game, position, animation, velocity):
         self._game = game
-        self._alive = True
+        self.alive = True
         self._position = position
         self._animation = animation
         self._velocity = velocity
-
-    def alive(self):
-        return self._alive
 
     def position(self):
         return self._position
@@ -32,4 +29,4 @@ class Bullet(game_object.GameObject):
 
     @abstractmethod
     def explode(self):
-        self._alive = False
+        self.alive = False

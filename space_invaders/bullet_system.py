@@ -34,7 +34,7 @@ class BulletSystem(system.System):
         )
 
         for bullet in self._bullets:
-            bullet._alive = False
+            bullet.alive = False
 
     def tick(self):
         if self._game.player.dying():
@@ -42,15 +42,15 @@ class BulletSystem(system.System):
         self._fire_delay += 1
         bullet = self._bullets[self._index]
         spawn_table = self._spawn_tables[self._index]
-        if not bullet.alive():
+        if not bullet.alive:
             if (
-                not any(bullet.alive() for bullet in self._bullets)
+                not any(bullet.alive for bullet in self._bullets)
                 or self._fire_delay >= self._game.settings.alien_fire_period()
             ):
                 alive_aliens = [
                     alien
                     for alien in self._alien_system.aliens()
-                    if alien.alive()
+                    if alien.alive
                 ]
                 if spawn_table:
                     x = next(spawn_table) - 1
