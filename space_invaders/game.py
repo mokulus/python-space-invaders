@@ -22,8 +22,9 @@ class Game:
                     raise ValueError
         except (FileNotFoundError, TypeError, ValueError):
             self._highscore = 0
-        self.settings = GameSettings(
-            self) if not cheats else CheatGameSettings(self)
+        self.settings = (
+            GameSettings(self) if not cheats else CheatGameSettings(self)
+        )
         self._load_menu()
 
     def tick(self):

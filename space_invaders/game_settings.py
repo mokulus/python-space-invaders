@@ -1,7 +1,7 @@
 import bisect
 
 
-class GameSettings():
+class GameSettings:
     def __init__(self, game):
         self._game = game
 
@@ -89,7 +89,6 @@ class GameSettings():
 
 
 class CheatGameSettings(GameSettings):
-
     def saucer_period(self):
         return 60
 

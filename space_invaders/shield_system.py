@@ -59,8 +59,9 @@ class ShieldSystem(system.System):
             start = 32
             width = 22
             y = 40
-            gap = (self._game.settings.width() -
-                   2 * start - n * width) // (n - 1)
+            gap = (self._game.settings.width() - 2 * start - n * width) // (
+                n - 1
+            )
             self._game.spawn(
                 Shield(
                     self._game,

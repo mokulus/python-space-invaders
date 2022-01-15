@@ -8,12 +8,10 @@ from space_invaders.game import Game
 
 
 def make_parser():
-    parser = argparse.ArgumentParser(description='Play space invaders.')
+    parser = argparse.ArgumentParser(description="Play space invaders.")
     parser.add_argument(
-        '--cheats',
-        dest='cheats',
-        action='store_true',
-        help="Enable cheats.")
+        "--cheats", dest="cheats", action="store_true", help="Enable cheats."
+    )
     return parser
 
 
@@ -63,7 +61,10 @@ def main():
         if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
             if game.player:
                 game.player.move_right()
-        if shoot or pressed[pygame.K_SPACE] and game.settings.infinite_bullets(
+        if (
+            shoot
+            or pressed[pygame.K_SPACE]
+            and game.settings.infinite_bullets()
         ):
             if game.player:
                 game.player.shoot()

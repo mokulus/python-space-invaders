@@ -23,8 +23,11 @@ class AlienSystem(system.System):
         if not any(alien.alive() for alien in self._aliens):
             self._game.next_round()
             return
-        if any(alien.position().y == self._game.player.position(
-        ).y for alien in self._aliens if alien.alive()):
+        if any(
+            alien.position().y == self._game.player.position().y
+            for alien in self._aliens
+            if alien.alive()
+        ):
             self._game.player.game_over()
             return
         if not self._initialized:
@@ -53,8 +56,9 @@ class AlienSystem(system.System):
                 )
             )
             minx = 0
-            maxx = self._game.settings.width(
-            ) - assets.aliens()[0][0].shape[0]
+            maxx = (
+                self._game.settings.width() - assets.aliens()[0][0].shape[0]
+            )
             if aminx == minx or amaxx == maxx:
                 if self._velocity.y == 0:
                     self._velocity.x = 0

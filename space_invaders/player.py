@@ -98,9 +98,10 @@ class Player(game_object.GameObject):
     def on_collision(self, other):
         if self._dying:
             return
-        if isinstance(
-                other,
-                AlienBullet) and not self._game.settings.invincibility():
+        if (
+            isinstance(other, AlienBullet)
+            and not self._game.settings.invincibility()
+        ):
             self._dying = True
             self._lives -= 1
             self._game.spawn(DeathAnimation(self._game))
@@ -119,11 +120,15 @@ class Player(game_object.GameObject):
             if self._action & Input.LEFT:
                 self._move(-1)
             if self._action & Input.SHOOT:
-                if not self._bullet or self._game.settings.infinite_bullets(
-                ) and self._game.ticks() % 2 == 0:
+                if (
+                    not self._bullet
+                    or self._game.settings.infinite_bullets()
+                    and self._game.ticks() % 2 == 0
+                ):
                     self._shots_fired += 1
                     self._bullet = PlayerBullet(
-                        self._game, self._position + Point(8, 0))
+                        self._game, self._position + Point(8, 0)
+                    )
                     self._game.spawn(self._bullet)
         self._action = Input.NONE
 
