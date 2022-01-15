@@ -79,6 +79,3 @@ class AlienSystem(system.System):
 
     def aliens(self):
         return self._aliens
-
-    def initialized(self):
-        return self._initialized
