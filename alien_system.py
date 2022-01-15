@@ -1,5 +1,4 @@
 import assets
-import game_settings
 import system
 from alien import Alien
 from bullet_system import BulletSystem
@@ -55,7 +54,8 @@ class AlienSystem(system.System):
                 )
             )
             minx = 0
-            maxx = game_settings.width() - assets.aliens()[0][0].shape[0]
+            maxx = self._game.settings.width(
+            ) - assets.aliens()[0][0].shape[0]
             if aminx == minx or amaxx == maxx:
                 if self._velocity.y == 0:
                     self._velocity.x = 0

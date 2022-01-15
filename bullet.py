@@ -1,11 +1,11 @@
 from abc import abstractmethod
 
 import game_object
-import game_settings
 
 
 class Bullet(game_object.GameObject):
-    def __init__(self, position, animation, velocity):
+    def __init__(self, game, position, animation, velocity):
+        self._game = game
         self._alive = True
         self._position = position
         self._animation = animation
@@ -22,8 +22,8 @@ class Bullet(game_object.GameObject):
         self._animation.next()
 
         if (
-            self._position.y <= game_settings.game_area_y_bounds()[0]
-            or self._position.y >= game_settings.game_area_y_bounds()[1]
+            self._position.y <= self._game.settings.game_area_y_bounds()[0]
+            or self._position.y >= self._game.settings.game_area_y_bounds()[1]
         ):
             self.explode()
 

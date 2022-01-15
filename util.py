@@ -1,7 +1,6 @@
 import numpy as np
 
 import assets
-import game_settings
 from point import Point
 
 
@@ -51,7 +50,7 @@ def text_to_sprite(str):
     return sprite
 
 
-def padding(text=None):
+def padding(width, text=None):
     if text is None:
         text = ""
-    return (game_settings.width() - 8 * len(text)) // 2 // 8 * 8
+    return (width - 8 * len(text)) // 2 // 8 * 8

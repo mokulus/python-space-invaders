@@ -1,6 +1,5 @@
 import assets
 import game_object
-import game_settings
 import player_bullet
 import system
 import util
@@ -16,9 +15,7 @@ class SaucerExplosion(Explosion):
     def tick(self):
         super().tick()
         if self._frames == 0:
-            score = game_settings.saucer_score(
-                self._game.player.shots_fired()
-            )
+            score = self._game.settings.saucer_score()
             self._game.add_score(score)
             sprite = util.text_to_sprite(f"{score:3}")
             self._game.spawn(Explosion(self._position, sprite, 60))
@@ -34,7 +31,7 @@ class Saucer(game_object.GameObject):
             self._velocity = Point(2, 0)
         else:
             self._position = Point(
-                game_settings.width() - self.sprite().shape[0] - 1, y
+                self._game.settings.width() - self.sprite().shape[0] - 1, y
             )
             self._velocity = Point(-2, 0)
 
@@ -53,7 +50,7 @@ class Saucer(game_object.GameObject):
         if (
             not 0
             <= self._position.x
-            < game_settings.width() - self.sprite().shape[0]
+            < self._game.settings.width() - self.sprite().shape[0]
         ):
             self._alive = False
 

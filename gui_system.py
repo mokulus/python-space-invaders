@@ -1,4 +1,3 @@
-import game_settings
 import system
 from point import Point
 from text_object import TextObject, VariableTextObject
@@ -13,7 +12,7 @@ class GuiSystem(system.System):
         letter_width = 8
 
         x = letter_width
-        y = game_settings.height() - ypad
+        y = self._game.settings.height() - ypad
         self._game.spawn(TextObject(Point(x, y), score_str))
 
         x += 2 * letter_width

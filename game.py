@@ -2,6 +2,7 @@ import itertools
 
 import util
 from alien_system import AlienSystem
+from game_settings import GameSettings
 from gui_system import GuiSystem
 from life_system import LifeSystem
 from menu import MenuSystem
@@ -21,6 +22,7 @@ class Game:
                     raise ValueError
         except (FileNotFoundError, TypeError, ValueError):
             self._highscore = 0
+        self.settings = GameSettings(self)
         self._load_menu()
 
     def tick(self):

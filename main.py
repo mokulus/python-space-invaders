@@ -3,21 +3,19 @@ import os
 import numpy as np
 import pygame
 
-import game_settings
 from game import Game
 
 
 def main():
     pygame.init()
-    screen_size = (game_settings.width(), game_settings.height())
+    game = Game()
+    screen_size = (game.settings.width(), game.settings.height())
     canvas_size = screen_size
     screen = pygame.display.set_mode(
         screen_size, flags=pygame.SCALED  # | pygame.RESIZABLE
     )
     canvas = pygame.Surface(canvas_size)
     clock = pygame.time.Clock()
-
-    game = Game()
 
     def draw_sprite(surfarr, position, sprite):
         img = sprite * 255

@@ -1,6 +1,5 @@
 import assets
 import game_object
-import game_settings
 import player_bullet
 from animation import Animation
 from explosion import Explosion
@@ -13,7 +12,7 @@ class Alien(game_object.GameObject):
         self._coords = coords
         self._position = Point(
             24 + coords.x * 16,
-            game_settings.alien_initial_y(game.round()) + coords.y * 16,
+            game.settings.alien_initial_y() + coords.y * 16,
         )
         self._game = game
         alien_type = [0, 0, 1, 1, 2][coords.y]

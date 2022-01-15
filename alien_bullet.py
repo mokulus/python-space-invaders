@@ -7,8 +7,7 @@ from point import Point
 
 class AlienBullet(Bullet):
     def __init__(self, game, position, animation):
-        super().__init__(position, animation, Point(0, -4))
-        self._game = game
+        super().__init__(game, position, animation, Point(0, -4))
 
     def tick(self):
         if self._game.ticks() % 3 == 0:

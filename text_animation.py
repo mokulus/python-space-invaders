@@ -16,7 +16,11 @@ class TextAnimation(game_object.GameObject):
         return True
 
     def position(self):
-        return Point(util.padding(self._text), self._y)
+        return Point(
+            util.padding(
+                self._game.settings.width(),
+                self._text),
+            self._y)
 
     def sprite(self):
         return self._sprite

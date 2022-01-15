@@ -2,7 +2,6 @@ from enum import Enum
 
 import assets
 import game_object
-import game_settings
 from alien_bullet import AlienBullet
 from animation import Animation
 from player_bullet import PlayerBullet
@@ -86,7 +85,7 @@ class Player(game_object.GameObject):
         self._clamp_position()
 
     def _clamp_position(self):
-        maxx = game_settings.width() - self.sprite().shape[0] - 1
+        maxx = self._game.settings.width() - self.sprite().shape[0] - 1
         self._position.x = max(min(self._position.x, maxx), 0)
 
     def shoot(self):

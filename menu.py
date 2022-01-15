@@ -30,7 +30,7 @@ class MenuSystem(system.System):
             )
         elif len(self._animations) == 2:
             text = "SCORE ADVANCE TABLE"
-            self._padding = util.padding(text)
+            self._padding = util.padding(self._game.settings.width(), text)
             self._y -= 16
             self._game.spawn(TextObject(Point(self._padding, self._y), text))
             self._y -= 16

@@ -9,11 +9,11 @@ from shield_system import Shield
 class PlayerBullet(Bullet):
     def __init__(self, game, position):
         super().__init__(
+            game,
             position,
             Animation([assets.player_shot()]),
             Point(0, 4),
         )
-        self._game = game
 
     def on_collision(self, other):
         if isinstance(other, Explosion):

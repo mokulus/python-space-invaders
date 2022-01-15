@@ -1,7 +1,6 @@
 import itertools
 
 import assets
-import game_settings
 import system
 from alien_bullet import AlienBullet
 from animation import Animation
@@ -29,10 +28,10 @@ class BulletSystem(system.System):
         self._spawn_tables = []
         self._spawn_tables.append(None)
         self._spawn_tables.append(
-            itertools.cycle(game_settings.plunger_shot_spawn_table())
+            itertools.cycle(self._game.settings.plunger_shot_spawn_table())
         )
         self._spawn_tables.append(
-            itertools.cycle(game_settings.squiggly_shot_spawn_table())
+            itertools.cycle(self._game.settings.squiggly_shot_spawn_table())
         )
 
         for bullet in self._bullets:
@@ -47,9 +46,7 @@ class BulletSystem(system.System):
         if not bullet.alive():
             if not any(
                 bullet.alive() for bullet in self._bullets
-            ) or self._fire_delay >= game_settings.alien_fire_period(
-                self._game.score()
-            ):
+            ) or self._fire_delay >= self._game.settings.alien_fire_period():
                 alive_aliens = [
                     alien
                     for alien in self._alien_system.aliens()

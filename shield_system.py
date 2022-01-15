@@ -3,7 +3,6 @@ import numpy as np
 import alien_system
 import assets
 import game_object
-import game_settings
 import system
 import util
 from explosion import Explosion
@@ -64,7 +63,8 @@ class ShieldSystem(system.System):
             start = 32
             width = 22
             y = 40
-            gap = (game_settings.width() - 2 * start - n * width) // (n - 1)
+            gap = (self._game.settings.width() -
+                   2 * start - n * width) // (n - 1)
             self._game.spawn(
                 Shield(
                     self._game,
@@ -76,7 +76,7 @@ class ShieldSystem(system.System):
             Shield(
                 self._game,
                 Point(0, 8),
-                np.ones((game_settings.width(), 1), dtype=np.uint8),
+                np.ones((self._game.settings.width(), 1), dtype=np.uint8),
             )
         )
 
