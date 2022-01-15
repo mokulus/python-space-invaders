@@ -92,8 +92,7 @@ class Game:
     def _load_game(self):
         self._game_objects = []
         self._systems = []
-        alien_system = AlienSystem(self)
-        self._systems.append(alien_system)
+        self._systems.append(AlienSystem(self))
         self._systems.append(ShieldSystem(self))
         self._systems.append(GuiSystem(self))
         self._systems.append(LifeSystem(self))
