@@ -1,12 +1,11 @@
 from enum import Flag
 
-import assets
-import game_object
-from alien_bullet import AlienBullet
-from animation import Animation
-from player_bullet import PlayerBullet
-from point import Point
-from text_animation import TextAnimation
+from space_invaders import assets, game_object
+from space_invaders.alien_bullet import AlienBullet
+from space_invaders.animation import Animation
+from space_invaders.player_bullet import PlayerBullet
+from space_invaders.point import Point
+from space_invaders.text_animation import TextAnimation
 
 
 class Input(Flag):
@@ -99,7 +98,9 @@ class Player(game_object.GameObject):
     def on_collision(self, other):
         if self._dying:
             return
-        if isinstance(other, AlienBullet) and not self._game.settings.invincibility():
+        if isinstance(
+                other,
+                AlienBullet) and not self._game.settings.invincibility():
             self._dying = True
             self._lives -= 1
             self._game.spawn(DeathAnimation(self._game))
@@ -118,7 +119,8 @@ class Player(game_object.GameObject):
             if self._action & Input.LEFT:
                 self._move(-1)
             if self._action & Input.SHOOT:
-                if not self._bullet or self._game.settings.infinite_bullets() and self._game.ticks() % 2 == 0:
+                if not self._bullet or self._game.settings.infinite_bullets(
+                ) and self._game.ticks() % 2 == 0:
                     self._shots_fired += 1
                     self._bullet = PlayerBullet(
                         self._game, self._position + Point(8, 0))

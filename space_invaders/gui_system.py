@@ -1,6 +1,6 @@
-import system
-from point import Point
-from text_object import TextObject, VariableTextObject
+from space_invaders import system
+from space_invaders.point import Point
+from space_invaders.text_object import TextObject, VariableTextObject
 
 
 class GuiSystem(system.System):

@@ -1,6 +1,5 @@
-import game_object
-import util
-from point import Point
+from space_invaders import game_object, util
+from space_invaders.point import Point
 
 
 class TextAnimation(game_object.GameObject):

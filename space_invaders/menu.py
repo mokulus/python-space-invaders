@@ -1,10 +1,8 @@
-import assets
-import system
-import util
-from point import Point
-from static_sprite import StaticSprite
-from text_animation import TextAnimation
-from text_object import TextObject
+from space_invaders import assets, system, util
+from space_invaders.point import Point
+from space_invaders.static_sprite import StaticSprite
+from space_invaders.text_animation import TextAnimation
+from space_invaders.text_object import TextObject
 
 
 class MenuSystem(system.System):

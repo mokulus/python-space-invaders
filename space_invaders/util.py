@@ -1,7 +1,7 @@
 import numpy as np
 
-import assets
-from point import Point
+from space_invaders import assets
+from space_invaders.point import Point
 
 
 def intersection(a_pos, a_sprite, b_pos, b_sprite):

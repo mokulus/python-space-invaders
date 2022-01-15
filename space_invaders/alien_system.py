@@ -1,9 +1,8 @@
-import assets
-import system
-from alien import Alien
-from bullet_system import BulletSystem
-from point import Point
-from saucer_system import SaucerSystem
+from space_invaders import assets, system
+from space_invaders.alien import Alien
+from space_invaders.bullet_system import BulletSystem
+from space_invaders.point import Point
+from space_invaders.saucer_system import SaucerSystem
 
 
 class AlienSystem(system.System):

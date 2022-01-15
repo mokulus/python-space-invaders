@@ -1,9 +1,9 @@
-import assets
-from animation import Animation
-from bullet import Bullet
-from explosion import Explosion
-from point import Point
-from shield_system import Shield
+from space_invaders import assets
+from space_invaders.animation import Animation
+from space_invaders.bullet import Bullet
+from space_invaders.explosion import Explosion
+from space_invaders.point import Point
+from space_invaders.shield_system import Shield
 
 
 class PlayerBullet(Bullet):

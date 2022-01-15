@@ -1,9 +1,7 @@
-import assets
-import game_object
-import player_bullet
-from animation import Animation
-from explosion import Explosion
-from point import Point
+from space_invaders import assets, game_object, player_bullet
+from space_invaders.animation import Animation
+from space_invaders.explosion import Explosion
+from space_invaders.point import Point
 
 
 class Alien(game_object.GameObject):

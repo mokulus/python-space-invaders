@@ -1,6 +1,6 @@
 from abc import abstractmethod
 
-import game_object
+from space_invaders import game_object
 
 
 class Bullet(game_object.GameObject):

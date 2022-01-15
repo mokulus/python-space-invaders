@@ -1,10 +1,9 @@
 import itertools
 
-import assets
-import system
-from alien_bullet import AlienBullet
-from animation import Animation
-from point import Point
+from space_invaders import assets, system
+from space_invaders.alien_bullet import AlienBullet
+from space_invaders.animation import Animation
+from space_invaders.point import Point
 
 
 class BulletSystem(system.System):

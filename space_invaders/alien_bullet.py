@@ -1,8 +1,8 @@
-import assets
-from alien import Alien
-from bullet import Bullet
-from explosion import Explosion
-from point import Point
+from space_invaders import assets
+from space_invaders.alien import Alien
+from space_invaders.bullet import Bullet
+from space_invaders.explosion import Explosion
+from space_invaders.point import Point
 
 
 class AlienBullet(Bullet):

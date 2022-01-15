@@ -1,14 +1,14 @@
-import game_object
+from space_invaders import game_object
 
 
-class StaticSprite(game_object.GameObject):
-    def __init__(self, position, sprite):
-        self._alive = True
+class Explosion(game_object.GameObject):
+    def __init__(self, position, sprite, frames):
         self._position = position
         self._sprite = sprite
+        self._frames = frames
 
     def alive(self):
-        return self._alive
+        return self._frames > 0
 
     def position(self):
         return self._position
@@ -17,7 +17,7 @@ class StaticSprite(game_object.GameObject):
         return self._sprite
 
     def tick(self):
-        pass
+        self._frames -= 1
 
     def on_collision(self, other):
         pass

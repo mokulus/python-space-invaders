@@ -4,7 +4,7 @@ import os
 import numpy as np
 import pygame
 
-from game import Game
+from space_invaders.game import Game
 
 
 def make_parser():
@@ -63,7 +63,8 @@ def main():
         if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
             if game.player:
                 game.player.move_right()
-        if shoot or pressed[pygame.K_SPACE] and game.settings.infinite_bullets():
+        if shoot or pressed[pygame.K_SPACE] and game.settings.infinite_bullets(
+        ):
             if game.player:
                 game.player.shoot()
         game.tick()

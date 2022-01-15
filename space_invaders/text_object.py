@@ -1,5 +1,5 @@
-import util
-from static_sprite import StaticSprite
+from space_invaders import util
+from space_invaders.static_sprite import StaticSprite
 
 
 class TextObject(StaticSprite):
