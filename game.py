@@ -80,7 +80,6 @@ class Game:
     def next_round(self):
         self._round += 1
         self.player._position.x = 0
-        self._save_highscore()
         self._load_game()
 
     def _load_game(self):
