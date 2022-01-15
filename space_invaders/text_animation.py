@@ -28,6 +28,3 @@ class TextAnimation(game_object.GameObject):
 
     def done_once(self):
         return len(self._text) * self._delay == self._ticks
-
-    def on_collision(self, other):
-        pass

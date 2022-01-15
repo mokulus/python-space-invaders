@@ -40,6 +40,3 @@ class GuiSystem(system.System):
 
         # x += letter_width * (len(hiscore_str) + 1)
         # self._game.spawn(TextObject(Point(x, y), score_str))
-
-    def tick(self):
-        pass

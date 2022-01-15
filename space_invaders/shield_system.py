@@ -18,9 +18,6 @@ class Shield(game_object.GameObject):
     def sprite(self):
         return self._sprite
 
-    def tick(self):
-        pass
-
     def on_collision(self, other):
         if isinstance(other, (Explosion, alien_system.Alien)):
             intersection_rect = util.intersection(

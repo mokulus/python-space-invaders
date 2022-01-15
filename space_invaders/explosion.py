@@ -18,6 +18,3 @@ class Explosion(game_object.GameObject):
         self._frames -= 1
         if self._frames <= 0:
             self.alive = False
-
-    def on_collision(self, other):
-        pass

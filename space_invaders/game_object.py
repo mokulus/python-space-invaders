@@ -13,10 +13,8 @@ class GameObject(ABC):
     def sprite(self):
         pass
 
-    @abstractmethod
     def tick(self):
         pass
 
-    @abstractmethod
     def on_collision(self, other):
         pass

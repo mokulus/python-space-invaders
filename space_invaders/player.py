@@ -48,10 +48,6 @@ class DeathAnimation(game_object.GameObject):
             if self._game.player._lives > 0:
                 self._game.player._dying = False
 
-    def on_collision(self, other):
-        pass
-
-
 class Player(game_object.GameObject):
     def __init__(self, game):
         self.alive = True

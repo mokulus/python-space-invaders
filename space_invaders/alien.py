@@ -22,9 +22,6 @@ class Alien(game_object.GameObject):
     def sprite(self):
         return self._animation.sprite()
 
-    def tick(self):
-        pass
-
     def on_collision(self, other):
         if isinstance(other, player_bullet.PlayerBullet):
             self._game.spawn(
