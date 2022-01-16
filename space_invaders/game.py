@@ -5,7 +5,7 @@ from space_invaders.alien_system import AlienSystem
 from space_invaders.game_settings import CheatGameSettings, GameSettings
 from space_invaders.gui_system import GuiSystem
 from space_invaders.life_system import LifeSystem
-from space_invaders.menu import MenuSystem
+from space_invaders.menu_system import MenuSystem
 from space_invaders.player import Player
 from space_invaders.shield_system import ShieldSystem
 
