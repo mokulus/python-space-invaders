@@ -1,3 +1,6 @@
+"""
+Provides :class:`MenuSystem`
+"""
 from space_invaders import assets, system, util
 from space_invaders.point import Point
 from space_invaders.static_sprite import StaticSprite
@@ -6,6 +9,9 @@ from space_invaders.text_object import TextObject
 
 
 class MenuSystem(system.System):
+    """
+    `System` that spawns animations in the main menu.
+    """
     def __init__(self, game):
         self._game = game
         self._y = 192

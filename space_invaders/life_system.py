@@ -1,3 +1,6 @@
+"""
+Provides :class:`LifeSystem`
+"""
 from space_invaders import assets, system
 from space_invaders.point import Point
 from space_invaders.static_sprite import StaticSprite
@@ -5,6 +8,10 @@ from space_invaders.text_object import VariableTextObject
 
 
 class LifeSystem(system.System):
+    """
+    Displays how many lives the player has.
+    """
+
     def __init__(self, game):
         self._game = game
         self._number_object = VariableTextObject(

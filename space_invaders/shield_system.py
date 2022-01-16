@@ -1,3 +1,6 @@
+"""
+Provides :class:`ShieldSystem`
+"""
 import numpy as np
 
 from space_invaders import assets, system
@@ -6,6 +9,10 @@ from space_invaders.shield import Shield
 
 
 class ShieldSystem(system.System):
+    """
+    Spawns the inital four main shields and the horizontal one.
+    """
+
     def __init__(self, game):
         self._game = game
         shield_count = 4

@@ -1,3 +1,6 @@
+"""
+Provides :class:`Alien`
+"""
 from space_invaders import assets, game_object, player_bullet
 from space_invaders.animation import Animation
 from space_invaders.explosion import Explosion
@@ -5,6 +8,11 @@ from space_invaders.point import Point
 
 
 class Alien(game_object.GameObject):
+    """
+    Represents the alien. Updates the score and explodes on death. Movement is
+    managed by `AlienSystem`.
+    """
+
     def __init__(self, game, coords):
         super().__init__()
         self._coords = coords
@@ -33,8 +41,14 @@ class Alien(game_object.GameObject):
             self._game.add_score([10, 10, 20, 20, 30][self._coords.y])
 
     def move(self, velocity):
+        """
+        Move alien by `velocity` and advance to next animation frame.
+        """
         self._position += velocity
         self._animation.next()
 
     def coords(self):
+        """
+        Return alien coordinates in the alien grid.
+        """
         return self._coords

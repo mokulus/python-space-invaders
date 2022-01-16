@@ -1,3 +1,6 @@
+"""
+Provides :class:`PlayerBullet`
+"""
 from space_invaders import assets
 from space_invaders.animation import Animation
 from space_invaders.bullet import Bullet
@@ -7,6 +10,9 @@ from space_invaders.shield import Shield
 
 
 class PlayerBullet(Bullet):
+    """
+    Bullet shot by the player. Explodes only when hitting shields.
+    """
     def __init__(self, game, position):
         super().__init__(
             game,

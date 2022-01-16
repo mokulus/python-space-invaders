@@ -1,3 +1,6 @@
+"""
+Provides :class:`Shield`
+"""
 import numpy as np
 
 from space_invaders import alien_system, game_object, util
@@ -5,6 +8,10 @@ from space_invaders.explosion import Explosion
 
 
 class Shield(game_object.GameObject):
+    """
+    Shield that can be damaged by explosions.
+    """
+
     def __init__(self, game, position, sprite):
         super().__init__()
         self.color = (0, 255, 0)

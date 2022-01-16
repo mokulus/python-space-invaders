@@ -1,3 +1,6 @@
+"""
+Provides :class:`AlienBullet`
+"""
 from space_invaders import assets
 from space_invaders.alien import Alien
 from space_invaders.bullet import Bullet
@@ -6,6 +9,9 @@ from space_invaders.point import Point
 
 
 class AlienBullet(Bullet):
+    """
+    Bullet shot by the aliens. Will explode with anything.
+    """
     def __init__(self, game, position, animation):
         super().__init__(game, position, animation, Point(0, -4))
 

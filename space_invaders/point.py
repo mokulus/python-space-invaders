@@ -1,8 +1,15 @@
+"""
+Provides :class:`Point`
+"""
 from dataclasses import dataclass
 
 
 @dataclass
 class Point:
+    """
+    Represents a 2d point. Allows to access to coordinates by `x` and `y`
+    attributes or by indexing.
+    """
     x: int = 0
     y: int = 0
 

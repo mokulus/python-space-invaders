@@ -1,9 +1,16 @@
+"""
+Provides :class:`SaucerSystem`, :class:`Saucer`, :class:`SaucerExplosion`
+"""
 from space_invaders import assets, game_object, player_bullet, system, util
 from space_invaders.explosion import Explosion
 from space_invaders.point import Point
 
 
 class SaucerExplosion(Explosion):
+    """
+    Represents the exploding saucer. Spawn a score information explosion when
+    it ends.
+    """
     def __init__(self, game, position, color):
         self._game = game
         super().__init__(position, assets.saucer_explosion(), color, 16)
@@ -19,6 +26,10 @@ class SaucerExplosion(Explosion):
 
 
 class Saucer(game_object.GameObject):
+    """
+    Saucer that spawns above aliens and has score based on number of shots
+    fired by the player.
+    """
     def __init__(self, game):
         super().__init__()
         self.color = (255, 0, 0)
@@ -57,6 +68,9 @@ class Saucer(game_object.GameObject):
 
 
 class SaucerSystem(system.System):
+    """
+    `System` that manages `Saucer` spawns.
+    """
     def __init__(self, game):
         self._game = game
         self._ticks = 0

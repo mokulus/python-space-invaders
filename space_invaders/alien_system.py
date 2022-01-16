@@ -1,3 +1,6 @@
+"""
+Provides :class:`AlienSystem`
+"""
 from space_invaders import assets, system
 from space_invaders.alien import Alien
 from space_invaders.bullet_system import BulletSystem
@@ -6,6 +9,10 @@ from space_invaders.saucer_system import SaucerSystem
 
 
 class AlienSystem(system.System):
+    """
+    `System` that manages the aliens. It does the initial alien animation and
+    decides which alien to move in the current frame.
+    """
     def __init__(self, game):
         self._game = game
         self._aliens = []
@@ -73,4 +80,7 @@ class AlienSystem(system.System):
             self._game.spawn(alien)
 
     def aliens(self):
+        """
+        Return a list of all aliens initially spawned, even if dead.
+        """
         return self._aliens

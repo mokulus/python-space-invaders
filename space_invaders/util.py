@@ -1,3 +1,6 @@
+"""
+Provides various utilities.
+"""
 import numpy as np
 
 from space_invaders import assets
@@ -5,6 +8,14 @@ from space_invaders.point import Point
 
 
 def intersection(a_pos, a_sprite, b_pos, b_sprite):
+    """
+    Check for intersection of two rectangles, represented by position of the
+    bottom-left corner and width and height of associated sprite.
+
+    Return a tuple of two `Point`s, representing x and y coordinate bounds of
+    the intersection rectangle respectively, or None if there is no
+    intersection.
+    """
     minx = max(a_pos.x, b_pos.x)
     maxx = min(
         a_pos.x + a_sprite.shape[0],
@@ -21,6 +32,13 @@ def intersection(a_pos, a_sprite, b_pos, b_sprite):
 
 
 def sprite_view(obj, intersection_rect):
+    """
+    Return a local view to `obj`'s sprite based on global `interection_rect`.
+    `intersection_rect` has to be inside the sprite rectangle.
+
+    The view uses bottom-left coordinate system, unlike sprite's internal
+    top-left system.
+    """
     (minx, maxx), (miny, maxy) = intersection_rect
     sprite = np.fliplr(obj.sprite())
     return sprite[
@@ -30,6 +48,9 @@ def sprite_view(obj, intersection_rect):
 
 
 def collision(first, second):
+    """
+    Check if two game objects `first` and `second` collide.
+    """
     intersection_rect = intersection(
         first.position(), first.sprite(), second.position(), second.sprite()
     )
@@ -42,6 +63,9 @@ def collision(first, second):
 
 
 def text_to_sprite(text):
+    """
+    Return a sprite representing the `text` using in-game font.
+    """
     sprite = np.zeros((8 * len(text), 8), dtype=np.uint8)
     font = assets.font()
     font_characters = assets.font_characters()
@@ -51,6 +75,10 @@ def text_to_sprite(text):
 
 
 def padding(width, text=None):
+    """
+    Return horizontal padding of the centered text displayed using in-game
+    font, assuming the screen has width `width`.
+    """
     if text is None:
         text = ""
     return (width - 8 * len(text)) // 2 // 8 * 8

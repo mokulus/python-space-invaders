@@ -1,3 +1,7 @@
+"""
+Module loading game sprites. All functions are cached so the assets will be
+loaded only once, are shared, and don't need to be stored.
+"""
 from functools import cache
 
 import numpy as np
@@ -37,6 +41,11 @@ def _load_single_sprite(file_name, shape, flip=False):
 
 @cache
 def aliens():
+    """
+    Return list of alien animations, each being a list of alien sprites. There
+    are 3 animations each with 2 frames. Aliens are of size (16, 8). The final
+    shape is (3, 2, 16, 8).
+    """
     pairs = []
     lines = _data_lines("./assets/aliens.txt")
     for pair in zip(lines[::2], lines[1::2]):
@@ -48,26 +57,43 @@ def aliens():
 
 @cache
 def player():
+    """
+    Return the player sprite.
+    """
     return _load_single_sprite("./assets/player.txt", (16, 8))
 
 
 @cache
 def player_shot():
+    """
+    Return the player shot sprite.
+    """
     return _load_single_sprite("./assets/player_shot.txt", (1, 8), flip=True)
 
 
 @cache
 def player_shot_explosion():
+    """
+    Return the sprite of the explosion of the player shot.
+    """
     return _load_single_sprite("./assets/player_shot_explosion.txt", (8, 8))
 
 
 @cache
 def alien_explosion():
+    """
+    Return the sprite of the explosion fo the alien.
+    """
     return _load_single_sprite("./assets/alien_explosion.txt", (16, 8))
 
 
 @cache
 def alien_shots():
+    """
+    Return list of alien shots animations, each being a list of alien shot
+    sprites. There are 3 animation each with 4 frames.
+    Shots are of size (3, 8). The final shape is (3, 4, 3, 8).
+    """
     shots = []
     lines = _data_lines("./assets/alien_shots.txt")
     size = 4
@@ -80,39 +106,64 @@ def alien_shots():
 
 @cache
 def alien_shot_explosion():
+    """
+    Return the sprite of the explosion of the alien shot.
+    """
     return _load_single_sprite("./assets/alien_shot_explosion.txt", (6, 8))
 
 
 @cache
 def shield():
+    """
+    Return the shield sprite.
+    """
     return _load_single_sprite("./assets/shield.txt", (22, 16))
 
 
 @cache
 def font():
+    """
+    Return the list of sprites of characters from `font_characters` in in-game
+    font.
+    """
     lines = _data_lines("./assets/font.txt")
     return _lines_to_sprites(lines, (8, 8))
 
 
 def font_characters():
+    """
+    Return the string with characters corresponding to those of the font.
+    """
     return "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<> =?-"
 
 
 @cache
 def saucer():
+    """
+    Return the saucer sprite.
+    """
     return _load_single_sprite("./assets/saucer.txt", (24, 8))
 
 
 @cache
 def saucer_explosion():
+    """
+    Return the sprite of the explosion of the saucer.
+    """
     return _load_single_sprite("./assets/saucer_explosion.txt", (24, 8))
 
 
 @cache
 def player_explosion():
+    """
+    Return the sprite of the explosion of the player.
+    """
     lines = _data_lines("./assets/player_explosion.txt")
     return _lines_to_sprites(lines, (16, 8))
 
 
 def empty_sprite():
+    """
+    Return an empty sprite.
+    """
     return np.zeros((0, 0), dtype=np.uint8)

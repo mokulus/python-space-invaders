@@ -1,9 +1,15 @@
+"""
+Provides :class:`Bullet`
+"""
 from abc import abstractmethod
 
 from space_invaders import game_object
 
 
 class Bullet(game_object.GameObject):
+    """
+    Abstract bullet that explodes on collision or if out of bounds.
+    """
     def __init__(self, game, position, animation, velocity):
         super().__init__()
         self._game = game
@@ -30,4 +36,8 @@ class Bullet(game_object.GameObject):
 
     @abstractmethod
     def explode(self):
+        """
+        Kill the bullet and optionally spawn an `Explosion`. Bullet will
+        explode if out of bounds.
+        """
         self.alive = False
