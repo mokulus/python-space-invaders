@@ -8,7 +8,7 @@ from space_invaders.game import Game
 
 
 def make_parser():
-    parser = argparse.ArgumentParser(description="Play space invaders.")
+    parser = argparse.ArgumentParser(description="Play space invaders.", allow_abbrev=False)
     parser.add_argument(
         "--cheats", dest="cheats", action="store_true", help="Enable cheats."
     )
