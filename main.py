@@ -24,7 +24,7 @@ def main():
     screen_size = (game.settings.width(), game.settings.height())
     canvas_size = screen_size
     screen = pygame.display.set_mode(
-        screen_size, flags=pygame.SCALED  # | pygame.RESIZABLE
+        screen_size, flags=pygame.SCALED | pygame.RESIZABLE
     )
     canvas = pygame.Surface(canvas_size)
     clock = pygame.time.Clock()
