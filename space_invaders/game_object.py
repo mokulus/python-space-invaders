@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 class GameObject(ABC):
     def __init__(self):
         self.alive = True
+        self.color = (255, 255, 255)
 
     @abstractmethod
     def position(self):

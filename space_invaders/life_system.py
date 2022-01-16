@@ -24,7 +24,7 @@ class LifeSystem(system.System):
         self._player_objects = []
         for i in range(self._game.player.lives() - 1):
             sprite = assets.player()
-            self._player_objects.append(
-                StaticSprite(Point(3 * 8 + sprite.shape[0] * i, 0), sprite)
-            )
+            obj = StaticSprite(Point(3 * 8 + sprite.shape[0] * i, 0), sprite)
+            obj.color = (0, 255, 0)
+            self._player_objects.append(obj)
             self._game.spawn(self._player_objects[-1])

@@ -15,10 +15,12 @@ class AlienBullet(Bullet):
 
     def on_collision(self, other):
         if not isinstance(other, (Explosion, Alien)):
+            self.color = other.color
             self.explode()
 
     def explode(self):
         super().explode()
         pos = self._position + Point(-2, 0)
         sprite = assets.alien_shot_explosion()
-        self._game.spawn(Explosion(pos, sprite, 16))
+        obj = Explosion(pos, sprite, self.color, 16)
+        self._game.spawn(obj)

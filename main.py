@@ -28,13 +28,13 @@ def main():
     canvas = pygame.Surface(canvas_size)
     clock = pygame.time.Clock()
 
-    def draw_sprite(surfarr, position, sprite):
-        img = sprite * 255
+    def draw_sprite(surfarr, position, sprite, color):
+        img = sprite[..., np.newaxis] * np.array(color, dtype=np.uint8)
         y = canvas_size[1] - position.y - sprite.shape[1]
         x = position.x
         sx = img.shape[0]
         sy = img.shape[1]
-        arr[x : x + sx, y : y + sy, :] |= img[..., np.newaxis]
+        arr[x : x + sx, y : y + sy, :] |= img
 
     running = True
 
@@ -70,7 +70,7 @@ def main():
                 game.player.shoot()
         game.tick()
         for obj in game.game_objects():
-            draw_sprite(arr, obj.position(), obj.sprite())
+            draw_sprite(arr, obj.position(), obj.sprite(), obj.color)
         pygame.surfarray.blit_array(canvas, arr)
         scaled_canvas = pygame.transform.scale(canvas, screen_size)
         screen.blit(scaled_canvas, (0, 0))

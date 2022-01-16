@@ -18,6 +18,7 @@ class Input(Flag):
 class GameOver(TextAnimation):
     def __init__(self, game):
         super().__init__(game, 200, "GAME OVER", 30)
+        self.color = (255, 0, 0)
 
     def tick(self):
         super().tick()
@@ -29,6 +30,7 @@ class GameOver(TextAnimation):
 class DeathAnimation(game_object.GameObject):
     def __init__(self, game, reset_callback):
         super().__init__()
+        self.color = (0, 255, 0)
         self._game = game
         self._animation = Animation(assets.player_explosion())
         self._countdown = 3 * 60 if self._game.player.lives() > 0 else 10 * 60
@@ -53,6 +55,7 @@ class DeathAnimation(game_object.GameObject):
 class Player(game_object.GameObject):
     def __init__(self, game):
         super().__init__()
+        self.color = (0, 255, 0)
         self._game = game
         self._position = Point(0, 16)
         self._bullet = None

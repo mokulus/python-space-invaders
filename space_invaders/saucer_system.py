@@ -4,9 +4,9 @@ from space_invaders.point import Point
 
 
 class SaucerExplosion(Explosion):
-    def __init__(self, game, position):
+    def __init__(self, game, position, color):
         self._game = game
-        super().__init__(position, assets.saucer_explosion(), 16)
+        super().__init__(position, assets.saucer_explosion(), color, 16)
 
     def tick(self):
         super().tick()
@@ -14,12 +14,14 @@ class SaucerExplosion(Explosion):
             score = self._game.settings.saucer_score()
             self._game.add_score(score)
             sprite = util.text_to_sprite(f"{score:3}")
-            self._game.spawn(Explosion(self._position, sprite, 60))
+            obj = Explosion(self._position, sprite, self.color, 60)
+            self._game.spawn(obj)
 
 
 class Saucer(game_object.GameObject):
     def __init__(self, game):
         super().__init__()
+        self.color = (255, 0, 0)
         self._game = game
         y = 208
         if game.player.shots_fired() % 2 == 0:
@@ -49,7 +51,8 @@ class Saucer(game_object.GameObject):
 
     def on_collision(self, other):
         if isinstance(other, player_bullet.PlayerBullet):
-            self._game.spawn(SaucerExplosion(self._game, self._position))
+            obj = SaucerExplosion(self._game, self._position, self.color)
+            self._game.spawn(obj)
             self.alive = False
 
 

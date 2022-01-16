@@ -19,6 +19,7 @@ class PlayerBullet(Bullet):
         if isinstance(other, Explosion):
             return
         self.alive = False
+        self.color = other.color
         if isinstance(other, Shield):
             self.explode()
 
@@ -26,4 +27,5 @@ class PlayerBullet(Bullet):
         super().explode()
         pos = self._position + Point(-4, 2)
         sprite = assets.player_shot_explosion()
-        self._game.spawn(Explosion(pos, sprite, 16))
+        obj = Explosion(pos, sprite, self.color, 16)
+        self._game.spawn(obj)

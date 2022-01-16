@@ -8,6 +8,7 @@ from space_invaders.point import Point
 class Shield(game_object.GameObject):
     def __init__(self, game, position, sprite):
         super().__init__()
+        self.color = (0, 255, 0)
         self._game = game
         self._position = position
         self._sprite = np.copy(sprite)

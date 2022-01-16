@@ -2,8 +2,9 @@ from space_invaders import game_object
 
 
 class Explosion(game_object.GameObject):
-    def __init__(self, position, sprite, frames):
+    def __init__(self, position, sprite, color, frames):
         super().__init__()
+        self.color = color
         self._position = position
         self._sprite = sprite
         self._frames = frames

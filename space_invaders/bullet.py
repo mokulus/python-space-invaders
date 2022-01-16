@@ -18,10 +18,11 @@ class Bullet(game_object.GameObject):
         self._position += self._velocity
         self._animation.next()
 
-        if (
-            self._position.y <= self._game.settings.game_area_y_bounds()[0]
-            or self._position.y >= self._game.settings.game_area_y_bounds()[1]
-        ):
+        if self._position.y <= self._game.settings.game_area_y_bounds()[0]:
+            self.color = (0, 255, 0)
+            self.explode()
+        if self._position.y >= self._game.settings.game_area_y_bounds()[1]:
+            self.color = (255, 0, 0)
             self.explode()
 
     def sprite(self):
