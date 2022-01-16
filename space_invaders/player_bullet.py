@@ -3,7 +3,7 @@ from space_invaders.animation import Animation
 from space_invaders.bullet import Bullet
 from space_invaders.explosion import Explosion
 from space_invaders.point import Point
-from space_invaders.shield_system import Shield
+from space_invaders.shield import Shield
 
 
 class PlayerBullet(Bullet):

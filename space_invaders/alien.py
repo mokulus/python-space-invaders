@@ -25,7 +25,9 @@ class Alien(game_object.GameObject):
     def on_collision(self, other):
         if isinstance(other, player_bullet.PlayerBullet):
             self._game.spawn(
-                Explosion(self._position, assets.alien_explosion(), self.color, 16)
+                Explosion(
+                    self._position, assets.alien_explosion(), self.color, 16
+                )
             )
             self.alive = False
             self._game.add_score([10, 10, 20, 20, 30][self._coords.y])
