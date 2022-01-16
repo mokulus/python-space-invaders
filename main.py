@@ -20,6 +20,7 @@ def main():
     parser = make_parser()
     args = parser.parse_args()
     game = Game(args.cheats)
+    game.load_menu()
     screen_size = (game.settings.width(), game.settings.height())
     canvas_size = screen_size
     screen = pygame.display.set_mode(

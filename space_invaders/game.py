@@ -28,7 +28,6 @@ class Game:
         self.settings = (
             GameSettings(self) if not cheats else CheatGameSettings(self)
         )
-        self._load_menu()
 
     def tick(self):
         for system in self._systems:
@@ -69,9 +68,9 @@ class Game:
         self._save_highscore()
 
     def play(self):
-        if self.player is None:
+        if self.in_menu():
             self.player = Player(self)
-            self._load_game()
+            self.load_game()
 
     def _save_highscore(self):
         with open("highscore.txt", "w") as file:
@@ -82,14 +81,14 @@ class Game:
         self._save_highscore()
         self._score = 0
         self._round = 0
-        self._load_menu()
+        self.load_menu()
 
     def next_round(self):
         self._round += 1
         self.player.position().x = 0
-        self._load_game()
+        self.load_game()
 
-    def _load_game(self):
+    def load_game(self):
         self._game_objects = []
         self._systems = []
         self._systems.append(AlienSystem(self))
@@ -97,7 +96,7 @@ class Game:
         self._systems.append(GuiSystem(self))
         self._systems.append(LifeSystem(self))
 
-    def _load_menu(self):
+    def load_menu(self):
         self.player = None
         self._game_objects = []
         self._systems = [MenuSystem(self)]
@@ -108,3 +107,6 @@ class Game:
 
     def ticks(self):
         return self._ticks
+
+    def in_menu(self):
+        return self.player is None
