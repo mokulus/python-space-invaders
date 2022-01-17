@@ -55,17 +55,12 @@ class BulletSystem(system.System):
                 not any(bullet.alive for bullet in self._bullets)
                 or self._fire_delay >= self._game.settings.alien_fire_period()
             ):
-                alive_aliens = [
-                    alien
-                    for alien in self._alien_system.aliens()
-                    if alien.alive
-                ]
                 if spawn_table:
                     x = next(spawn_table) - 1
                     alien = next(
                         (
                             alien
-                            for alien in alive_aliens
+                            for alien in self._alien_system.aliens()
                             if alien.coords().x == x
                         ),
                         None,
@@ -75,7 +70,7 @@ class BulletSystem(system.System):
                     alien = next(
                         (
                             alien
-                            for alien in alive_aliens
+                            for alien in self._alien_system.aliens()
                             if alien.position().x // 16 == x
                         ),
                         None,

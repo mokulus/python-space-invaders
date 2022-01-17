@@ -28,33 +28,26 @@ class AlienSystem(system.System):
     def tick(self):
         if self._game.player.dying():
             return
-        if not any(alien.alive for alien in self._aliens):
+        self._aliens = [alien for alien in self._aliens if alien.alive]
+        if not self._aliens:
             self._game.next_round()
             return
         if any(
             alien.position().y == self._game.player.position().y
             for alien in self._aliens
-            if alien.alive
         ):
             self._game.player.game_over()
             return
         if not self._initialized:
             self._init_animation()
             return
-        self._alien_iter = (
-            alien for alien in self._alien_iter if alien.alive
-        )
         next_alien = next(self._alien_iter, None)
         if next_alien:
             next_alien.move(self._velocity)
         else:
             self._alien_iter = iter(self._aliens)
-            aminx = min(
-                (alien.position().x for alien in self._aliens if alien.alive)
-            )
-            amaxx = max(
-                (alien.position().x for alien in self._aliens if alien.alive)
-            )
+            aminx = min((alien.position().x for alien in self._aliens))
+            amaxx = max((alien.position().x for alien in self._aliens))
             minx = 0
             maxx = (
                 self._game.settings.width() - assets.aliens()[0][0].shape[0]
@@ -82,6 +75,6 @@ class AlienSystem(system.System):
 
     def aliens(self):
         """
-        Return a list of all aliens initially spawned, even if dead.
+        Return a list of all alive aliens.
         """
         return self._aliens
