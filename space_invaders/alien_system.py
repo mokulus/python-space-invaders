@@ -46,18 +46,18 @@ class AlienSystem(system.System):
             next_alien.move(self._velocity)
         else:
             self._alien_iter = iter(self._aliens)
-            aminx = min((alien.position().x for alien in self._aliens))
-            amaxx = max((alien.position().x for alien in self._aliens))
-            minx = 0
-            maxx = (
-                self._game.settings.width() - assets.aliens()[0][0].shape[0]
-            )
-            if aminx == minx or amaxx == maxx:
+            aliens_max_pos_x = min((alien.position().x for alien in self._aliens))
+            aliens_min_pos_x = max((alien.position().x for alien in self._aliens))
+            min_x_allowed = 0
+            max_x_allowed = (self._game.settings.width() - assets.aliens()[0][0].shape[0])
+            at_left_edge = aliens_min_pos_x == min_x_allowed
+            at_right_edge = aliens_max_pos_x == max_x_allowed
+            if at_left_edge or at_right_edge:
                 if self._velocity.y == 0:
                     self._velocity.x = 0
                     self._velocity.y = -8
                 else:
-                    self._velocity.x = 2 if aminx == minx else -2
+                    self._velocity.x = 2 if at_left_edge else -2
                     self._velocity.y = 0
 
     def _init_animation(self):
