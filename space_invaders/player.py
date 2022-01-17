@@ -21,6 +21,7 @@ class Input(Flag):
     LEFT - try to move left
     SHOOT - try to fire a bullet
     """
+
     NONE = 0
     RIGHT = 1
     LEFT = 2
@@ -31,6 +32,7 @@ class GameOver(TextAnimation):
     """
     Represents the game over message. Resets the game when it ends.
     """
+
     def __init__(self, game):
         super().__init__(game, 200, "GAME OVER", 30)
         self.color = (255, 0, 0)
@@ -47,6 +49,7 @@ class DeathAnimation(game_object.GameObject):
     Represents the death animation of the player. Runs `reset_callback` if
     players still has lives left.
     """
+
     def __init__(self, game, reset_callback):
         """
         Initialize `DeathAnimation`. It will run `reset_callback` if player
@@ -79,6 +82,7 @@ class Player(game_object.GameObject):
     """
     Represents the player.
     """
+
     def __init__(self, game):
         super().__init__()
         self.color = (0, 255, 0)

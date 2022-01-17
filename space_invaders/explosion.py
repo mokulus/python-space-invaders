@@ -8,6 +8,7 @@ class Explosion(game_object.GameObject):
     """
     Sprite that will destroy itself after `frames` ticks pass.
     """
+
     def __init__(self, position, sprite, color, frames):
         super().__init__()
         self.color = color

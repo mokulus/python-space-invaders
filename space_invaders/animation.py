@@ -9,6 +9,7 @@ class Animation:
     Cycles through an interator of sprites, which represents a looped
     animation.
     """
+
     def __init__(self, sprites):
         self._sprites = itertools.cycle(iter(sprites))
         self.next()

@@ -15,6 +15,7 @@ class GameObject(ABC):
         color    tuple of 3 ints in range 0 to 255 representing the color the
                  object is drawn with
     """
+
     def __init__(self):
         self.alive = True
         self.color = (255, 255, 255)

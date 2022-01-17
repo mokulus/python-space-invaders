@@ -13,6 +13,7 @@ class AlienSystem(system.System):
     `System` that manages the aliens. It does the initial alien animation and
     decides which alien to move in the current frame.
     """
+
     def __init__(self, game):
         self._game = game
         self._aliens = []

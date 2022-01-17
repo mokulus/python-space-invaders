@@ -9,6 +9,7 @@ class TextObject(StaticSprite):
     """
     `StaticSprite` that displays text.
     """
+
     def __init__(self, position, text):
         super().__init__(position, None)
         self.set_text(text)
@@ -32,6 +33,7 @@ class VariableTextObject(TextObject):
     `TextObject` that updates it's text via callback every frame. The callback
     takes `Game` object and returns a string.
     """
+
     def __init__(self, game, position, text_getter):
         self._game = game
         self._text_getter = text_getter

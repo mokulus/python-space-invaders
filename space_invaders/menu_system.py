@@ -12,6 +12,7 @@ class MenuSystem(system.System):
     """
     `System` that spawns animations in the main menu.
     """
+
     def __init__(self, game):
         self._game = game
         self._y = 192

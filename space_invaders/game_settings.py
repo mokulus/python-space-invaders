@@ -8,6 +8,7 @@ class GameSettings:
     """
     Game settings for playing without cheats.
     """
+
     def __init__(self, game):
         self._game = game
 
@@ -141,6 +142,7 @@ class CheatGameSettings(GameSettings):
     """
     Game settings for playing with cheats.
     """
+
     @staticmethod
     def saucer_period():
         return 60

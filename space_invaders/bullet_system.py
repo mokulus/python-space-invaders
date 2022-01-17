@@ -14,6 +14,7 @@ class BulletSystem(system.System):
     `System` that spawns bullets. Ensures there is at least one bullet spawned,
     keeps track of spawn tables and cycling of bullet types.
     """
+
     def __init__(self, game, alien_system):
         self._game = game
         self._alien_system = alien_system

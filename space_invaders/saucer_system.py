@@ -11,6 +11,7 @@ class SaucerExplosion(Explosion):
     Represents the exploding saucer. Spawn a score information explosion when
     it ends.
     """
+
     def __init__(self, game, position, color):
         self._game = game
         super().__init__(position, assets.saucer_explosion(), color, 16)
@@ -30,6 +31,7 @@ class Saucer(game_object.GameObject):
     Saucer that spawns above aliens and has score based on number of shots
     fired by the player.
     """
+
     def __init__(self, game):
         super().__init__()
         self.color = (255, 0, 0)
@@ -71,6 +73,7 @@ class SaucerSystem(system.System):
     """
     `System` that manages `Saucer` spawns.
     """
+
     def __init__(self, game):
         self._game = game
         self._ticks = 0

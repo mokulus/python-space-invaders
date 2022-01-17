@@ -12,6 +12,7 @@ class AlienBullet(Bullet):
     """
     Bullet shot by the aliens. Will explode with anything.
     """
+
     def __init__(self, game, position, animation):
         super().__init__(game, position, animation, Point(0, -4))
 

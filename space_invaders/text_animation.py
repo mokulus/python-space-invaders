@@ -7,8 +7,10 @@ from space_invaders.point import Point
 
 class TextAnimation(game_object.GameObject):
     """
-    `GameObject` that animates the text. Every letter is shown every `delay` frames.
+    `GameObject` that animates the text.
+    Every letter is shown every `delay` frames.
     """
+
     def __init__(self, game, y, text, delay):
         super().__init__()
         self._game = game

@@ -10,6 +10,7 @@ class Bullet(game_object.GameObject):
     """
     Abstract bullet that explodes on collision or if out of bounds.
     """
+
     def __init__(self, game, position, animation, velocity):
         super().__init__()
         self._game = game

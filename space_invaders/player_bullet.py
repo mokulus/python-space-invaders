@@ -13,6 +13,7 @@ class PlayerBullet(Bullet):
     """
     Bullet shot by the player. Explodes only when hitting shields.
     """
+
     def __init__(self, game, position):
         super().__init__(
             game,

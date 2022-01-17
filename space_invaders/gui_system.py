@@ -11,6 +11,7 @@ class GuiSystem(system.System):
     System that spawns game objects displaying score and highscore. Used both
     in menu and in game.
     """
+
     def __init__(self, game):
         self._game = game
         score_str = "SCORE<1>"

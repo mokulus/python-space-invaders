@@ -24,6 +24,7 @@ class Game:
 
     When exiting `exit` should be called.
     """
+
     def __init__(self, cheats):
         """
         Initialize the `Game` object. Enable cheats if `cheats`.
@@ -47,7 +48,8 @@ class Game:
 
     def tick(self):
         """
-        Update the game state. Should be called every frame at 60 frames per second.
+        Update the game state.
+        Should be called every frame at 60 frames per second.
         """
         for system in self._systems:
             system.tick()
