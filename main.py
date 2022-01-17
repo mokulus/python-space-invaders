@@ -24,16 +24,14 @@ def main():
     game = Game(args.cheats)
     game.load_menu()
     screen_size = (game.settings.width(), game.settings.height())
-    canvas_size = screen_size
     screen = pygame.display.set_mode(
         screen_size, flags=pygame.SCALED | pygame.RESIZABLE
     )
-    canvas = pygame.Surface(canvas_size)
     clock = pygame.time.Clock()
 
     def draw_sprite(surfarr, position, sprite, color):
         img = sprite[..., np.newaxis] * np.array(color, dtype=np.uint8)
-        y = canvas_size[1] - position.y - sprite.shape[1]
+        y = screen_size[1] - position.y - sprite.shape[1]
         x = position.x
         sx = img.shape[0]
         sy = img.shape[1]
@@ -54,8 +52,7 @@ def main():
         pressed = pygame.key.get_pressed()
 
         screen.fill((0, 0, 0))
-        canvas.fill((0, 0, 0))
-        arr = pygame.surfarray.array3d(canvas)
+        arr = pygame.surfarray.array3d(screen)
         if pressed[pygame.K_RETURN]:
             game.play()
         if pressed[pygame.K_LEFT] or pressed[pygame.K_a]:
@@ -74,9 +71,7 @@ def main():
         game.tick()
         for obj in game.game_objects():
             draw_sprite(arr, obj.position(), obj.sprite(), obj.color)
-        pygame.surfarray.blit_array(canvas, arr)
-        scaled_canvas = pygame.transform.scale(canvas, screen_size)
-        screen.blit(scaled_canvas, (0, 0))
+        pygame.surfarray.blit_array(screen, arr)
         pygame.display.update()
         clock.tick(60)
 
