@@ -46,10 +46,10 @@ class AlienSystem(system.System):
             alien.move(self._velocity)
         else:
             self._alien_iter = self._make_alien_iter()
-            aliens_max_pos_x = min(
+            aliens_max_pos_x = max(
                 (alien.position().x for alien in self._aliens)
             )
-            aliens_min_pos_x = max(
+            aliens_min_pos_x = min(
                 (alien.position().x for alien in self._aliens)
             )
             min_x_allowed = 0
