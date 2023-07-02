@@ -2,11 +2,11 @@
 
 ## Normal game
 
-![](https://i.imgur.com/NhLMIpX.mp4)
+https://github.com/mokulus/python-space-invaders/assets/36231852/3f45b69a-f032-4367-82b8-a26b04caa2fb
 
 ## Cheats
 
-![](https://i.imgur.com/ehxUhKK.mp4)
+https://github.com/mokulus/python-space-invaders/assets/36231852/ea6f9244-00d2-4335-bd26-ef49bbbb85f3
 
 # Setup
 
